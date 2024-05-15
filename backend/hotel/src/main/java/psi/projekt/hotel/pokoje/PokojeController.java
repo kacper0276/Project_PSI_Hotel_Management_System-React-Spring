@@ -24,7 +24,7 @@ public class PokojeController {
         return ResponseEntity.ok(repository.findById(id));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @RequestMapping(method = RequestMethod.GET, path = "")
     ResponseEntity<List<Pokoje>> getAllRooms() {
         return ResponseEntity.ok(repository.findAll());
     }

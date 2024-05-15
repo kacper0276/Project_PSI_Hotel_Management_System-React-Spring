@@ -17,7 +17,7 @@ public class PlatnosciController {
         this.repository = repository;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @RequestMapping(method = RequestMethod.GET, path = "")
     ResponseEntity<List<Platnosci>> getAllPayments() {
         return ResponseEntity.ok(repository.findAll());
     }

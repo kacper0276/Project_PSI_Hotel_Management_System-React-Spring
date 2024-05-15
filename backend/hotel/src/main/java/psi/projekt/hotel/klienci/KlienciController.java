@@ -24,7 +24,7 @@ public class KlienciController {
         return ResponseEntity.ok(repository.findById(id));
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @RequestMapping(method = RequestMethod.GET, path = "")
     ResponseEntity<List<Klienci>> findAllClients() {
         return ResponseEntity.ok(repository.findAll());
     }
