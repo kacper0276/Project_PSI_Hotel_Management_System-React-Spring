@@ -10,7 +10,7 @@ enum RodzajKlienta {KlientIndywidualny, KlientBizesowy};
 enum RolaUzytkownika {Administrator, Recepcjonista, Klient};
 
 @Entity
-@Table(name = "Kliecni")
+@Table(name = "Klienci")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -24,7 +24,9 @@ public class Klienci {
     private String nazwisko;
     private String nip;
     private String nazwaFirmy;
+    @Enumerated(EnumType.STRING)
     private RodzajKlienta rodzaj;
     private String haslo;
+    @Enumerated(EnumType.STRING)
     private RolaUzytkownika rola;
 }
