@@ -1,25 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import Header from './Layout/Header/Header';
+import Footer from './Layout/Footer/Footer'
+import Layout from './Layout/Layout'
 
 function App() {
+  const header = (
+    <Header>
+      <p>Header</p>
+    </Header>
+  )
+
+  const content = (
+    <>
+      <Routes>
+        <Route path='/' exact element={<h1>Strona główna</h1>} />
+      </Routes>
+    </>
+  )
+
+  const footer = <Footer />
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <Layout header={header} content={content} footer={footer} />
+    </Router>
+  ) 
 }
 
 export default App;
