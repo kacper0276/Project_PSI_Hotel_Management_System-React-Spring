@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class KlienciPrywatniReadModel {
+public class KlienciPrywatni {
     private String email;
     private String haslo;
     private String imie;
@@ -18,7 +18,7 @@ public class KlienciPrywatniReadModel {
     @Setter(AccessLevel.NONE)
     private String rola = "Klient";
 
-    public KlienciPrywatniReadModel(String email, String haslo, String imie, String nazwisko) {
+    public KlienciPrywatni(String email, String haslo, String imie, String nazwisko) {
         this.email = email;
         this.haslo = haslo;
         this.imie = imie;

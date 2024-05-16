@@ -3,7 +3,7 @@ package psi.projekt.hotel.klienci;
 import org.springframework.stereotype.Service;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
-import psi.projekt.hotel.entity.projection.KlienciPrywatniReadModel;
+import psi.projekt.hotel.entity.projection.KlienciPrywatni;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +34,22 @@ public class KlienciService {
         return repository.findById(id);
     }
 
-    public List<KlienciPrywatniReadModel> getPrivateClients() {
-        List<KlienciPrywatniReadModel> listClientsPrivate = new ArrayList<>();
+    public List<KlienciPrywatni> getPrivateClients() {
+        List<KlienciPrywatni> listClientsPrivate = new ArrayList<>();
 
         repository.findByRodzaj(RodzajKlienta.KlientIndywidualny).forEach(client -> {
-            listClientsPrivate.add(klienciMapper.klienciToKlienciPrywatniRead(client));
+            listClientsPrivate.add(klienciMapper.klienciToKlienciPrywatni(client));
         });
 
         return listClientsPrivate;
+    }
+
+    public void createPrivateUser(KlienciPrywatni klientPrywatny) {
+        Klienci klient = new Klienci();
+
+        klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
+
+        repository.save(klient);
+
     }
 }
