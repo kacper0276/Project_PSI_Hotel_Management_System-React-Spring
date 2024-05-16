@@ -13,24 +13,24 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/pokoje")
 public class PokojeController {
-    private final PokojeRepository repository;
+    private final PokojeService service;
 
-    public PokojeController(PokojeRepository repository) {
-        this.repository = repository;
+    public PokojeController(PokojeService service) {
+        this.service = service;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     ResponseEntity<Optional<Pokoje>> getRoomById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(repository.findById(id));
+        return ResponseEntity.ok(service.getRoomDetailsById(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
     ResponseEntity<List<Pokoje>> getAllRooms() {
-        return ResponseEntity.ok(repository.findAll());
+        return ResponseEntity.ok(service.getAllRooms());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/wolne-pokoje")
     ResponseEntity<List<Pokoje>> getEmptyRooms() {
-        return ResponseEntity.ok(repository.findByDostepnoscIsTrue());
+        return ResponseEntity.ok(service.getEmptyRooms());
     }
 }

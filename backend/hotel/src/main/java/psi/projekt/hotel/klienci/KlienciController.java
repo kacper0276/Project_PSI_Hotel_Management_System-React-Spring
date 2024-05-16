@@ -13,19 +13,19 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/klienci")
 public class KlienciController {
-    private final KlienciRepository repository;
+    private final KlienciService service;
 
-    public KlienciController(KlienciRepository repository) {
-        this.repository = repository;
+    public KlienciController(KlienciService service) {
+        this.service = service;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
     ResponseEntity<Optional<Klienci>> findClientById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(repository.findById(id));
+        return ResponseEntity.ok(service.getClientById(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
     ResponseEntity<List<Klienci>> findAllClients() {
-        return ResponseEntity.ok(repository.findAll());
+        return ResponseEntity.ok(service.getAllClients());
     }
 }

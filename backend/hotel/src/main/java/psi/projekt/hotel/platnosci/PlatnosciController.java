@@ -11,14 +11,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/platnosci")
 public class PlatnosciController {
-    private final PlatnosciRepository repository;
+    private final PlatnosciService service;
 
-    public PlatnosciController(PlatnosciRepository repository) {
-        this.repository = repository;
+    public PlatnosciController(PlatnosciService service) {
+        this.service = service;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
     ResponseEntity<List<Platnosci>> getAllPayments() {
-        return ResponseEntity.ok(repository.findAll());
+        return ResponseEntity.ok(service.getAllPayments());
     }
 }
