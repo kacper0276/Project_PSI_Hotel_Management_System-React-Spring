@@ -51,6 +51,7 @@ public class KlienciController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST, path = "/dodaj-biznesowy")
     ResponseEntity<Response> createBusinessClient(@RequestBody KlienciBiznesowi klienyBiznesowy) {
+        service.createBusinessClient(klienyBiznesowy);
         return ResponseEntity.ok(new Response("Stworzono użytkownika"));
     }
 }
