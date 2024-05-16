@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-enum RodzajKlienta {KlientIndywidualny, KlientBizesowy};
-enum RolaUzytkownika {Administrator, Recepcjonista, Klient};
+import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
+import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
 
 @Entity
 @Table(name = "Klienci")
