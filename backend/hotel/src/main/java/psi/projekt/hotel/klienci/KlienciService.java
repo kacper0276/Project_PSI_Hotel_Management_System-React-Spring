@@ -49,7 +49,7 @@ public class KlienciService {
     public void createPrivateUser(KlienciPrywatni klientPrywatny) {
         Klienci klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
 
-        repository.findByEmail(klientPrywatny.getEmail()).ifPresent(value -> {
+        repository.findByImieAndNazwisko(klientPrywatny.getImie(), klientPrywatny.getNazwisko()).ifPresent(value -> {
             throw new ObjectExistInDBException("Użytkownik istnieje!");
         });
 

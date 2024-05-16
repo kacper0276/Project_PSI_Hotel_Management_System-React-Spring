@@ -14,7 +14,7 @@ public interface KlienciRepository extends JpaRepository<Klienci, Integer> {
 
     List<Klienci> findByRodzaj(RodzajKlienta rodzaj);
 
-    Optional<Klienci> findByEmail(String email);
+    Optional<Klienci> findByImieAndNazwisko(String imie, String nazwisko);
 
     Optional<Klienci> findByNip(String nip);
 }
