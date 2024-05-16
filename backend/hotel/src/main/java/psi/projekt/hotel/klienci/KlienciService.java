@@ -5,6 +5,7 @@ import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;
+import psi.projekt.hotel.exceptions.ObjectExistInDBException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,10 @@ public class KlienciService {
     public void createPrivateUser(KlienciPrywatni klientPrywatny) {
         Klienci klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
 
+        repository.findByEmail(klientPrywatny.getEmail()).ifPresent(value -> {
+            throw new ObjectExistInDBException("Użytkownik istnieje!");
+        });
+
         repository.save(klient);
     }
 
@@ -63,6 +68,10 @@ public class KlienciService {
 
     public void createBusinessClient(KlienciBiznesowi klientBiznesowy) {
         Klienci klient = klienciMapper.klienciBiznesowiToKlienci(klientBiznesowy);
+
+        repository.findByNip(klientBiznesowy.getNip()).ifPresent(value -> {
+            throw new ObjectExistInDBException("Użytkownik już zarejestrowany!");
+        });
 
         repository.save(klient);
     }
