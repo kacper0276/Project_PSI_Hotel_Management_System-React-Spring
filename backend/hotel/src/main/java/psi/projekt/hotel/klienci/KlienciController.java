@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.Response;
+import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;
 
 import java.util.List;
@@ -35,11 +36,21 @@ public class KlienciController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, path = "/dodaj-indywidualny")
     ResponseEntity<Response> createPrivateClient(@RequestBody KlienciPrywatni klientPrywatny) {
         service.createPrivateUser(klientPrywatny);
 
         return ResponseEntity.ok(new Response("Stworzono użytkownika"));
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/klienci-biznesowi")
+    ResponseEntity<List<KlienciBiznesowi>> getBusinessClients() {
+        return ResponseEntity.ok(service.getBusinessClients());
+    }
+
+    @Transactional
+    @RequestMapping(method = RequestMethod.POST, path = "/dodaj-biznesowy")
+    ResponseEntity<Response> createBusinessClient(@RequestBody KlienciBiznesowi klienyBiznesowy) {
+        return ResponseEntity.ok(new Response("Stworzono użytkownika"));
+    }
 }

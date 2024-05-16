@@ -3,6 +3,7 @@ package psi.projekt.hotel.klienci;
 import org.springframework.stereotype.Service;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
+import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;
 
 import java.util.ArrayList;
@@ -45,11 +46,24 @@ public class KlienciService {
     }
 
     public void createPrivateUser(KlienciPrywatni klientPrywatny) {
-        Klienci klient = new Klienci();
-
-        klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
+        Klienci klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
 
         repository.save(klient);
+    }
 
+    public List<KlienciBiznesowi> getBusinessClients() {
+        List<KlienciBiznesowi> businessClientsList = new ArrayList<>();
+
+        repository.findByRodzaj(RodzajKlienta.KlientBizesowy).forEach(consumer -> {
+            businessClientsList.add(klienciMapper.klienciToKlienciBiznesowi(consumer));
+        });
+
+        return businessClientsList;
+    }
+
+    public void createBusinessClient(KlienciBiznesowi klientBiznesowy) {
+        Klienci klient = klienciMapper.klienciBiznesowiToKlienci(klientBiznesowy);
+
+        repository.save(klient);
     }
 }
