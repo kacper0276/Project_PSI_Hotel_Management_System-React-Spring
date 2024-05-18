@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "klienci")
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class Klienci {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String imie;
     private String nazwisko;
     private String nip;
@@ -23,8 +26,11 @@ public class Klienci {
     @Enumerated(EnumType.STRING)
     private RodzajKlienta rodzaj;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(name = "uzytkownik_id")
     @NotNull
-    private Uzytkownicy uzytkownicy;
+    private Uzytkownicy uzytkownik;
+
+    @OneToMany(mappedBy = "klient")
+    private Set<Rezerwacje> rezerwacje;
 }

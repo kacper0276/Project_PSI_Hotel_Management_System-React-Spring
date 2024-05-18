@@ -18,12 +18,14 @@ public class Uzytkownicy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String email;
     private String haslo;
+
     @Enumerated(EnumType.STRING)
     private RolaUzytkownika rola;
 
-    @OneToOne(mappedBy = "uzytkownicy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "uzytkownik")
     @NotNull
     private Klienci klient;
 }

@@ -29,4 +29,15 @@ public class Rezerwacje {
     private Date dataWymeldowania;
 
     // Klucze obce
+    @ManyToOne
+    @JoinColumn(name = "pokoj_nrPokoju")
+    private Pokoje pokoj;
+
+    @ManyToOne
+    @JoinColumn(name = "klient_idKlienta")
+    private Klienci klient;
+
+    @ManyToOne
+    @JoinColumn(name = "platnosc_nrPlatnosci")
+    private Platnosci platnosc;
 }
