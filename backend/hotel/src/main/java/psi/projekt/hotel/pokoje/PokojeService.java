@@ -25,4 +25,8 @@ public class PokojeService {
     Optional<Pokoje> getRoomDetailsById(Integer id) {
         return repository.findById(id);
     }
+
+    void createRoom(final Pokoje pokoj) {
+        repository.save(pokoj);
+    }
 }
