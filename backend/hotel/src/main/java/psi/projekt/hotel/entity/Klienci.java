@@ -28,7 +28,6 @@ public class Klienci {
 
     @OneToOne
     @JoinColumn(name = "uzytkownik_id")
-    @NotNull
     private Uzytkownicy uzytkownik;
 
     @OneToMany(mappedBy = "klient")

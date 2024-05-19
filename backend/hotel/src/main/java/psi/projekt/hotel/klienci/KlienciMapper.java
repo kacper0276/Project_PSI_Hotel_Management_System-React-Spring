@@ -1,6 +1,7 @@
 package psi.projekt.hotel.klienci;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
@@ -17,5 +18,5 @@ public interface KlienciMapper {
 
     KlienciBiznesowi klienciToKlienciBiznesowi(Klienci klienci);
 
-    Klienci klienciBiznesowiToKlienci(KlienciBiznesowi klienci);
+    Klienci klienciBiznesowiToKlienci(KlienciBiznesowi klientBiznesowy);
 }
