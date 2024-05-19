@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import psi.projekt.hotel.entity.Platnosci;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlatnosciService {
@@ -15,5 +16,15 @@ public class PlatnosciService {
 
     List<Platnosci> getAllPayments() {
         return repository.findAll();
+    }
+
+    Optional<Platnosci> getPaymentById(Integer id) {
+        return repository.findById(id);
+    }
+
+    void addPayment(Platnosci platnosc) {
+        repository.save(platnosc);
+
+        return;
     }
 }
