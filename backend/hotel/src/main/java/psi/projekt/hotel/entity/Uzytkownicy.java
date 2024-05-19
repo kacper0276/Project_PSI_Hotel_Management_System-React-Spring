@@ -1,6 +1,8 @@
 package psi.projekt.hotel.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,13 +21,17 @@ public class Uzytkownicy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull
+    @Email
+    @Min(5)
     private String email;
+
+    @Min(8)
     private String haslo;
 
     @Enumerated(EnumType.STRING)
     private RolaUzytkownika rola;
 
     @OneToOne(mappedBy = "uzytkownik")
-    @NotNull
     private Klienci klient;
 }
