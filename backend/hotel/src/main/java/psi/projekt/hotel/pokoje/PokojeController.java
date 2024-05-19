@@ -1,11 +1,9 @@
 package psi.projekt.hotel.pokoje;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Pokoje;
+import psi.projekt.hotel.entity.Response;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,5 +30,26 @@ public class PokojeController {
     @RequestMapping(method = RequestMethod.GET, path = "/wolne-pokoje")
     ResponseEntity<List<Pokoje>> getEmptyRooms() {
         return ResponseEntity.ok(service.getEmptyRooms());
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, path = "/zmien-dostepnosc/{id}")
+    ResponseEntity<Response> changeRoomAvailability(@PathVariable Integer id) {
+        service.changeRoomAvailability(id);
+
+        return ResponseEntity.ok(new Response("Zmieniono dostępność pokoju"));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "")
+    ResponseEntity<Response> createRoom(@RequestBody Pokoje pokoj) {
+        service.createRoom(pokoj);
+
+        return ResponseEntity.ok(new Response("Dodano pokój"));
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, path = "/zmien-dane/{id}")
+    ResponseEntity<Response> changeRoomData(@RequestBody Pokoje pokoj) {
+        service.changeRoomData(pokoj);
+
+        return ResponseEntity.ok(new Response("Zmieniono dane pokoju"));
     }
 }

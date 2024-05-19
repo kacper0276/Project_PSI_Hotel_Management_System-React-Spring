@@ -29,4 +29,21 @@ public class PokojeService {
     void createRoom(final Pokoje pokoj) {
         repository.save(pokoj);
     }
+
+    void changeRoomAvailability(Integer roomId) {
+        Pokoje room = repository.findById(roomId).orElse(null);
+
+        if (room != null) {
+            room.setDostepnosc(!room.isDostepnosc());
+
+            repository.save(room);
+            return;
+        }
+    }
+
+    void changeRoomData(Pokoje pokoj) {
+        repository.save(pokoj);
+
+        return;
+    }
 }
