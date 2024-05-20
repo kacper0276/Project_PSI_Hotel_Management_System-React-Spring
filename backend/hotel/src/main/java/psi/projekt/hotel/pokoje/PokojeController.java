@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.Response;
+import psi.projekt.hotel.entity.projection.PokojeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,17 +19,17 @@ public class PokojeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    ResponseEntity<Optional<Pokoje>> getRoomById(@PathVariable("id") Integer id) {
+    ResponseEntity<Optional<PokojeDTO>> getRoomById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.getRoomDetailsById(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
-    ResponseEntity<List<Pokoje>> getAllRooms() {
+    ResponseEntity<List<PokojeDTO>> getAllRooms() {
         return ResponseEntity.ok(service.getAllRooms());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/wolne-pokoje")
-    ResponseEntity<List<Pokoje>> getEmptyRooms() {
+    ResponseEntity<List<PokojeDTO>> getEmptyRooms() {
         return ResponseEntity.ok(service.getEmptyRooms());
     }
 
