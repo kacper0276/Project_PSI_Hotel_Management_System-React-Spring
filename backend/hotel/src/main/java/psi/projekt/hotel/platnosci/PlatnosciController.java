@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Platnosci;
 import psi.projekt.hotel.entity.Response;
+import psi.projekt.hotel.entity.projection.PlatnosciDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,12 +19,12 @@ public class PlatnosciController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
-    ResponseEntity<List<Platnosci>> getAllPayments() {
+    ResponseEntity<List<PlatnosciDTO>> getAllPayments() {
         return ResponseEntity.ok(service.getAllPayments());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    ResponseEntity<Optional<Platnosci>> getPaymentById(@PathVariable Integer id) {
+    ResponseEntity<Optional<PlatnosciDTO>> getPaymentById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getPaymentById(id));
     }
 

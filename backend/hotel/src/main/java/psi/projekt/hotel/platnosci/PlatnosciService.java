@@ -2,24 +2,31 @@ package psi.projekt.hotel.platnosci;
 
 import org.springframework.stereotype.Service;
 import psi.projekt.hotel.entity.Platnosci;
+import psi.projekt.hotel.entity.projection.PlatnosciDTO;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlatnosciService {
     private final PlatnosciRepository repository;
+    private final PlatnosciMapper mapper = PlatnosciMapper.INSTANCE;
 
     public PlatnosciService(PlatnosciRepository repository) {
         this.repository = repository;
     }
 
-    List<Platnosci> getAllPayments() {
-        return repository.findAll();
+    List<PlatnosciDTO> getAllPayments() {
+        List<Platnosci> platnosciList = repository.findAll();
+        return platnosciList.stream()
+                .map(PlatnosciMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
-    Optional<Platnosci> getPaymentById(Integer id) {
-        return repository.findById(id);
+    Optional<PlatnosciDTO> getPaymentById(Integer id) {
+        Optional<Platnosci> platnosciOptional = repository.findById(id);
+        return platnosciOptional.map(PlatnosciMapper.INSTANCE::toDto);
     }
 
     void addPayment(Platnosci platnosc) {
