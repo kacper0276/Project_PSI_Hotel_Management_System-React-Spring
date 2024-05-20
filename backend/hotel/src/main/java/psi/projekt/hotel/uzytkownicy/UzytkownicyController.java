@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
+import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,19 +33,24 @@ public class UzytkownicyController {
         return ResponseEntity.ok(new Response("Zmieniono hasło"));
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "")
+    ResponseEntity<List<UzytkownicyDTO>> getAllUsers() {
+        return ResponseEntity.ok(service.getAllUsers());
+    }
+
     @RequestMapping(method = RequestMethod.GET, path = "/szukaj/id/{id}")
-    ResponseEntity<Optional<Uzytkownicy>> getUserById(@PathVariable("id") Integer id) {
+    ResponseEntity<Optional<UzytkownicyDTO>> getUserById(@PathVariable("id") Integer id) {
 
         return ResponseEntity.ok(service.getUserById(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/szukaj/email/{email}")
-    ResponseEntity<Optional<Uzytkownicy>> getUserByEmail(@PathVariable String email) {
+    ResponseEntity<Optional<UzytkownicyDTO>> getUserByEmail(@PathVariable String email) {
         return ResponseEntity.ok(service.getUserByEmail(email));
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/szukaj/rola/{rola}")
-    ResponseEntity<List<Uzytkownicy>> getUsersByRole(@PathVariable RolaUzytkownika rola) {
+    ResponseEntity<List<UzytkownicyDTO>> getUsersByRole(@PathVariable RolaUzytkownika rola) {
         return ResponseEntity.ok(service.getUsersByRole(rola));
     }
 }

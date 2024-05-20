@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
+import psi.projekt.hotel.entity.projection.KlienciBiznesowiDTO;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;
+import psi.projekt.hotel.entity.projection.KlienciPrywatniDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class KlienciController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/klienci-indywidualni")
-    ResponseEntity<List<KlienciPrywatni>> getAllPrivateClients() {
+    ResponseEntity<List<KlienciPrywatniDTO>> getAllPrivateClients() {
         return ResponseEntity.ok(service.getPrivateClients());
     }
 
@@ -44,7 +46,7 @@ public class KlienciController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/klienci-biznesowi")
-    ResponseEntity<List<KlienciBiznesowi>> getBusinessClients() {
+    ResponseEntity<List<KlienciBiznesowiDTO>> getBusinessClients() {
         return ResponseEntity.ok(service.getBusinessClients());
     }
 

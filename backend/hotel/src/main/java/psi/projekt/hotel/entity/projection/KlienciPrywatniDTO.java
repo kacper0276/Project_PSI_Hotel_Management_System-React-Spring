@@ -2,13 +2,13 @@ package psi.projekt.hotel.entity.projection;
 
 import lombok.Getter;
 import lombok.Setter;
-import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
 
 @Getter
 @Setter
-public class UzytkownicyDTO {
-    private int id;
+public class KlienciPrywatniDTO {
     private String email;
     private String haslo;
-    private RolaUzytkownika rola;
+    private String imie;
+    private String nazwisko;
+    private String rodzaj = "KlientBiznesowy";
 }

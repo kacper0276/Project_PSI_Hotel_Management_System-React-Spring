@@ -5,7 +5,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
+import psi.projekt.hotel.entity.projection.KlienciBiznesowiDTO;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;
+import psi.projekt.hotel.entity.projection.KlienciPrywatniDTO;
 
 @Mapper
 public interface KlienciMapper {
@@ -19,4 +21,16 @@ public interface KlienciMapper {
     KlienciBiznesowi klienciToKlienciBiznesowi(Klienci klienci);
 
     Klienci klienciBiznesowiToKlienci(KlienciBiznesowi klientBiznesowy);
+
+    @Mapping(target = "email", source = "uzytkownik.email")
+    @Mapping(target = "haslo", source = "uzytkownik.haslo")
+    @Mapping(target = "nip", source = "nip")
+    @Mapping(target = "nazwaFirmy", source = "nazwaFirmy")
+    KlienciBiznesowiDTO klienciToKlienciBiznesowiDTO(Klienci klienci);
+
+    @Mapping(target = "email", source = "uzytkownik.email")
+    @Mapping(target = "haslo", source = "uzytkownik.haslo")
+    @Mapping(target = "imie", source = "imie")
+    @Mapping(target = "nazwisko", source = "nazwisko")
+    KlienciPrywatniDTO klienciToKlienciPrywatniDTO(Klienci klienci);
 }
