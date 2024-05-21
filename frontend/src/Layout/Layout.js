@@ -1,9 +1,11 @@
+import styles from "./Layout.module.css";
+
 export default function Layout(props) {
   return (
     <>
-      <div>{props.header}</div>
-      <div>{props.content}</div>
-      <div>{props.footer}</div>
+      <header className={`${styles.header}`}>{props.header}</header>
+      <>{props.content}</>
+      <footer className={`${styles.footer}`}>{props.footer}</footer>
     </>
   );
 }

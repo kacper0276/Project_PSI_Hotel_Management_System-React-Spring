@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Header from './Layout/Header/Header';
 import Footer from './Layout/Footer/Footer'
 import Layout from './Layout/Layout'
+import MainPage from './Pages/MainPage/MainPage';
 
 function App() {
   const header = (
@@ -14,7 +15,7 @@ function App() {
   const content = (
     <>
       <Routes>
-        <Route path='/' exact element={<h1>Strona główna</h1>} />
+        <Route path='/' exact element={<MainPage />} />
       </Routes>
     </>
   )
