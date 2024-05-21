@@ -6,6 +6,7 @@ import Layout from "./Layout/Layout";
 import MainPage from "./Pages/MainPage/MainPage";
 import ForgotPasswordPage from "./Pages/ForgotPassword/ForgotPasswordPage/ForgotPasswordPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
+import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 
 function App() {
   const header = (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" exact element={<MainPage />} />
         <Route path="/zaloguj" exact element={<LoginPage />} />
+        <Route path="/rejestracja" exact element={<RegisterPage />} />
         <Route
           path="/zmiana/:username"
           exact
