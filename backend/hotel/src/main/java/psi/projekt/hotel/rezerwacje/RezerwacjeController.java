@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.Rezerwacje;
+import psi.projekt.hotel.entity.projection.RezerwacjeDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,17 +19,17 @@ public class RezerwacjeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
-    ResponseEntity<List<Rezerwacje>> getAllReservation() {
+    ResponseEntity<List<RezerwacjeDTO>> getAllReservation() {
         return ResponseEntity.ok(service.getAllReservation());
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    ResponseEntity<Optional<Rezerwacje>> getReservationById(@PathVariable Integer id) {
+    ResponseEntity<Optional<RezerwacjeDTO>> getReservationById(@PathVariable Integer id) {
         return ResponseEntity.ok(service.getReservationById(id));
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "")
-    ResponseEntity<Response> createReservation(@RequestBody Rezerwacje rezerwacja) {
+    ResponseEntity<Response> createReservation(@RequestBody RezerwacjeDTO rezerwacja) {
         service.createReservation(rezerwacja);
 
         return ResponseEntity.ok(new Response("Stworzono rezerwację"));
