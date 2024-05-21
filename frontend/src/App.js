@@ -7,6 +7,7 @@ import MainPage from "./Pages/MainPage/MainPage";
 import ForgotPasswordPage from "./Pages/ForgotPassword/ForgotPasswordPage/ForgotPasswordPage";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 
 function App() {
   const header = (
@@ -26,6 +27,7 @@ function App() {
           exact
           element={<ForgotPasswordPage />}
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
