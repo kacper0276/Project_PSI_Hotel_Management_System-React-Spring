@@ -1,4 +1,3 @@
-
-export default function Header(props) {
-    return <>{props.children}</>
+export default function Header({ children }) {
+  return <>{children}</>;
 }

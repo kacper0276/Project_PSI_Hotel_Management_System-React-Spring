@@ -8,11 +8,17 @@ import ForgotPasswordPage from "./Pages/ForgotPassword/ForgotPasswordPage/Forgot
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
+import Navigation from "./Layout/UI/Navigation/Navigation";
 
 function App() {
   const header = (
     <Header>
-      <p>Header</p>
+      <Routes>
+        <Route path="/zaloguj" exact element={<></>} />
+        <Route path="/rejestracja" exact element={<></>} />
+        <Route path="/zmiana/:username" exact element={<></>} />
+        <Route path="*" element={<Navigation />} />
+      </Routes>
     </Header>
   );
 
