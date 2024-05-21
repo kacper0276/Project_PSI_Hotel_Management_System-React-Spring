@@ -2,6 +2,7 @@ package psi.projekt.hotel.rezerwacje;
 
 import org.springframework.stereotype.Service;
 import psi.projekt.hotel.entity.Klienci;
+import psi.projekt.hotel.entity.Platnosci;
 import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.Rezerwacje;
 import psi.projekt.hotel.entity.projection.RezerwacjeDTO;
@@ -48,6 +49,24 @@ public class RezerwacjeService {
 
         rezerwacja.setKlient(klient);
         rezerwacja.setPokoj(pokoj);
+
+        repository.save(rezerwacja);
+    }
+
+    void payForRoom(Integer reservationId, Integer paymentId) {
+        Platnosci platnosc = platnosciRepository.findById(paymentId).orElse(null);
+
+        if (platnosc == null) {
+            throw new RuntimeException("Nie ma takiej platnosci");
+        }
+
+        Rezerwacje rezerwacja = repository.findById(reservationId).orElse(null);
+
+        if (rezerwacja == null) {
+            throw new RuntimeException("Nie ma takiej rezerwacji");
+        }
+
+        rezerwacja.setPlatnosc(platnosc);
 
         repository.save(rezerwacja);
     }

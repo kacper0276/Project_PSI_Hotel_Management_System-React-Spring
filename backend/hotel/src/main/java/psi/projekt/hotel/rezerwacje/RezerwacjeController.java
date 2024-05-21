@@ -34,4 +34,11 @@ public class RezerwacjeController {
 
         return ResponseEntity.ok(new Response("Stworzono rezerwację"));
     }
+
+    @RequestMapping(method = RequestMethod.PATCH, path = "/platnosc/{id}")
+    ResponseEntity<Response> payRoom(@PathVariable Integer id, @RequestBody Integer paymentId) {
+        service.payForRoom(id, paymentId);
+
+        return ResponseEntity.ok(new Response("Dokonano płatności"));
+    }
 }
