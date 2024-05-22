@@ -21,8 +21,8 @@ public class Uzytkownicy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @Email
+    @NotNull(message = "Nie może być pusty")
+    @Email(message = "Musi być typ email")
     private String email;
 
     @Size(min = 8, message = "Hasło musi zawierać co najmniej 8 znaków")
