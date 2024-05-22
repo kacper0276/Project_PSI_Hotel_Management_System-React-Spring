@@ -10,7 +10,7 @@ import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Navigation from "./Layout/UI/Navigation/Navigation";
 
-export const API_URL = "http://localhost:8080/";
+export const API_URL = "http://localhost:8080";
 
 function App() {
   const header = (

@@ -3,14 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import axios from "axios";
+import { API_URL } from "../../App";
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");
   const navigate = useNavigate();
-  const [loginData, setLoginData] = useState({
+  const [registerData, setRegisterData] = useState({
     email: "",
     password: "",
     second_password: "",
+    rola: "Klient",
   });
   const [message, setMessage] = useState("");
 
@@ -18,10 +20,39 @@ export default function RegisterPage() {
     e.preventDefault();
 
     console.log(
-      `DATA: ${loginData.email} ${loginData.password} ${loginData.second_password}`
+      `DATA: ${registerData.email} ${registerData.password} ${registerData.second_password}`
     );
 
-    navigate("/");
+    if (registerData.password == registerData.second_password) {
+      const formData = new FormData();
+
+      formData.append("email", registerData.email);
+      formData.append("haslo", registerData.password);
+      formData.append("rola", registerData.rola);
+
+      try {
+        await axios
+          .post(`${API_URL}/uzytkownicy`, formData, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            setMessage(res.data.message);
+            // navigate("/");
+          });
+      } catch (error) {
+        console.log(error);
+        if (error.response) {
+          // setMessage(error.response.data);
+        } else {
+          setMessage("Coś poszło nie tak!");
+        }
+      }
+    } else {
+      setMessage("Hasła nie są takie same!");
+    }
   };
 
   return (
@@ -51,7 +82,7 @@ export default function RegisterPage() {
             placeholder="Podaj login"
             autoComplete="off"
             onChange={(e) => {
-              setLoginData({ ...loginData, email: e.target.value });
+              setRegisterData({ ...registerData, email: e.target.value });
             }}
           />
           <input
@@ -59,7 +90,7 @@ export default function RegisterPage() {
             name="password"
             placeholder="Podaj hasło"
             onChange={(e) => {
-              setLoginData({ ...loginData, password: e.target.value });
+              setRegisterData({ ...registerData, password: e.target.value });
             }}
           />
           <input
@@ -67,7 +98,10 @@ export default function RegisterPage() {
             name="password2"
             placeholder="Powtórz hasło"
             onChange={(e) => {
-              setLoginData({ ...loginData, second_password: e.target.value });
+              setRegisterData({
+                ...registerData,
+                second_password: e.target.value,
+              });
             }}
           />
 
