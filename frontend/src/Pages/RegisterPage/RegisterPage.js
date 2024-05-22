@@ -40,12 +40,14 @@ export default function RegisterPage() {
           .then((res) => {
             console.log(res);
             setMessage(res.data.message);
-            // navigate("/");
+
+            setTimeout(() => {
+              navigate("/");
+            }, 2000);
           });
       } catch (error) {
-        console.log(error);
         if (error.response) {
-          // setMessage(error.response.data);
+          setMessage(error.response.data);
         } else {
           setMessage("Coś poszło nie tak!");
         }
