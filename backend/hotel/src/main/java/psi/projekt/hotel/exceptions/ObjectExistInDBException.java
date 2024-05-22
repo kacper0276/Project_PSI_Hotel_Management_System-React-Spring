@@ -6,7 +6,7 @@ public class ObjectExistInDBException extends RuntimeException{
     }
 
     public ObjectExistInDBException(String message) {
-        super(message);
+        super(String.format(message));
     }
 
     public ObjectExistInDBException(String message, Throwable cause) {

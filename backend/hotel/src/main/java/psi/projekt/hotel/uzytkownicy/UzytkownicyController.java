@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/uzytkownicy")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UzytkownicyController {
     private final UzytkownicyService service;
 
@@ -21,6 +22,7 @@ public class UzytkownicyController {
 
     @RequestMapping(method = RequestMethod.POST, path = "")
     ResponseEntity<Response> createUser(@RequestBody Uzytkownicy uzytkownik) {
+        System.out.println(uzytkownik);
         service.createUser(uzytkownik);
 
         return ResponseEntity.ok(new Response("Stworzono użytkownika"));

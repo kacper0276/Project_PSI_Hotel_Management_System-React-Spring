@@ -1,5 +1,6 @@
 package psi.projekt.hotel.uzytkownicy;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import psi.projekt.hotel.entity.Uzytkownicy;
@@ -21,7 +22,7 @@ public class UzytkownicyService {
         this.repository = repository;
     }
 
-    public void createUser(Uzytkownicy uzytkownicy) {
+    public void createUser(@Valid Uzytkownicy uzytkownicy) {
         repository.findByEmail(uzytkownicy.getEmail()).ifPresent(value -> {
             throw new ObjectExistInDBException("Taki email już istnieje");
         });
@@ -30,7 +31,7 @@ public class UzytkownicyService {
     }
 
     @Transactional
-    public void changeUserPassword(Uzytkownicy uzytkownik, String haslo) {
+    public void changeUserPassword(@Valid Uzytkownicy uzytkownik, String haslo) {
         Uzytkownicy uzytkownikSzukaj = repository.findByEmail(uzytkownik.getEmail()).orElse(null);
 
         if (uzytkownikSzukaj != null) {
