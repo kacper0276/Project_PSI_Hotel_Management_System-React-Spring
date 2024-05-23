@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
+import psi.projekt.hotel.entity.other.LoginUser;
 import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
 
 import java.util.List;
@@ -54,5 +55,11 @@ public class UzytkownicyController {
     @RequestMapping(method = RequestMethod.GET, path = "/szukaj/rola/{rola}")
     ResponseEntity<List<UzytkownicyDTO>> getUsersByRole(@PathVariable RolaUzytkownika rola) {
         return ResponseEntity.ok(service.getUsersByRole(rola));
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, path = "/zaloguj")
+    ResponseEntity<Response> loginUser(@RequestBody LoginUser user) {
+        return ResponseEntity.ok(new Response(service.loginUser(user.getEmail(), user.getEmail()) == false ? "Nie" : "Tak" ));
     }
 }
