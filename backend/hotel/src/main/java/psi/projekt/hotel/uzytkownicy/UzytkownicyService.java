@@ -72,4 +72,10 @@ public class UzytkownicyService {
                 .map(mapper::uzytkownicyToUzytkownicyDTO)
                 .collect(Collectors.toList());
     }
+
+    boolean loginUser(String email, String haslo) {
+        Uzytkownicy uzytkownik = repository.findByEmailAndHaslo(email, haslo).orElse(null);
+
+        return uzytkownik == null ? false : true;
+    }
 }
