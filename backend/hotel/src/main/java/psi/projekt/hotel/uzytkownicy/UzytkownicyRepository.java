@@ -15,4 +15,6 @@ public interface UzytkownicyRepository extends JpaRepository<Uzytkownicy, Intege
     List<Uzytkownicy> findByRola(RolaUzytkownika rola);
 
     Optional<Uzytkownicy> findByEmail(String email);
+
+    Optional<Uzytkownicy> findByEmailAndHaslo(String email, String haslo);
 }
