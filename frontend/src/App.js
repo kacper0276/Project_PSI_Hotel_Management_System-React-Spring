@@ -17,6 +17,7 @@ import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
 import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
 import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
 import MainReceptonistPanel from "./Pages/ReceptionistPanel/MainReceptonistPanel/MainReceptonistPanel";
+import MainUserPanel from "./Pages/UserPanel/MainUserPanel/MainUserPanel";
 
 export const API_URL = "http://localhost:8080";
 
@@ -67,6 +68,18 @@ function App() {
             </AuthenticatedAdminRoute>
           }
         />
+
+        {/* User panel */}
+        <Route
+          path="/paneluzytkownika"
+          exact
+          element={
+            <AuthenticatedRoute>
+              <MainUserPanel />
+            </AuthenticatedRoute>
+          }
+        />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
