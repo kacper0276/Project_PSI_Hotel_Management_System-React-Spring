@@ -1,9 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
-import axios from "axios";
+import MainContext from "../../../context/MainContext";
 
 export default function Navigation() {
+  const context = useContext(MainContext);
   const navigate = useNavigate();
   const buttonMobile = useRef();
   const navigationList = useRef();
@@ -16,7 +17,11 @@ export default function Navigation() {
   const logOutFunction = (e) => {
     e.preventDefault();
 
-    window.localStorage.removeItem("username");
+    window.localStorage.removeItem("userstatus");
+    context.dispatch({
+      type: "log-out-user",
+    });
+
     navigate("/");
   };
 
@@ -39,27 +44,31 @@ export default function Navigation() {
             Strona główna
           </Link>
         </li>
-        <li className={`${styles.navigation_element}`}>
-          <Link
-            className={`${styles.navigation_link}`}
-            onClick={(e) => {
-              logOutFunction(e);
-            }}
-          >
-            Wyloguj
-          </Link>
-        </li>
+        {context.state.userLoggin ? (
+          <li className={`${styles.navigation_element}`}>
+            <Link
+              className={`${styles.navigation_link}`}
+              onClick={(e) => {
+                logOutFunction(e);
+              }}
+            >
+              Wyloguj
+            </Link>
+          </li>
+        ) : (
+          <li className={`${styles.navigation_element}`}>
+            <Link to="/zaloguj" className={`${styles.navigation_link}`}>
+              Logowanie
+            </Link>
+          </li>
+        )}
+
         <li className={`${styles.navigation_element}`}>
           <Link
             to={"/paneluzytkownika"}
             className={`${styles.navigation_link}`}
           >
             Twój panel
-          </Link>
-        </li>
-        <li className={`${styles.navigation_element}`}>
-          <Link to="/zaloguj" className={`${styles.navigation_link}`}>
-            Logowanie
           </Link>
         </li>
       </ul>

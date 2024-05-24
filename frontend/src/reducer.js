@@ -9,6 +9,13 @@ export const reducer = (state, action) => {
         userStatus: action.userType,
       };
 
+    case "log-out-user":
+      return {
+        ...state,
+        userLoggin: false,
+        userStatus: "",
+      };
+
     default:
       throw new Error(`Nie ma takiej akcji ${action.type}`);
   }
