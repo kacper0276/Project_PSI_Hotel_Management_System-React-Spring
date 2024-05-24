@@ -45,16 +45,26 @@ export default function Navigation() {
           </Link>
         </li>
         {context.state.userLoggin ? (
-          <li className={`${styles.navigation_element}`}>
-            <Link
-              className={`${styles.navigation_link}`}
-              onClick={(e) => {
-                logOutFunction(e);
-              }}
-            >
-              Wyloguj
-            </Link>
-          </li>
+          <>
+            <li className={`${styles.navigation_element}`}>
+              <Link
+                className={`${styles.navigation_link}`}
+                onClick={(e) => {
+                  logOutFunction(e);
+                }}
+              >
+                Wyloguj
+              </Link>
+            </li>
+            <li className={`${styles.navigation_element}`}>
+              <Link
+                to={"/paneluzytkownika"}
+                className={`${styles.navigation_link}`}
+              >
+                Twój panel
+              </Link>
+            </li>
+          </>
         ) : (
           <li className={`${styles.navigation_element}`}>
             <Link to="/zaloguj" className={`${styles.navigation_link}`}>
@@ -62,15 +72,13 @@ export default function Navigation() {
             </Link>
           </li>
         )}
-
-        <li className={`${styles.navigation_element}`}>
-          <Link
-            to={"/paneluzytkownika"}
-            className={`${styles.navigation_link}`}
-          >
-            Twój panel
-          </Link>
-        </li>
+        {context.state.userStatus === "Administrator" ? (
+          <li className={`${styles.navigation_element}`}>
+            <Link to="/zaloguj" className={`${styles.navigation_link}`}>
+              Panel Administratora
+            </Link>
+          </li>
+        ) : null}
       </ul>
     </nav>
   );
