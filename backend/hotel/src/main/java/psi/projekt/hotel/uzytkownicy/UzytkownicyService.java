@@ -73,9 +73,13 @@ public class UzytkownicyService {
                 .collect(Collectors.toList());
     }
 
-    String loginUser(String email, String haslo) {
+    String loginUser(@Validated String email, @Validated String haslo) {
         Uzytkownicy uzytkownik = repository.findByEmailAndHaslo(email, haslo).orElse(null);
 
-        return uzytkownik == null ? uzytkownik.getRola().toString() : "brak";
+        if(uzytkownik == null) {
+            throw new ObjectExistInDBException("Błędny email lub haslo");
+        }
+
+        return uzytkownik.getRola().toString();
     }
 }

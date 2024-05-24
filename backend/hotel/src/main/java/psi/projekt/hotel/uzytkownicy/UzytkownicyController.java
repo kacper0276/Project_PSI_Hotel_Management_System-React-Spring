@@ -60,6 +60,6 @@ public class UzytkownicyController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/zaloguj")
     ResponseEntity<Response> loginUser(@RequestBody LoginUser user) {
-        return ResponseEntity.ok(new Response(service.loginUser(user.getEmail(), user.getEmail())));
+        return ResponseEntity.ok(new Response(service.loginUser(user.getEmail(), user.getHaslo())));
     }
 }
