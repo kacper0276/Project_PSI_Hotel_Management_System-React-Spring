@@ -23,7 +23,7 @@ export default function RegisterPage() {
       `DATA: ${registerData.email} ${registerData.password} ${registerData.second_password}`
     );
 
-    if (registerData.password == registerData.second_password) {
+    if (registerData.password === registerData.second_password) {
       const formData = new FormData();
 
       formData.append("email", registerData.email);
