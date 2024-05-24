@@ -9,10 +9,15 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Navigation from "./Layout/UI/Navigation/Navigation";
+import { useReducer } from "react";
+import { initialState, reducer } from "./reducer";
+import MainContext from "./context/MainContext";
 
 export const API_URL = "http://localhost:8080";
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const header = (
     <Header>
       <Routes>
@@ -43,9 +48,16 @@ function App() {
   const footer = <Footer />;
 
   return (
-    <Router>
-      <Layout header={header} content={content} footer={footer} />
-    </Router>
+    <MainContext.Provider
+      value={{
+        dispatch: dispatch,
+        state: state,
+      }}
+    >
+      <Router>
+        <Layout header={header} content={content} footer={footer} />
+      </Router>
+    </MainContext.Provider>
   );
 }
 
