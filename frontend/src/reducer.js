@@ -15,6 +15,6 @@ export const reducer = (state, action) => {
 };
 
 export const initialState = {
-  userLoggin: Boolean(window.localStorage.getItem("username")),
+  userLoggin: Boolean(window.localStorage.getItem("userstatus")),
   userStatus: window.localStorage.getItem("userstatus"),
 };

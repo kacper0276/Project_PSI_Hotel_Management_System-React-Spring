@@ -1,5 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { initialState, reducer } from "./reducer";
+import { useReducer } from "react";
 import Header from "./Layout/Header/Header";
 import Footer from "./Layout/Footer/Footer";
 import Layout from "./Layout/Layout";
@@ -9,9 +11,11 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Navigation from "./Layout/UI/Navigation/Navigation";
-import { useReducer } from "react";
-import { initialState, reducer } from "./reducer";
 import MainContext from "./context/MainContext";
+import MainAdminPanel from "./Pages/AdminPanel/MainAdminPanel/MainAdminPanel";
+import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
+import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
+import MainReceptonistPanel from "./Pages/ReceptionistPanel/MainReceptonistPanel/MainReceptonistPanel";
 
 export const API_URL = "http://localhost:8080";
 
@@ -39,6 +43,28 @@ function App() {
           path="/zmiana/:username"
           exact
           element={<ForgotPasswordPage />}
+        />
+
+        {/* Receptionist Panel */}
+        <Route
+          path="/panelrecepcjonisty"
+          exact
+          element={
+            <AuthenticatedRoute>
+              <MainReceptonistPanel />
+            </AuthenticatedRoute>
+          }
+        />
+
+        {/* Admin panel */}
+        <Route
+          path="/paneladmina"
+          exact
+          element={
+            <AuthenticatedAdminRoute>
+              <MainAdminPanel />
+            </AuthenticatedAdminRoute>
+          }
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
