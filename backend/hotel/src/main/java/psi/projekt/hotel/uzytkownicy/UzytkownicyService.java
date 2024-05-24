@@ -73,9 +73,9 @@ public class UzytkownicyService {
                 .collect(Collectors.toList());
     }
 
-    boolean loginUser(String email, String haslo) {
+    String loginUser(String email, String haslo) {
         Uzytkownicy uzytkownik = repository.findByEmailAndHaslo(email, haslo).orElse(null);
 
-        return uzytkownik == null ? false : true;
+        return uzytkownik == null ? uzytkownik.getRola().toString() : "brak";
     }
 }
