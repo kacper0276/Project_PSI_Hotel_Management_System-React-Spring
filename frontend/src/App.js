@@ -15,6 +15,7 @@ import MainContext from "./context/MainContext";
 import MainAdminPanel from "./Pages/AdminPanel/MainAdminPanel/MainAdminPanel";
 import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
 import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
+import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
 import MainReceptonistPanel from "./Pages/ReceptionistPanel/MainReceptonistPanel/MainReceptonistPanel";
 
 export const API_URL = "http://localhost:8080";
@@ -50,9 +51,9 @@ function App() {
           path="/panelrecepcjonisty"
           exact
           element={
-            <AuthenticatedRoute>
+            <AuthenticatedReceptionistRoute>
               <MainReceptonistPanel />
-            </AuthenticatedRoute>
+            </AuthenticatedReceptionistRoute>
           }
         />
 

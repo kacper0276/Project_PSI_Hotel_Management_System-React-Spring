@@ -74,8 +74,19 @@ export default function Navigation() {
         )}
         {context.state.userStatus === "Administrator" ? (
           <li className={`${styles.navigation_element}`}>
-            <Link to="/zaloguj" className={`${styles.navigation_link}`}>
+            <Link to="/paneladmina" className={`${styles.navigation_link}`}>
               Panel Administratora
+            </Link>
+          </li>
+        ) : null}
+        {context.state.userStatus === "Recepcjonista" ||
+        context.state.userStatus === "Administrator" ? (
+          <li className={`${styles.navigation_element}`}>
+            <Link
+              to="/panelrecepcjonisty"
+              className={`${styles.navigation_link}`}
+            >
+              Panel Recepcjonisty
             </Link>
           </li>
         ) : null}
