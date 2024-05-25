@@ -4,6 +4,7 @@ import styles from "./RegisterPage.module.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import axios from "axios";
 import { API_URL } from "../../App";
+import { handleChange } from "../../helpers/ProgressBarRegister";
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");
@@ -59,54 +60,6 @@ export default function RegisterPage() {
     }
   };
 
-  const strength = {
-    1: "słabe",
-    2: "średnie",
-    3: "mocne",
-  };
-
-  const getPasswordStrength = (password, strengthValue) => {
-    strengthValue.upper = /[A-Z]/.test(password);
-    strengthValue.lower = /[a-z]/.test(password);
-    strengthValue.numbers = /\d/.test(password);
-
-    let strengthIndicator = 0;
-
-    for (let metric in strengthValue) {
-      if (strengthValue[metric] === true) {
-        strengthIndicator++;
-      }
-    }
-
-    return strength[strengthIndicator] ?? "";
-  };
-
-  const getStrength = (password) => {
-    let strengthValue = {
-      upper: false,
-      numbers: false,
-      lower: false,
-    };
-
-    return getPasswordStrength(password, strengthValue);
-  };
-
-  const handleChange = () => {
-    let password = registerData.password;
-
-    const strengthText = getStrength(password);
-
-    bars.current.className = "";
-
-    if (strengthText) {
-      strengthDiv.current.innerText = `${strengthText} hasło`;
-
-      bars.current.classList.add(styles[strengthText]);
-    } else {
-      strengthDiv.innerText = "";
-    }
-  };
-
   return (
     <main className={`${styles.main_container}`}>
       <div className={`${styles.back_arrow}`}>
@@ -144,7 +97,7 @@ export default function RegisterPage() {
             onChange={(e) => {
               setRegisterData({ ...registerData, password: e.target.value });
             }}
-            onKeyDown={handleChange()}
+            onKeyDown={(e) => handleChange(e.target.value, bars, strengthDiv)}
           />
           <input
             type="password"
