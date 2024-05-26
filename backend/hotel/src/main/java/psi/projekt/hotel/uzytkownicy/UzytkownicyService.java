@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import psi.projekt.hotel.email.EmailService;
 import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
 import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
@@ -17,17 +18,19 @@ import java.util.stream.Collectors;
 @Service
 public class UzytkownicyService {
     private final UzytkownicyRepository repository;
+    private final EmailService emailService;
     private final UzytkownicyMapper mapper = UzytkownicyMapper.INSTANCE;
 
-    public UzytkownicyService(UzytkownicyRepository repository) {
+    public UzytkownicyService(UzytkownicyRepository repository, EmailService emailService) {
         this.repository = repository;
+        this.emailService = emailService;
     }
 
     public void createUser(@Validated Uzytkownicy uzytkownicy) {
         repository.findByEmail(uzytkownicy.getEmail()).ifPresent(value -> {
             throw new ObjectExistInDBException("Taki email już istnieje");
         });
-
+        emailService.sendActivation(uzytkownicy);
         repository.save(uzytkownicy);
     }
 
