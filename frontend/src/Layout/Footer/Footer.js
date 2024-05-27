@@ -1,8 +1,3 @@
-
 export default function Footer() {
-  return (
-    <>
-      Stopka strony, Miejsce na autorów
-    </>
-  );
+  return <>Strona wykonana przez: Kacper Renkel, Tomasz Milanowski</>;
 }
