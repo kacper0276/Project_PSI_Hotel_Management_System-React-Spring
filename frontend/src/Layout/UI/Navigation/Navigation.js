@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
 import MainContext from "../../../context/MainContext";
 
-export default function Navigation() {
+function BootstrapNavigation() {
   const context = useContext(MainContext);
   const navigate = useNavigate();
   const buttonMobile = useRef();

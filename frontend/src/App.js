@@ -10,7 +10,7 @@ import ForgotPasswordPage from "./Pages/ForgotPassword/ForgotPasswordPage/Forgot
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
-import Navigation from "./Layout/UI/Navigation/Navigation";
+import Navigation from "./Layout/UI/Navigation/back_Navigation";
 import MainContext from "./context/MainContext";
 import MainAdminPanel from "./Pages/AdminPanel/MainAdminPanel/MainAdminPanel";
 import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
