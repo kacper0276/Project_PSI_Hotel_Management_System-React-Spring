@@ -30,7 +30,7 @@ public class UzytkownicyService {
         repository.findByEmail(uzytkownicy.getEmail()).ifPresent(value -> {
             throw new ObjectExistInDBException("Taki email już istnieje");
         });
-        emailService.sendActivation(uzytkownicy);
+//        emailService.sendActivation(uzytkownicy);
         repository.save(uzytkownicy);
     }
 
