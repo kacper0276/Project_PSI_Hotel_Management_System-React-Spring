@@ -85,4 +85,11 @@ public class UzytkownicyService {
 
         return String.format("%s %s", uzytkownik.getRola().toString(), uzytkownik.getEmail());
     }
+
+    void changeUserData(@Validated Uzytkownicy uzytkownik, Integer id) {
+        Uzytkownicy daneUzytkownika = uzytkownik;
+        daneUzytkownika.setId(id);
+
+        repository.save(daneUzytkownika);
+    }
 }

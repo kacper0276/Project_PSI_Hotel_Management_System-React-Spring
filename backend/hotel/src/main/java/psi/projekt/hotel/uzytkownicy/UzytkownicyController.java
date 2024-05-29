@@ -62,4 +62,11 @@ public class UzytkownicyController {
     ResponseEntity<Response> loginUser(@RequestBody LoginUser user) {
         return ResponseEntity.ok(new Response(service.loginUser(user.getEmail(), user.getHaslo())));
     }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/zmien-dane/{id}")
+    ResponseEntity<Response> changeUserData(@RequestBody Uzytkownicy uzytkownik, @PathVariable Integer id) {
+        service.changeUserData(uzytkownik, id);
+
+        return ResponseEntity.ok(new Response("Zmieniono dane uzytkownika"));
+    }
 }
