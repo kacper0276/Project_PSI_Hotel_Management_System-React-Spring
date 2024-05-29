@@ -1,4 +1,6 @@
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { initialState, reducer } from "./reducer";
 import { useReducer } from "react";
@@ -15,11 +17,9 @@ import MainContext from "./context/MainContext";
 import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
 import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
 import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
-import MainReceptonistPanel from "./Pages/ReceptionistPanel/MainReceptonistPanel/MainReceptonistPanel";
 import MainUserPanel from "./Pages/UserPanel/MainUserPanel/MainUserPanel";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
+import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
 
 export const API_URL = "http://localhost:8080";
 
@@ -55,7 +55,7 @@ function App() {
           exact
           element={
             <AuthenticatedReceptionistRoute>
-              <MainReceptonistPanel />
+              <ReceptionistPanel />
             </AuthenticatedReceptionistRoute>
           }
         />
