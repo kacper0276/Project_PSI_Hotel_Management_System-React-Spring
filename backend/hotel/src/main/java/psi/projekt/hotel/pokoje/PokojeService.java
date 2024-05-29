@@ -54,4 +54,9 @@ public class PokojeService {
 
         return;
     }
+
+    void deleteRoom(Integer id) {
+        repository.findById(id).ifPresent(repository::delete);
+
+    }
 }

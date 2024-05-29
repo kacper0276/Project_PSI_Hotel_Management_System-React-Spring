@@ -54,4 +54,9 @@ public class PokojeController {
 
         return ResponseEntity.ok(new Response("Zmieniono dane pokoju"));
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    ResponseEntity<Response> deleteRoom(@PathVariable Integer id) {
+        return ResponseEntity.ok(new Response("Usunięto pokój"));
+    }
 }
