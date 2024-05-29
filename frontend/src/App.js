@@ -17,9 +17,9 @@ import MainContext from "./context/MainContext";
 import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
 import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
 import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
-import MainUserPanel from "./Pages/UserPanel/MainUserPanel/MainUserPanel";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
+import UserPanel from "./Pages/UserPanel/UserPanel";
 
 export const API_URL = "http://localhost:8080";
 
@@ -77,7 +77,7 @@ function App() {
           exact
           element={
             <AuthenticatedRoute>
-              <MainUserPanel />
+              <UserPanel />
             </AuthenticatedRoute>
           }
         />
