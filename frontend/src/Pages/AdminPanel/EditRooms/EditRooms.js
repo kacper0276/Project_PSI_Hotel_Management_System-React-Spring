@@ -16,6 +16,14 @@ export default function EditRooms() {
     });
   }
 
+  const deleteRoom = (e, id) => {
+    e.preventDefault();
+
+    axios.delete(`${API_URL}/pokoje/${id}`).then((res) => {
+      fetchRooms();
+    });
+  };
+
   useEffect(() => {
     fetchRooms();
   }, []);
@@ -47,7 +55,7 @@ export default function EditRooms() {
                 <td>{room.ileOsob}</td>
                 <td>{room.wyposazenie}</td>
                 <td>
-                  <button>Usuń</button>
+                  <button onClick={(e) => deleteRoom(e, room.id)}>Usuń</button>
                 </td>
                 <td>
                   <button>Edytuj</button>
