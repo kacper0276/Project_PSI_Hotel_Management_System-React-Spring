@@ -1,7 +1,7 @@
-import styles from "./UserMenuNavigation.module.css";
+import styles from "./ReceptionistMenuNavigation.module.css";
 import ManageReservations from "../../../Pages/ReceptionistPanel/ManageReservations/ManageReservations";
 
-export default function UserMenuNavigation(props) {
+export default function ReceptionistMenuNavigation(props) {
   const panels = [<ManageReservations />];
 
   const changeActice = (id) => {
