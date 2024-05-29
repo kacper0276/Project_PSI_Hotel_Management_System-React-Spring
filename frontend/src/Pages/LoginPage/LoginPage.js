@@ -36,9 +36,11 @@ export default function LoginPage() {
           if (res.data.message.includes("Błędny")) {
             setMessage(res.data.message);
           } else {
+            let userData = res.data.message.split(" ");
+            console.log(userData);
             context.dispatch({
               type: "change-login-status",
-              userType: res.data.message,
+              userData: userData,
             });
             setMessage("Zalogowano");
             navigate("/");

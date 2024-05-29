@@ -2,11 +2,14 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "change-login-status":
       const newLoginStatus = state.userLoggin === false ? true : false;
-      window.localStorage.setItem("userstatus", action.userType);
+      console.log(action.userData);
+      window.localStorage.setItem("userstatus", action.userData[0]);
+      window.localStorage.setItem("email", action.userData[1]);
       return {
         ...state,
         userLoggin: newLoginStatus,
-        userStatus: action.userType,
+        userStatus: action.userData[0],
+        userName: action.userData[1],
       };
 
     case "log-out-user":
@@ -24,4 +27,5 @@ export const reducer = (state, action) => {
 export const initialState = {
   userLoggin: Boolean(window.localStorage.getItem("userstatus")),
   userStatus: window.localStorage.getItem("userstatus"),
+  userName: window.localStorage.getItem("email"),
 };
