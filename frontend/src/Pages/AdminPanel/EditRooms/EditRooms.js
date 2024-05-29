@@ -4,15 +4,26 @@ import styles from "./EditRooms.module.css";
 import axios from "axios";
 import { API_URL } from "../../../App";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
+import EditRoomForm from "../EditRoomForm/EditRoomForm";
 
 export default function EditRooms() {
   useWebsiteTitle("Edytuj rezerwacje");
   const [rooms, setRooms] = useState([]);
+  const [roomData, setRoomData] = useState(null);
 
   async function fetchRooms() {
-    axios.get(`${API_URL}/pokoje`).then((res) => {
+    await axios.get(`${API_URL}/pokoje`).then((res) => {
       console.log(res.data);
       setRooms(res.data);
+    });
+  }
+
+  async function fetchRoomDetails(e, id) {
+    e.preventDefault();
+
+    await axios.get(`${API_URL}/pokoje/${id}`).then((res) => {
+      console.log(res.data);
+      setRoomData(res.data);
     });
   }
 
@@ -58,13 +69,18 @@ export default function EditRooms() {
                   <button onClick={(e) => deleteRoom(e, room.id)}>Usuń</button>
                 </td>
                 <td>
-                  <button>Edytuj</button>
+                  <button onClick={(e) => fetchRoomDetails(e, room.id)}>
+                    Edytuj
+                  </button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      {roomData != null ? (
+        <EditRoomForm showForm={setRoomData} roomData />
+      ) : null}
     </div>
   );
 }
