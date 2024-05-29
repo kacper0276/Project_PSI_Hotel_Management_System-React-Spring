@@ -83,6 +83,6 @@ public class UzytkownicyService {
             throw new ObjectExistInDBException("Błędny email lub haslo");
         }
 
-        return uzytkownik.getRola().toString();
+        return String.format("%s %s", uzytkownik.getRola().toString(), uzytkownik.getEmail());
     }
 }
