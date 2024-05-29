@@ -18,6 +18,8 @@ import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
 import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
 import MainReceptonistPanel from "./Pages/ReceptionistPanel/MainReceptonistPanel/MainReceptonistPanel";
 import MainUserPanel from "./Pages/UserPanel/MainUserPanel/MainUserPanel";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export const API_URL = "http://localhost:8080";
 

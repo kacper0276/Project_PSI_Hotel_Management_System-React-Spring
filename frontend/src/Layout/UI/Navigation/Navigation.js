@@ -1,17 +1,18 @@
 import { useContext, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./Navigation.module.css";
+import "./Navigation.css";
 import MainContext from "../../../context/MainContext";
+// Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
+// Bootstrap Bundle JS
+import "bootstrap/dist/js/bootstrap.bundle.min";
+
 export default function Navigation() {
   const context = useContext(MainContext);
   const navigate = useNavigate();
-  const buttonMobile = useRef();
-  const navigationList = useRef();
 
-  const showMenu = () => {
-    buttonMobile.current.classList.toggle(`${styles.active}`);
-    navigationList.current.classList.toggle(`${styles.active}`);
-  };
+  
+
 
   const logOutFunction = (e) => {
     e.preventDefault();
@@ -25,41 +26,72 @@ export default function Navigation() {
   };
 
   useEffect(() => {}, []);
-
+  
   return (
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+    <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" >
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">
+          Hotel Sokół
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Strona główna
+              </Link>
+            </li>
+            {context.state.userLoggin ? (
+              <>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link"
+                    onClick={(e) => logOutFunction(e)}
+                  >
+                    Wyloguj
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/paneluzytkownika">
+                    Twój panel
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to="/zaloguj">
+                  Logowanie
+                </Link>
+              </li>
+            )}
+            {context.state.userStatus === "Administrator" ? (
+              <li className="nav-item">
+                <Link className="nav-link" to="/paneladmina">
+                  Panel Administratora
+                </Link>
+              </li>
+            ) : null}
+            {context.state.userStatus === "Recepcjonista" ||
+            context.state.userStatus === "Administrator" ? (
+              <li className="nav-item">
+                <Link className="nav-link" to="/panelrecepcjonisty">
+                  Panel Recepcjonisty
+                </Link>
+              </li>
+            ) : null}
+          </ul>
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+      </div>
+    </nav>
   );
 }
