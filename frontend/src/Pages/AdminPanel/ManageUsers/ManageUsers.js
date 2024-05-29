@@ -6,14 +6,23 @@ import { API_URL } from "../../../App";
 export default function ManageUsers() {
   const [uzytkownicy, setUzytkownicy] = useState([]);
 
-  useEffect(() => {
+  async function fetchUsers() {
     axios.get(`${API_URL}/uzytkownicy`).then((res) => {
       setUzytkownicy(res.data);
     });
+  }
+
+  useEffect(() => {
+    fetchUsers();
   }, []);
 
-  const deleteUser = (id) => {
-    axios.delete();
+  const deleteUser = (e, id) => {
+    e.preventDefault();
+
+    axios.delete(`${API_URL}/uzytkownicy/${id}`).then((res) => {
+      console.log(res);
+      fetchUsers();
+    });
   };
 
   return (
@@ -37,7 +46,9 @@ export default function ManageUsers() {
                 <td>{uzytkownik.haslo}</td>
                 <td>{uzytkownik.rola}</td>
                 <td>
-                  <button>Usuń</button>
+                  <button onClick={(e) => deleteUser(e, uzytkownik.id)}>
+                    Usuń
+                  </button>
                 </td>
                 <td>
                   <button>Edytuj</button>
