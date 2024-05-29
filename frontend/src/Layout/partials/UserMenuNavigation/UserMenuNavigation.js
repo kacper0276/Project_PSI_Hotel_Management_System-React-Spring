@@ -1,6 +1,5 @@
 import styles from "./UserMenuNavigation.module.css";
 import ChangeUserData from "../../../Pages/UserPanel/ChangeUserData/ChangeUserData";
-
 export default function UserMenuNavigation(props) {
   const panels = [<ChangeUserData />];
 
