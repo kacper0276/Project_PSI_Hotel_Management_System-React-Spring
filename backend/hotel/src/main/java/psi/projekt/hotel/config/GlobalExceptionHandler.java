@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import psi.projekt.hotel.exceptions.ObjectExistInDBException;
+import psi.projekt.hotel.exceptions.ObjectNotExistInDBException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ObjectExistInDBException.class)
     public ExceptionRestResponse handleObjectExistInDBException(ObjectExistInDBException ex) {
+        return new ExceptionRestResponse(500, ex.getMessage());
+    }
+
+    @ExceptionHandler(ObjectNotExistInDBException.class)
+    public ExceptionRestResponse handleObjectNotExistInDBException(ObjectNotExistInDBException ex) {
         return new ExceptionRestResponse(500, ex.getMessage());
     }
 
