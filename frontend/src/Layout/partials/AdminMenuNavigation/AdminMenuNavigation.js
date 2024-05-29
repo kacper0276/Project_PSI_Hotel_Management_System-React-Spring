@@ -1,9 +1,16 @@
 import styles from "./AdminMenuNavigation.module.css";
 import ManageUsers from "../../../Pages/AdminPanel/ManageUsers/ManageUsers";
 import EditUserData from "../../../Pages/AdminPanel/EditUserData/EditUserData";
+import AddNewRoom from "../../../Pages/AdminPanel/AddNewRoom/AddNewRoom";
+import EditRooms from "../../../Pages/AdminPanel/EditRooms/EditRooms";
 
 export default function AdminMenuNavigation(props) {
-  const panels = [<ManageUsers />, <EditUserData />];
+  const panels = [
+    <ManageUsers />,
+    <EditUserData />,
+    <AddNewRoom />,
+    <EditRooms />,
+  ];
 
   const changeActice = (id) => {
     const prev = document.querySelector(`.${styles.btn_active_cms}`);
@@ -36,6 +43,24 @@ export default function AdminMenuNavigation(props) {
           }}
         >
           Ustawienia danych administratora
+        </button>
+        <button
+          className={`${styles.cms_nav_btn}`}
+          id="2"
+          onClick={(e) => {
+            changeActice(e.target.id);
+          }}
+        >
+          Dodaj nową ofertę pokoju
+        </button>
+        <button
+          className={`${styles.cms_nav_btn}`}
+          id="3"
+          onClick={(e) => {
+            changeActice(e.target.id);
+          }}
+        >
+          Edytuj oferty pokoi
         </button>
       </nav>
     </div>
