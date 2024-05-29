@@ -4,7 +4,7 @@ import styles from "./RegisterPage.module.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import axios from "axios";
 import { API_URL } from "../../App";
-import { handleChange } from "../../helpers/ProgressBarRegister";
+import { handleChange } from "../../helpers/progressBarRegister";
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");
