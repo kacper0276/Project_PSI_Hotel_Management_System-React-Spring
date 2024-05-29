@@ -9,6 +9,7 @@ import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
 import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
 import psi.projekt.hotel.exceptions.ObjectExistInDBException;
+import psi.projekt.hotel.exceptions.ObjectNotExistInDBException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,5 +92,16 @@ public class UzytkownicyService {
         daneUzytkownika.setId(id);
 
         repository.save(daneUzytkownika);
+    }
+
+    void deleteUser(Integer id) {
+        Uzytkownicy uzytkownik = repository.findById(id).orElse(null);
+
+        if (uzytkownik != null) {
+            repository.delete(uzytkownik);
+        } else {
+            throw new ObjectNotExistInDBException("Nie ma takiego elementu w bazie danych");
+        }
+
     }
 }

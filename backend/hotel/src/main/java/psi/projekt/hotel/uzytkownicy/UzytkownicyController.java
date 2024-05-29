@@ -69,4 +69,11 @@ public class UzytkownicyController {
 
         return ResponseEntity.ok(new Response("Zmieniono dane uzytkownika"));
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    ResponseEntity<Response> deleteUser(@PathVariable Integer id) {
+        service.deleteUser(id);
+
+        return ResponseEntity.ok(new Response("Usunieto uzytkownika"));
+    }
 }
