@@ -35,8 +35,6 @@ export default function EditUserData() {
   const updateData = (e) => {
     e.preventDefault();
 
-    console.log(userData);
-
     if (
       userData.second_password === "" ||
       userData.password === userData.second_password
