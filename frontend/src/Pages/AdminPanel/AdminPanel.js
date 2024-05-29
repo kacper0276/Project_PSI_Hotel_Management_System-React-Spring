@@ -11,7 +11,6 @@ export default function AdminPanel() {
   );
 
   const getActualPanel = (panel) => {
-    console.log(panel);
     setSelectedPanel(panel);
   };
 

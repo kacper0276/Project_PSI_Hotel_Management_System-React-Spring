@@ -1,5 +1,4 @@
 import styles from "./AdminMenuNavigation.module.css";
-import { Link } from "react-router-dom";
 import ManageUsers from "../../../Pages/AdminPanel/ManageUsers/ManageUsers";
 import EditUserData from "../../../Pages/AdminPanel/EditUserData/EditUserData";
 

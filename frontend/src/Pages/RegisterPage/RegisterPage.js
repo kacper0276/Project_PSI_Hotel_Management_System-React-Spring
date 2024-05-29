@@ -22,10 +22,6 @@ export default function RegisterPage() {
   const registerFunction = async (e) => {
     e.preventDefault();
 
-    console.log(
-      `DATA: ${registerData.email} ${registerData.password} ${registerData.second_password}`
-    );
-
     if (registerData.password === registerData.second_password) {
       const formData = new FormData();
 
