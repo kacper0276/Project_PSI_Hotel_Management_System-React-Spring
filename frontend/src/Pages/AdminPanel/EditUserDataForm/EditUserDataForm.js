@@ -1,13 +1,13 @@
-import styles from "./EditUserData.module.css";
-import useWebisteTitle from "../../../hooks/useWebsiteTitle";
-import { useContext, useEffect, useState } from "react";
-import MainContext from "../../../context/MainContext";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import styles from "./EditUserDataForm.module.css";
+import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import { API_URL } from "../../../App";
+import axios from "axios";
 
-export default function EditUserData() {
-  useWebisteTitle("Zmień swoje dane");
-  const context = useContext(MainContext);
+export default function EditUserDataForm(props) {
+  useWebsiteTitle(`Zmień dane: ${props.data.email}`);
+
+  const [message, setMessage] = useState("");
   const [userData, setUserData] = useState({
     id: 0,
     email: "",
@@ -16,20 +16,15 @@ export default function EditUserData() {
     rola: "",
     firstPassword: "",
   });
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/uzytkownicy/szukaj/email/${context.state.userName}`)
-      .then((res) => {
-        setUserData({
-          id: res.data.id,
-          email: res.data.email,
-          password: res.data.haslo,
-          firstPassword: res.data.haslo,
-          rola: res.data.rola,
-        });
-      });
+    setUserData({
+      id: props.data.id,
+      email: props.data.email,
+      password: props.data.haslo,
+      firstPassword: props.data.haslo,
+      rola: props.data.rola,
+    });
   }, []);
 
   const updateData = (e) => {
@@ -61,6 +56,16 @@ export default function EditUserData() {
 
   return (
     <form className={`${styles.main_container}`} method="POST">
+      <div>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            props.disableView(null);
+          }}
+        >
+          Zamknij
+        </button>
+      </div>
       <input
         type="email"
         value={userData.email}

@@ -2,19 +2,37 @@ import { useEffect, useState } from "react";
 import styles from "./ManageUsers.module.css";
 import axios from "axios";
 import { API_URL } from "../../../App";
+import EditUserDataForm from "../EditUserDataForm/EditUserDataForm";
+import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 
 export default function ManageUsers() {
+  useWebsiteTitle("Zmień dane użytkowników");
+
   const [uzytkownicy, setUzytkownicy] = useState([]);
+  const [daneUzytkownika, setDaneUzytkownika] = useState(null);
 
   async function fetchUsers() {
-    axios.get(`${API_URL}/uzytkownicy`).then((res) => {
+    await axios.get(`${API_URL}/uzytkownicy`).then((res) => {
       setUzytkownicy(res.data);
+    });
+  }
+
+  async function getUsersDetails(e, id) {
+    e.preventDefault();
+
+    await axios.get(`${API_URL}/uzytkownicy/szukaj/id/${id}`).then((res) => {
+      console.log(res);
+      setDaneUzytkownika(res.data);
     });
   }
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [daneUzytkownika]);
 
   const deleteUser = (e, id) => {
     e.preventDefault();
@@ -51,13 +69,21 @@ export default function ManageUsers() {
                   </button>
                 </td>
                 <td>
-                  <button>Edytuj</button>
+                  <button onClick={(e) => getUsersDetails(e, uzytkownik.id)}>
+                    Edytuj
+                  </button>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      {daneUzytkownika != null ? (
+        <EditUserDataForm
+          data={daneUzytkownika}
+          disableView={setDaneUzytkownika}
+        />
+      ) : null}
     </div>
   );
 }
