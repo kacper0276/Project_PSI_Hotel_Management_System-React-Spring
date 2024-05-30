@@ -77,7 +77,7 @@ export default function LoginPage() {
           <input
             type="email"
             name="login"
-            placeholder="Podaj login"
+            placeholder="Podaj email"
             autoComplete="off"
             onChange={(e) => {
               setLoginData({ ...loginData, email: e.target.value });
