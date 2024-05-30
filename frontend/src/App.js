@@ -47,6 +47,8 @@ function App() {
           element={<ForgotPasswordPage />}
         />
 
+        <Route path="/przegladarka" elemtn={<h1/>}/>
+
         {/* Receptionist Panel */}
         <Route
           path="/panelrecepcjonisty"
