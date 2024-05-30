@@ -80,7 +80,7 @@ export default function RegisterPage() {
           <input
             type="email"
             name="login"
-            placeholder="Podaj login"
+            placeholder="Podaj email"
             autoComplete="off"
             onChange={(e) => {
               setRegisterData({ ...registerData, email: e.target.value });
