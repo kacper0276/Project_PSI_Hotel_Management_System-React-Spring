@@ -1,0 +1,26 @@
+.cascading-right {
+    margin-right: -50px;
+
+  }
+
+@media (max-width: 991.98px) {
+    .imageReg{
+        display: none;
+    }
+    .div_form{
+    margin-left: -6.3rem;
+    margin-top: 1rem;
+}
+
+    
+  }
+.imageReg{
+        position: relative;
+        overflow-x: auto;
+        width: 100%;
+        max-width: 100%;
+        z-index: -1;
+        overflow: hidden;
+        object-fit: cover;
+        
+}

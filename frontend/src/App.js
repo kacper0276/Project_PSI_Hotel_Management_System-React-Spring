@@ -1,6 +1,4 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { initialState, reducer } from "./reducer";
 import { useReducer } from "react";
@@ -12,14 +10,16 @@ import ForgotPasswordPage from "./Pages/ForgotPassword/ForgotPasswordPage/Forgot
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
-import Navigation from "./Layout/UI/Navigation/back_Navigation";
+import Navigation from "./Layout/UI/Navigation/Navigation";
 import MainContext from "./context/MainContext";
 import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
 import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
 import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
-import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
 import UserPanel from "./Pages/UserPanel/UserPanel";
+import AdminPanel from "./Pages/AdminPanel/AdminPanel";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 export const API_URL = "http://localhost:8080";
 

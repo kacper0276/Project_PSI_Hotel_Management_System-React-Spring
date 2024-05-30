@@ -4,50 +4,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
 
-.back_arrow {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-/* Form div */
-.div_form {
-    position: relative;
-    width: 600px;
-    height: 500px;
-    border: 1px solid white;
-    overflow: hidden;
-}
-
-.register_form {
-    width: calc(100% - 20px);
-    height: calc(100% - 20px);
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    inset: 10px;
-    z-index: 2;
-    background: rgb(77, 77, 77);
-}
-
-.register_form>input {
-    width: 50%;
-    height: 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-}
-
-/* Button register */
-.register_button {
-    width: 50%;
-    height: 50px;
-    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 /* Progress bar */
@@ -89,40 +46,8 @@
     text-transform: capitalize;
 }
 
-/* Media query */
-@media only screen and (max-width: 1000px) {
-    .main_container {
-        overflow-y: scroll;
-    }
-}
 
-/* Div form animation */
 
-.div_form::after {
-    content: "";
-    width: 50%;
-    height: 200%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    left: 0;
-    right: 0;
-    background: black;
-    transform: rotate(30deg);
-    animation: border_animation 5s infinite linear;
-    z-index: 1;
-}
-
-@keyframes border_animation {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
 
 /* After register message */
 .good_message {
@@ -158,4 +83,10 @@
     text-align: center;
     border-radius: 7px;
     background: red;
+}
+@media (max-width: 991.98px) {
+    .div_form{
+        margin-left: -6.3rem;
+        margin-top: 1rem;
+    }
 }
