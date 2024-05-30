@@ -2,14 +2,14 @@ export const reducer = (state, action) => {
   switch (action.type) {
     case "change-login-status":
       const newLoginStatus = state.userLoggin === false ? true : false;
-      console.log(action.userData);
-      window.localStorage.setItem("userstatus", action.userData[0]);
-      window.localStorage.setItem("email", action.userData[1]);
+      const data = action.userData.split(" ");
+      window.localStorage.setItem("userstatus", data[0]);
+      window.localStorage.setItem("email", data[1]);
       return {
         ...state,
         userLoggin: newLoginStatus,
-        userStatus: action.userData[0],
-        userName: action.userData[1],
+        userStatus: data[0],
+        userName: data[1],
       };
 
     case "log-out-user":
