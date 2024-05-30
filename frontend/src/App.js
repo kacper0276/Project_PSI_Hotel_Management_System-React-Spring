@@ -29,8 +29,6 @@ function App() {
   const header = (
     <Header>
       <Routes>
-        <Route path="/zaloguj" exact element={<></>} />
-        <Route path="/rejestracja" exact element={<></>} />
         <Route path="/zmiana/:username" exact element={<></>} />
         <Route path="*" element={<Navigation />} />
       </Routes>
