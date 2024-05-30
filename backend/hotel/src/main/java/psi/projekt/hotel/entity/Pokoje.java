@@ -26,6 +26,7 @@ public class Pokoje {
     private String typPokoju;
     private String wyposazenie;
     private int ileOsob;
+    private String[] zdjecia;
 
     @OneToMany(mappedBy = "pokoj")
     private Set<Rezerwacje> rezerwacje;
