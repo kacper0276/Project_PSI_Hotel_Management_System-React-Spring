@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
+import "./RegisterPage.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import axios from "axios";
 import { API_URL } from "../../App";
 import { handleChange } from "../../helpers/ProgressBarRegister";
+import Navigation from "../../Layout/UI/Navigation/Navigation";
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");
@@ -34,20 +36,21 @@ export default function RegisterPage() {
       formData.append("rola", registerData.rola);
 
       try {
-        await axios
-          .post(`${API_URL}/uzytkownicy`, formData, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            console.log(res);
-            setMessage(res.data.message);
+        const response = await axios.post(`${API_URL}/uzytkownicy`, formData, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-            setTimeout(() => {
-              navigate("/");
-            }, 2000);
-          });
+        console.log(response);
+
+        setMessage(response.data.message);
+
+        setTimeout(() => {
+          if (response.status === 200) {
+            navigate("/");
+          }
+        }, 2000);
       } catch (error) {
         if (error.response) {
           setMessage(error.response.data);
@@ -60,8 +63,13 @@ export default function RegisterPage() {
     }
   };
 
+  const hideMessage = () => {
+    setMessage("");
+  };
+
   return (
     <main className={`${styles.main_container}`}>
+      <Navigation />
       <div className={`${styles.back_arrow}`}>
         <Link to="/">
           <svg
@@ -80,58 +88,120 @@ export default function RegisterPage() {
         </Link>
       </div>
       <div className={`${styles.div_form}`}>
-        <form className={`${styles.register_form}`}>
-          <input
-            type="email"
-            name="login"
-            placeholder="Podaj login"
-            autoComplete="off"
-            onChange={(e) => {
-              setRegisterData({ ...registerData, email: e.target.value });
-            }}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Podaj hasło"
-            onChange={(e) => {
-              setRegisterData({ ...registerData, password: e.target.value });
-            }}
-            onKeyDown={(e) => handleChange(e.target.value, bars, strengthDiv)}
-          />
-          <input
-            type="password"
-            name="password2"
-            placeholder="Powtórz hasło"
-            onChange={(e) => {
-              setRegisterData({
-                ...registerData,
-                second_password: e.target.value,
-              });
-            }}
-          />
-          <div id={`${styles.bars}`} ref={bars}>
-            <div></div>
+        <section className="text-center text-lg-start">
+          <div className="container py-4">
+            <div className="row g-0 align-items-center">
+              <div className="col-lg-6 mb-5 mb-lg-0">
+                <div
+                  className="card cascading-right bg-body-tertiary"
+                  style={{ backdropFilter: "blur(30px)" }}
+                >
+                  <div className="card-body p-5 shadow-5 text-center">
+                    <h2 className="fw-bold mb-5">Zarejestruj się</h2>
+                    <form onSubmit={registerFunction}>
+                      <div data-mdb-input-init className="form-outline mb-4">
+                        <input
+                          type="email"
+                          id="form3Example3"
+                          className="form-control"
+                          value={registerData.email}
+                          onChange={(e) =>
+                            setRegisterData({
+                              ...registerData,
+                              email: e.target.value,
+                            })
+                          }
+                        />
+                        <label className="form-label" htmlFor="form3Example3">
+                          Adres Email
+                        </label>
+                      </div>
+
+                      <div data-mdb-input-init className="form-outline mb-4">
+                        <input
+                          minLength="8"
+                          type="password"
+                          id="form3Example4"
+                          className="form-control"
+                          value={registerData.password}
+                          onChange={(e) => {
+                            setRegisterData({
+                              ...registerData,
+                              password: e.target.value,
+                            });
+                            handleChange(e.target.value, bars, strengthDiv);
+                          }}
+                        />
+                        <label className="form-label" htmlFor="form3Example4">
+                          Hasło
+                        </label>
+                      </div>
+
+                      <div data-mdb-input-init className="form-outline mb-4">
+                        <input
+                          minLength="8"
+                          type="password"
+                          id="form3Example5"
+                          className="form-control"
+                          value={registerData.second_password}
+                          onChange={(e) =>
+                            setRegisterData({
+                              ...registerData,
+                              second_password: e.target.value,
+                            })
+                          }
+                        />
+                        <label className="form-label" htmlFor="form3Example5">
+                          Powtórz Hasło
+                        </label>
+                      </div>
+
+                      <div id={`${styles.bars}`} ref={bars}>
+                        <div></div>
+                      </div>
+                      <div
+                        className={`${styles.strength}`}
+                        ref={strengthDiv}
+                      ></div>
+
+                      <button
+                        type="submit"
+                        data-mdb-button-init
+                        data-mdb-ripple-init
+                        className="btn btn-primary btn-block mb-4"
+                      >
+                        Zarejestruj się
+                      </button>
+
+                      {message && (
+                        <div
+                          className={
+                            message ===
+                            "Zarejestrowano, sprawdź maila by aktywować konto"
+                              ? `${styles.good_message}`
+                              : `${styles.error_message}`
+                          }
+                          onClick={hideMessage}
+                        >
+                          {message}
+                        </div>
+                      )}
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-lg-6 mb-5 mb-lg-0">
+                <img
+                  src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  className="w-100 rounded-4 shadow-4 imageReg"
+                  alt="Hotel Photo"
+                  height="600rem"
+                />
+              </div>
+            </div>
           </div>
-          <div className={`${styles.strength}`} ref={strengthDiv}></div>
-          <button
-            className={`${styles.register_button}`}
-            onClick={registerFunction}
-          >
-            Zarejestruj się
-          </button>
-        </form>
-        {message ? (
-          <div
-            className={
-              message === "Zarejestrowano, sprawdź maila by aktywować konto"
-                ? `${styles.good_message}`
-                : `${styles.error_message}`
-            }
-          >
-            {message}
-          </div>
-        ) : null}
+        </section>
       </div>
     </main>
   );

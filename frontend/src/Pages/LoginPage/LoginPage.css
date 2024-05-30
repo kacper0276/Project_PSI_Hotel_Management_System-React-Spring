@@ -1,0 +1,14 @@
+
+.forestPicture{
+    width: 100%;
+    overflow: hidden;
+    margin: 5px 5px 5px 5px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+@media (max-width: 992px) {
+    .forestPicture{
+        display: none;
+    }
+  }
