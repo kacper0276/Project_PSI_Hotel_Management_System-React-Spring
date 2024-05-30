@@ -40,7 +40,7 @@ export default function LoginPage() {
           } else {
             context.dispatch({
               type: "change-login-status",
-              userType: res.data.message,
+              userData: res.data.message,
             });
             setMessage("Zalogowano");
             navigate("/");
