@@ -36,9 +36,9 @@ public class PokojeService {
                 .collect(Collectors.toList());
     }
 
-    Optional<PokojeDTO> getRoomDetailsById(Integer id) {
+    Optional<PokojeDTORead> getRoomDetailsById(Integer id) {
         Optional<Pokoje> pokoj = repository.findById(id);
-        return pokoj.map(mapper::pokojeToPokojeDTO);
+        return pokoj.map(mapper::pokojeToPokojeDTORead);
     }
 
     void createRoom(final PokojeDTO pokoj) {

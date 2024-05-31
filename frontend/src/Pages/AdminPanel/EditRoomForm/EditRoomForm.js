@@ -1,8 +1,19 @@
+import { useEffect, useState } from "react";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./EditRoomForm.module.css";
 
 export default function EditRoomForm(props) {
   useWebsiteTitle("Edycja danych pokoju");
+
+  const [editRoomData, setEditRoomData] = useState({
+    dostepnosc: false,
+    dataZwolnienia: "2024-02-02",
+    cena: 0,
+    typPokoju: "",
+    wyposazenie: "",
+    ileOsob: 0,
+    zdjecia: [],
+  });
 
   const hideForm = (e) => {
     e.preventDefault();
@@ -10,22 +21,78 @@ export default function EditRoomForm(props) {
     props.showForm();
   };
 
+  useEffect(() => {
+    console.log(props.roomData);
+    setEditRoomData({
+      dostepnosc: props.roomData.dostepnosc,
+      dataZwolnienia:
+        props.roomData.dataZwolnienia == null
+          ? ""
+          : props.roomData.dataZwolnienia,
+      cena: props.roomData.cena,
+      typPokoju: props.roomData.typPokoju,
+      wyposazenie: props.roomData.wyposazenie,
+      ileOsob: props.roomData.ileOsob,
+      zdjecia: props.roomData.zdjecia,
+    });
+  }, []);
+
   return (
     <form className={`${styles.main_container}`}>
       <h2>Stwórz nową ofertę pokoju</h2>
       <button onClick={(e) => hideForm(e)}>Zamknij</button>
       <label>Cena</label>
-      <input type="number" />
+      <input
+        type="number"
+        value={editRoomData.cena}
+        onChange={(e) => {
+          setEditRoomData({ ...editRoomData, cena: e.target.value });
+        }}
+      />
       <label>Data zwolnienia</label>
-      <input type="date" />
-      <textarea placeholder="Opis" />
+      <input
+        type="date"
+        value={editRoomData.dataZwolnienia}
+        onChange={(e) => {
+          setEditRoomData({ ...editRoomData, dataZwolnienia: e.target.value });
+        }}
+      />
+      <textarea
+        placeholder="Opis"
+        value={editRoomData.wyposazenie}
+        onChange={(e) => {
+          setEditRoomData({ ...editRoomData, wyposazenie: e.target.value });
+        }}
+      />
       <label>Dostępność</label>
-      <input type="checkbox" />
+      <input
+        type="checkbox"
+        checked={editRoomData.dostepnosc}
+        onChange={(e) => {
+          setEditRoomData({ ...editRoomData, dostepnosc: e.target.value });
+        }}
+      />
       <label>Ile osób</label>
-      <input type="number" />
+      <input
+        type="number"
+        value={editRoomData.ileOsob}
+        onChange={(e) => {
+          setEditRoomData({ ...editRoomData, ileOsob: e.target.value });
+        }}
+      />
       <label>Typ pokoju</label>
-      <input type="text" />
-      <button>Dodaj pokój</button>
+      <input
+        type="text"
+        value={editRoomData.typPokoju}
+        onChange={(e) => {
+          setEditRoomData({ ...editRoomData, typPokoju: e.target.value });
+        }}
+      />
+      <label>
+        Ilość zdjęć: {editRoomData.zdjecia.length}; Możesz zostawić zdjęcia, lub
+        usunąć obecne i dodać nowe na ich miejsce
+      </label>
+      <button>Edytuj pokój</button>
     </form>
   );
 }

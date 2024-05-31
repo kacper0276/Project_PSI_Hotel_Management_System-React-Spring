@@ -24,7 +24,7 @@ public class PokojeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    ResponseEntity<Optional<PokojeDTO>> getRoomById(@PathVariable("id") Integer id) {
+    ResponseEntity<Optional<PokojeDTORead>> getRoomById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.getRoomDetailsById(id));
     }
 
