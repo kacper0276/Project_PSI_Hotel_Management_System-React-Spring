@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.projection.PokojeDTO;
+import psi.projekt.hotel.entity.projection.PokojeDTORead;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class PokojeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "")
-    ResponseEntity<List<PokojeDTO>> getAllRooms() {
+    ResponseEntity<List<PokojeDTORead>> getAllRooms() {
         return ResponseEntity.ok(service.getAllRooms());
     }
 

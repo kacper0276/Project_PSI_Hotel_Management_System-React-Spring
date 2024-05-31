@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.projection.PokojeDTO;
+import psi.projekt.hotel.entity.projection.PokojeDTORead;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +30,9 @@ public class PokojeService {
                 .collect(Collectors.toList());
     }
 
-    List<PokojeDTO> getAllRooms() {
+    List<PokojeDTORead> getAllRooms() {
         return repository.findAll().stream()
-                .map(mapper::pokojeToPokojeDTO)
+                .map(mapper::pokojeToPokojeDTORead)
                 .collect(Collectors.toList());
     }
 
@@ -49,14 +50,14 @@ public class PokojeService {
         pokojToSave.setWyposazenie(pokoj.getWyposazenie());
         pokojToSave.setIleOsob(pokoj.getIleOsob());
 
-        List<byte[]> imageBytesList = new ArrayList<>();
+        List<String> imageBytesList = new ArrayList<>();
         for (MultipartFile file : pokoj.getZdjecia()) {
             try {
                 String fileName = file.getOriginalFilename();
                 File dest = new File(projectPath + "../../frontend/public/room_image/" + fileName);
                 file.transferTo(dest);
-                byte[] imageBytes = file.getBytes();
-                imageBytesList.add(imageBytes);
+                String imageName = file.getOriginalFilename();
+                imageBytesList.add(imageName);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
