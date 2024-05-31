@@ -18,6 +18,7 @@ import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute
 import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
 import UserPanel from "./Pages/UserPanel/UserPanel";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
+import RoomBrowser from "./Pages/RoomBrowser/RoomBrowser"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -46,8 +47,8 @@ function App() {
           exact
           element={<ForgotPasswordPage />}
         />
-
-        <Route path="/przegladarka" elemtn={<h1/>}/>
+        {/*Room Browser*/}
+        <Route path="/przegladarkapokoji" element={<RoomBrowser/>}/>
 
         {/* Receptionist Panel */}
         <Route

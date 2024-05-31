@@ -1,5 +1,6 @@
 import "./MainPage.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
+import { Link } from "react-router-dom";
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
@@ -45,8 +46,10 @@ export default function MainPage() {
                   opowiedzieli się za naszymi usługami.
                 </p>
                 <p>
-                  <a className="btn btn-lg btn-primary btn-light" href="#">
-                    Przeglądaj nasze oferty
+                  <a className="btn btn-lg btn-primary btn-light">
+                    <Link className="nav-link" to="/przegladarkapokoji">
+                      Przeglądaj nasze oferty
+                    </Link>
                   </a>
                 </p>
               </div>
@@ -59,7 +62,7 @@ export default function MainPage() {
               className="d-block w-100 carousel-image"
             />
             <div className="container">
-              <div className="carousel-caption darkertext">
+              <div className="carousel-caption ">
                 <h1>Organizacja eventów</h1>
                 <p>
                   Serdecznie zapraszamy do organizacji szkoleń, konferencji,
@@ -141,9 +144,12 @@ export default function MainPage() {
               skorzystaj z naszej wyszukiwarki pokoi.
             </p>
             <p>
-              <a class="btn btn-secondary" href="#">
-                Sprawdź ofertę &raquo;
+              <a class="btn btn-secondary">
+                <Link className="nav-link" to="/przegladarkapokoji">
+                        Przeglądaj nasze oferty &raquo;
+                </Link>
               </a>
+
             </p>
           </div>
           <div class="col-lg-4">
