@@ -60,7 +60,11 @@ export default function EditRooms() {
               <tr key={key}>
                 <td>{room.id}</td>
                 <td>{room.dostepnosc ? "Dostępny" : "Niedostępny"}</td>
-                <td>{cutTimeInDateTime(room.dataZwolnienia)}</td>
+                <td>
+                  {room.dataZwolnienia != null
+                    ? cutTimeInDateTime(room.dataZwolnienia)
+                    : "Wolny"}
+                </td>
                 <td>{room.cena}</td>
                 <td>{room.typPokoju}</td>
                 <td>{room.ileOsob}</td>

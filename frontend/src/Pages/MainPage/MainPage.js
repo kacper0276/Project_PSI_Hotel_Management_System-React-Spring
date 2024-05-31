@@ -45,12 +45,10 @@ export default function MainPage() {
                   zdobywcami wielu nagród w których klienci z całego kraju
                   opowiedzieli się za naszymi usługami.
                 </p>
-                <p>
-                  <a className="btn btn-lg btn-primary btn-light">
-                    <Link className="nav-link" to="/przegladarkapokoji">
-                      Przeglądaj nasze oferty
-                    </Link>
-                  </a>
+                <p className="btn btn-lg btn-primary btn-light">
+                  <Link className="nav-link" to="/przegladarkapokoji">
+                    Przeglądaj nasze oferty
+                  </Link>
                 </p>
               </div>
             </div>
@@ -71,9 +69,9 @@ export default function MainPage() {
                   wielofunkcyjnych o łącznej powierzchni 800 m2.
                 </p>
                 <p>
-                  <a className="btn btn-lg btn-primary btn-light" href="#">
+                  <Link className="btn btn-lg btn-primary btn-light" href="#">
                     Dowiedz się więcej
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
@@ -93,9 +91,9 @@ export default function MainPage() {
                   aktywności.
                 </p>
                 <p>
-                  <a className="btn btn-lg btn-primary btn-light" href="#">
+                  <Link className="btn btn-lg btn-primary btn-light" href="#">
                     Sprawdź mapę
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
@@ -127,12 +125,12 @@ export default function MainPage() {
         </button>
       </div>
 
-      <div class="container marketing">
-        <div class="row">
-          <div class="col-lg-4">
+      <div className="container marketing">
+        <div className="row">
+          <div className="col-lg-4">
             <img
               src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              class="bd-placeholder-img rounded-circle"
+              className="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
               aria-label="Placeholder: 140x140"
@@ -143,19 +141,16 @@ export default function MainPage() {
               Nie ważne jakie są twoje wymagania. My damy radę im sprostać,
               skorzystaj z naszej wyszukiwarki pokoi.
             </p>
-            <p>
-              <a class="btn btn-secondary">
-                <Link className="nav-link" to="/przegladarkapokoji">
-                        Przeglądaj nasze oferty &raquo;
-                </Link>
-              </a>
-
+            <p className="btn btn-secondary">
+              <Link className="nav-link" to="/przegladarkapokoji">
+                Przeglądaj nasze oferty &raquo;
+              </Link>
             </p>
           </div>
-          <div class="col-lg-4">
+          <div className="col-lg-4">
             <img
               src="https://images.unsplash.com/photo-1541508159146-2ab9c877e804?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              class="bd-placeholder-img rounded-circle"
+              className="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
               aria-label="Placeholder: 140x140"
@@ -167,15 +162,15 @@ export default function MainPage() {
               klientów biznesowych.
             </p>
             <p>
-              <a class="btn btn-secondary" href="#">
+              <Link className="btn btn-secondary" href="#">
                 Sprawdź ofertę &raquo;
-              </a>
+              </Link>
             </p>
           </div>
-          <div class="col-lg-4">
+          <div className="col-lg-4">
             <img
               src="https://images.unsplash.com/photo-1601141586963-f213d2575b7f?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              class="bd-placeholder-img rounded-circle"
+              className="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
               aria-label="Placeholder: 140x140"
@@ -187,75 +182,75 @@ export default function MainPage() {
               a także zyskuj rabaty na wynajem.
             </p>
             <p>
-              <a class="btn btn-secondary" href="#">
+              <Link className="btn btn-secondary" href="#">
                 Odwiedź nas &raquo;
-              </a>
+              </Link>
             </p>
           </div>
         </div>
 
-        <hr class="featurette-divider" />
+        <hr className="featurette-divider" />
 
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">
+        <div className="row featurette">
+          <div className="col-md-7">
+            <h2 className="featurette-heading">
               Zakochaj się w magii mazur.{" "}
-              <span class="text-muted">
+              <span className="text-muted">
                 Obudź się z rana widząc piekno natury.
               </span>
             </h2>
-            <p class="lead">
+            <p className="lead">
               Lokalizacja naszego hotelu jest w stanie zaoferować widoki niczym
               wyjęte z obrazu. Jesteśmy otoczeni urokliwym lasem a parę kroków
               od hotelu możesz znaleźć bulwary oraz molo na jeziorze.
             </p>
           </div>
-          <div class="col-md-5 d-flex align-items-center justify-content-center">
-            <div class="square-container overflow-hidden">
+          <div className="col-md-5 d-flex align-items-center justify-content-center">
+            <div className="square-container overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1698007520311-f899108a2614?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                class="featurette-image img-fluid img-thumbnail"
+                className="featurette-image img-fluid img-thumbnail"
                 alt="Beatiful Sight"
               />
             </div>
           </div>
         </div>
 
-        <hr class="featurette-divider" />
+        <hr className="featurette-divider" />
 
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">
+        <div className="row featurette">
+          <div className="col-md-7 order-md-2">
+            <h2 className="featurette-heading">
               Niebo w ustach, reszta ciała w Sokolę.{" "}
-              <span class="text-muted">Sam się przekonaj.</span>
+              <span className="text-muted">Sam się przekonaj.</span>
             </h2>
-            <p class="lead">
+            <p className="lead">
               Skorzystaj z naszej hotelowej restauracji która jest dostępna za
               darmo dla naszych klientów. Oferujemy szeroką gamę potraw od
               deserów po obiady. Profesjonalna kadra kucharzy oraz kelnerów
               zagwarantuje obsługę na jaką zasługujesz
             </p>
           </div>
-          <div class="col-md-5 d-flex align-items-center justify-content-center">
-            <div class="square-container overflow-hidden">
+          <div className="col-md-5 d-flex align-items-center justify-content-center">
+            <div className="square-container overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1526234362653-3b75a0c07438?q=80&w=500&h=500&fit=crop&auto=format&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                class="featurette-image img-fluid img-thumbnail"
+                className="featurette-image img-fluid img-thumbnail"
                 alt="Hotel Restaurant"
               />
             </div>
           </div>
         </div>
 
-        <hr class="featurette-divider" />
+        <hr className="featurette-divider" />
 
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">
+        <div className="row featurette">
+          <div className="col-md-7">
+            <h2 className="featurette-heading">
               Relaks podstawą wypoczynku.{" "}
-              <span class="text-muted">Pozwól sobie się odprężyć.</span>
+              <span className="text-muted">Pozwól sobie się odprężyć.</span>
             </h2>
-            <p class="lead">
+            <p className="lead">
               W naszym hotelu oferujemy szeroki wybór masaży, które są dostępne
               dla wszystkich gości bez dodatkowych opłat. Każdy klient może
               skorzystać z relaksujących masaży aromaterapeutycznych oraz
@@ -264,18 +259,18 @@ export default function MainPage() {
               które są dostępne dla gości przez cały rok.
             </p>
           </div>
-          <div class="col-md-5 d-flex align-items-center justify-content-center">
-            <div class="square-container">
+          <div className="col-md-5 d-flex align-items-center justify-content-center">
+            <div className="square-container">
               <img
                 src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                class="featurette-image img-fluid img-thumbnail"
+                className="featurette-image img-fluid img-thumbnail"
                 alt="Relaxing Spa"
               />
             </div>
           </div>
         </div>
 
-        <hr class="featurette-divider" />
+        <hr className="featurette-divider" />
       </div>
     </main>
   );
