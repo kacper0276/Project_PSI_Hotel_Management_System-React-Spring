@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
-    <footer class="container">
-      <p class="float-end"></p>
+    <footer className="container">
+      <p className="float-end"></p>
       <p>
-        &copy; Tomasz oraz Kacper Renkel &middot; <a href="#">Regulamin</a>{" "}
-        &middot; <a href="#">Kontakt</a> <a href="#">Polityka prywatności</a>
+        &copy; Tomasz oraz Kacper Renkel &middot;{" "}
+        <Link href="#">Regulamin</Link> &middot; <Link href="#">Kontakt</Link>{" "}
+        <Link href="#">Polityka prywatności</Link>
       </p>
     </footer>
   );
