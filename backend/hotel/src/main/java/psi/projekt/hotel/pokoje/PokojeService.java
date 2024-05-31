@@ -1,9 +1,13 @@
 package psi.projekt.hotel.pokoje;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.projection.PokojeDTO;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,6 +16,8 @@ import java.util.stream.Collectors;
 public class PokojeService {
     private final PokojeRepository repository;
     private final PokojeMapper mapper = PokojeMapper.INSTANCE;
+    File currentDir = new File(System.getProperty("user.dir"));
+    String projectPath = currentDir.getParent();
 
     public PokojeService(PokojeRepository repository) {
         this.repository = repository;
@@ -34,8 +40,28 @@ public class PokojeService {
         return pokoj.map(mapper::pokojeToPokojeDTO);
     }
 
-    void createRoom(final Pokoje pokoj) {
-        repository.save(pokoj);
+    void createRoom(final PokojeDTO pokoj) {
+        Pokoje pokojToSave = new Pokoje();
+        pokojToSave.setDostepnosc(pokoj.isDostepnosc());
+        pokojToSave.setDataZwolnienia(pokoj.getDataZwolnienia());
+        pokojToSave.setCena(pokoj.getCena());
+        pokojToSave.setTypPokoju(pokoj.getTypPokoju());
+        pokojToSave.setWyposazenie(pokoj.getWyposazenie());
+        pokojToSave.setIleOsob(pokoj.getIleOsob());
+
+        List<String> imageUrls = new ArrayList<>();
+        for (MultipartFile file : pokoj.getZdjecia()) {
+            try {
+                String fileName = file.getOriginalFilename();
+                File dest = new File(projectPath + "../../frontend/public/room_image/" + fileName);
+                file.transferTo(dest);
+                imageUrls.add(dest.getAbsolutePath());
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        pokojToSave.setZdjecia(imageUrls);
+        repository.save(pokojToSave);
     }
 
     void changeRoomAvailability(Integer roomId) {

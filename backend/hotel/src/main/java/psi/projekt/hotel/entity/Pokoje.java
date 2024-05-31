@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Table(name = "Pokoje")
@@ -21,12 +24,15 @@ public class Pokoje {
     private int id;
 
     private boolean dostepnosc;
+
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataZwolnienia;
     private int cena;
     private String typPokoju;
     private String wyposazenie;
     private int ileOsob;
-    private String[] zdjecia;
+    private List<String> zdjecia;
 
     @OneToMany(mappedBy = "pokoj")
     private Set<Rezerwacje> rezerwacje;

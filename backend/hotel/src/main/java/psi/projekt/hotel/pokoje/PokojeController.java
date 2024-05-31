@@ -1,11 +1,14 @@
 package psi.projekt.hotel.pokoje;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.projection.PokojeDTO;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,8 +44,24 @@ public class PokojeController {
         return ResponseEntity.ok(new Response("Zmieniono dostępność pokoju"));
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "")
-    ResponseEntity<Response> createRoom(@RequestBody Pokoje pokoj) {
+    @RequestMapping(method = RequestMethod.POST, path = "", consumes = {"multipart/form-data"})
+    ResponseEntity<Response> createRoom( @RequestParam("dostepnosc") Boolean dostepnosc,
+                                         @RequestParam("dataZwolnienia") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dataZwolnienia,
+                                         @RequestParam("cena") Integer cena,
+                                         @RequestParam("typPokoju") String typPokoju,
+                                         @RequestParam("wyposazenie") String wyposazenie,
+                                         @RequestParam("ileOsob") Integer ileOsob,
+                                         @RequestParam("zdjecia") MultipartFile[] zdjecia) {
+
+        PokojeDTO pokoj = new PokojeDTO();
+        pokoj.setDostepnosc(dostepnosc);
+        pokoj.setDataZwolnienia(null);
+        pokoj.setCena(cena);
+        pokoj.setTypPokoju(typPokoju);
+        pokoj.setWyposazenie(wyposazenie);
+        pokoj.setIleOsob(ileOsob);
+        pokoj.setZdjecia(zdjecia);
+
         service.createRoom(pokoj);
 
         return ResponseEntity.ok(new Response("Dodano pokój"));
