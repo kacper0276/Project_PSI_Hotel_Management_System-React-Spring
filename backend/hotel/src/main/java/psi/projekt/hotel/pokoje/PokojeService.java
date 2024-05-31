@@ -49,18 +49,19 @@ public class PokojeService {
         pokojToSave.setWyposazenie(pokoj.getWyposazenie());
         pokojToSave.setIleOsob(pokoj.getIleOsob());
 
-        List<String> imageUrls = new ArrayList<>();
+        List<byte[]> imageBytesList = new ArrayList<>();
         for (MultipartFile file : pokoj.getZdjecia()) {
             try {
                 String fileName = file.getOriginalFilename();
                 File dest = new File(projectPath + "../../frontend/public/room_image/" + fileName);
                 file.transferTo(dest);
-                imageUrls.add(dest.getAbsolutePath());
+                byte[] imageBytes = file.getBytes();
+                imageBytesList.add(imageBytes);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
-        pokojToSave.setZdjecia(imageUrls);
+        pokojToSave.setZdjecia(imageBytesList);
         repository.save(pokojToSave);
     }
 

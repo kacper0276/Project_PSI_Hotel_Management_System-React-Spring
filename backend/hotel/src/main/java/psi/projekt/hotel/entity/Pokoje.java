@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +31,9 @@ public class Pokoje {
     private String typPokoju;
     private String wyposazenie;
     private int ileOsob;
-    private List<String> zdjecia;
+
+    @Lob
+    private List<byte[]> zdjecia;
 
     @OneToMany(mappedBy = "pokoj")
     private Set<Rezerwacje> rezerwacje;
