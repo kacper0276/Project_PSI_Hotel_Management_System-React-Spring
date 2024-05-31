@@ -13,7 +13,6 @@ export default function EditRooms() {
 
   async function fetchRooms() {
     await axios.get(`${API_URL}/pokoje`).then((res) => {
-      console.log(res.data);
       setRooms(res.data);
     });
   }
@@ -22,7 +21,6 @@ export default function EditRooms() {
     e.preventDefault();
 
     await axios.get(`${API_URL}/pokoje/${id}`).then((res) => {
-      console.log(res.data);
       setRoomData(res.data);
     });
   }
@@ -83,7 +81,7 @@ export default function EditRooms() {
         </tbody>
       </table>
       {roomData != null ? (
-        <EditRoomForm showForm={setRoomData} roomData />
+        <EditRoomForm showForm={setRoomData} roomData={roomData} />
       ) : null}
     </div>
   );
