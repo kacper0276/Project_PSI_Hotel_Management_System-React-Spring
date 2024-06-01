@@ -19,6 +19,7 @@ import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
 import UserPanel from "./Pages/UserPanel/UserPanel";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import RoomBrowser from "./Pages/RoomBrowser/RoomBrowser"
+import HallBrowser from "./Pages/HallBrowser/HallBrowser"
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -49,6 +50,8 @@ function App() {
         />
         {/*Room Browser*/}
         <Route path="/przegladarkapokoji" element={<RoomBrowser/>}/>
+        {/*Hall Browser*/}
+        <Route path="/przegladarkasal" element={<HallBrowser/>}/>
 
         {/* Receptionist Panel */}
         <Route

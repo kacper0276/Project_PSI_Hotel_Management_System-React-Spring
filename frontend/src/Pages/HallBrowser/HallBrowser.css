@@ -321,9 +321,12 @@ border-width: 1px;
 	flex-wrap: wrap;
 	justify-content: space-between;
   }
-  
+
   /* Custom styling for mobile screens */
   @media (max-width: 576px) {
+	.price {
+		margin-top: 10px; /* Zwiększenie marginesu górnego */
+	  }
 	.room-features {
 	  display: grid;
 	  grid-template-columns: repeat(2, 1fr); 

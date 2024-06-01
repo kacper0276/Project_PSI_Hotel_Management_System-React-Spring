@@ -95,18 +95,8 @@ export default function RoomBrowser() {
                     <div className="room-info text-center">
                       <span>Wi-fi</span>
                       <img
-                        src="https://img.icons8.com/?size=100&id=86639&format=png&color=000000"
+                        src="https://img.icons8.com/?size=100&id=172&format=png&color=000000"
                         alt="High Wi-fi"
-                        className="icon"
-                        width="40"
-                        height="40"
-                      />
-                    </div>
-                    <div className="room-info text-center">
-                      <span>Klimatyzacja</span>
-                      <img
-                        src="https://img.icons8.com/?size=100&id=86639&format=png&color=000000"
-                        alt="AC"
                         className="icon"
                         width="40"
                         height="40"
@@ -115,7 +105,7 @@ export default function RoomBrowser() {
                     <div className="room-info text-center">
                       <span>Parking</span>
                       <img
-                        src="https://img.icons8.com/?size=100&id=86639&format=png&color=000000"
+                        src="https://img.icons8.com/?size=100&id=10738&format=png&color=000000"
                         alt="Parking"
                         className="icon"
                         width="40"
@@ -125,7 +115,7 @@ export default function RoomBrowser() {
                     <div className="room-info text-center">
                       <span>Basen</span>
                       <img
-                        src="https://img.icons8.com/?size=100&id=86639&format=png&color=000000"
+                        src="https://img.icons8.com/?size=100&id=37195&format=png&color=000000"
                         alt="Pool"
                         className="icon"
                         width="40"
@@ -255,7 +245,6 @@ export default function RoomBrowser() {
                       <option>Apartament</option>
                       <option value="double">Podwójny pokój</option>
                       <option value="single">Pojedynczy pokój</option>
-                      <option value="special">Pokój specjalny</option>
                     </select>
                   </div>
                   <button type="button" className="btn btn-primary btn-dark submit-btn">

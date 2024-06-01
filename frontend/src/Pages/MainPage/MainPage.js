@@ -69,9 +69,11 @@ export default function MainPage() {
                   wielofunkcyjnych o łącznej powierzchni 800 m2.
                 </p>
                 <p>
-                  <Link className="btn btn-lg btn-primary btn-light" href="#">
-                    Dowiedz się więcej
+                  <p className="btn btn-lg btn-primary btn-light" href="#">
+                  <Link className="nav-link" to="/przegladarkasal">
+                    Przeglądaj nasze oferty
                   </Link>
+                  </p>
                 </p>
               </div>
             </div>
@@ -162,8 +164,8 @@ export default function MainPage() {
               klientów biznesowych.
             </p>
             <p>
-              <Link className="btn btn-secondary" href="#">
-                Sprawdź ofertę &raquo;
+              <Link className="btn btn-secondary" to="/przegladarkasal">
+                Sprawdź ofertę  &raquo;
               </Link>
             </p>
           </div>
