@@ -12,8 +12,6 @@ import psi.projekt.hotel.entity.Uzytkownicy;
 @Getter
 @Setter
 public class KlienciPrywatni {
-    private String email;
-    private String haslo;
     private String imie;
     private String nazwisko;
 
@@ -24,9 +22,7 @@ public class KlienciPrywatni {
     @JoinColumn(name = "uzytkownik_id")
     private Uzytkownicy uzytkownik;
 
-    public KlienciPrywatni(String email, String haslo, String imie, String nazwisko) {
-        this.email = email;
-        this.haslo = haslo;
+    public KlienciPrywatni(String imie, String nazwisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
     }

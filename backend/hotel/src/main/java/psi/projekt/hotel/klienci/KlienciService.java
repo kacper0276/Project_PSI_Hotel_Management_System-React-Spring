@@ -1,6 +1,7 @@
 package psi.projekt.hotel.klienci;
 
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
@@ -53,7 +54,10 @@ public class KlienciService {
         return listClientsPrivate;
     }
 
-    public void createPrivateUser(KlienciPrywatni klientPrywatny) {
+    public void createPrivateUser(@Validated KlienciPrywatni klientPrywatny) {
+        System.out.println(klientPrywatny.getImie());
+        System.out.println(klientPrywatny.getUzytkownik().getEmail());
+
         Klienci klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
         Uzytkownicy uzytownik = uzytkownicyRepository.findByEmail(klient.getUzytkownik().getEmail()).orElse(null);
 
@@ -80,7 +84,7 @@ public class KlienciService {
         return businessClientsList;
     }
 
-    public void createBusinessClient(KlienciBiznesowi klientBiznesowy) {
+    public void createBusinessClient(@Validated KlienciBiznesowi klientBiznesowy) {
         Klienci klient = klienciMapper.klienciBiznesowiToKlienci(klientBiznesowy);
         Uzytkownicy uzytownik = uzytkownicyRepository.findByEmail(klient.getUzytkownik().getEmail()).orElse(null);
 
