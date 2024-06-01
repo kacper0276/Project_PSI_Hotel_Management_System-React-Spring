@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/klienci")
+@CrossOrigin(origins = "http://localhost:3000")
 public class KlienciController {
     private final KlienciService service;
 
@@ -51,7 +52,7 @@ public class KlienciController {
     }
 
     @Transactional
-    @RequestMapping(method = RequestMethod.POST, path = "/dodaj-biznesowy")
+        @RequestMapping(method = RequestMethod.POST, path = "/dodaj-biznesowy")
     ResponseEntity<Response> createBusinessClient(@RequestBody KlienciBiznesowi klienyBiznesowy) {
         service.createBusinessClient(klienyBiznesowy);
         return ResponseEntity.ok(new Response("Stworzono użytkownika"));
