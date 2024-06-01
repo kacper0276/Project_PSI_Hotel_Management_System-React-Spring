@@ -1,6 +1,12 @@
+:root {
+    width: 100%;
+    height: 100%;
+}
+
 .main_container {
     width: 100%;
     height: 100%;
+    margin-top: 15%;
 }
 
 .cms_nav_btn {
@@ -14,7 +20,7 @@
 }
 
 .main_cms_nav_cnt {
-    height: 100%;
+    height: 80%;
     width: 200px;
     background: rgb(75, 75, 85);
     color: #ddd;
