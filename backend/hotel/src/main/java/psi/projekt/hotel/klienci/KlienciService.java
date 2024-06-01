@@ -55,7 +55,7 @@ public class KlienciService {
 
     public void createPrivateUser(KlienciPrywatni klientPrywatny) {
         Klienci klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
-        Uzytkownicy uzytownik = uzytkownicyRepository.findById(klient.getUzytkownik().getId()).orElse(null);
+        Uzytkownicy uzytownik = uzytkownicyRepository.findByEmail(klient.getUzytkownik().getEmail()).orElse(null);
 
         if(uzytownik == null) {
             throw new ObjectExistInDBException("Nie ma takiego użytkownika");
@@ -82,7 +82,7 @@ public class KlienciService {
 
     public void createBusinessClient(KlienciBiznesowi klientBiznesowy) {
         Klienci klient = klienciMapper.klienciBiznesowiToKlienci(klientBiznesowy);
-        Uzytkownicy uzytownik = uzytkownicyRepository.findById(klient.getUzytkownik().getId()).orElse(null);
+        Uzytkownicy uzytownik = uzytkownicyRepository.findByEmail(klient.getUzytkownik().getEmail()).orElse(null);
 
         if(uzytownik == null) {
             throw new ObjectExistInDBException("Nie ma takiego użytkownika");
