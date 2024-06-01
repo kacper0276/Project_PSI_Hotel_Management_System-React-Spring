@@ -22,7 +22,6 @@ export default function EditRoomForm(props) {
   };
 
   useEffect(() => {
-    console.log(props.roomData);
     setEditRoomData({
       dostepnosc: props.roomData.dostepnosc,
       dataZwolnienia:
