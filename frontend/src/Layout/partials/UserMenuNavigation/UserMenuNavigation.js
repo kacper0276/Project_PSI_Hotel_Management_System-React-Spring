@@ -1,7 +1,8 @@
 import styles from "./UserMenuNavigation.module.css";
 import ChangeUserData from "../../../Pages/UserPanel/ChangeUserData/ChangeUserData";
+import CreateClient from "../../../Pages/UserPanel/CreateClient/CreateClient";
 export default function UserMenuNavigation(props) {
-  const panels = [<ChangeUserData />];
+  const panels = [<ChangeUserData />, <CreateClient />];
 
   const changeActice = (id) => {
     const prev = document.querySelector(`.${styles.btn_active_cms}`);
@@ -25,6 +26,15 @@ export default function UserMenuNavigation(props) {
           }}
         >
           Zmień swoje dane
+        </button>
+        <button
+          className={`${styles.cms_nav_btn}`}
+          id="1"
+          onClick={(e) => {
+            changeActice(e.target.id);
+          }}
+        >
+          Stwórz klienta
         </button>
       </nav>
     </div>

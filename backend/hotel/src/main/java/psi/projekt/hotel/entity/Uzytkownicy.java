@@ -33,4 +33,8 @@ public class Uzytkownicy {
 
     @OneToOne(mappedBy = "uzytkownik")
     private Klienci klient;
+
+    public Uzytkownicy(String email) {
+        this.email = email;
+    }
 }
