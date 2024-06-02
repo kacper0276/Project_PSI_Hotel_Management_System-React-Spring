@@ -62,4 +62,11 @@ public class KlienciController {
     ResponseEntity<Response> clientAccountCreated(@PathVariable String email) {
         return ResponseEntity.ok(new Response(service.clientExistForAccount(email) ? "Istnieje" : "Nie"));
     }
+
+    @Transactional
+    @RequestMapping(method = RequestMethod.DELETE, path = "/usun-klienta/{email}")
+    ResponseEntity<Response> deleteClientAccount(@PathVariable String email) {
+        service.deleteClient(email);
+        return ResponseEntity.ok(new Response("Usunięto klienta"));
+    }
 }

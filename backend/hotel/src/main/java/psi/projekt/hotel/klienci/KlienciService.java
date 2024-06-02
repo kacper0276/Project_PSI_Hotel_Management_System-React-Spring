@@ -29,10 +29,6 @@ public class KlienciService {
         this.uzytkownicyRepository = uzytkownicyRepository;
     }
 
-    public Klienci createClient() {
-        return null;
-    }
-
     public List<Klienci> getAllClients() {
         return repository.findAll();
     }
@@ -112,5 +108,9 @@ public class KlienciService {
         }
 
         throw new ObjectNotExistInDBException("Nie ma takiego rekordu w DB");
+    }
+
+    void deleteClient(String email) {
+        uzytkownicyRepository.findByEmail(email).ifPresent(uzytkownik -> repository.deleteByUzytkownikId(uzytkownik.getId()));
     }
 }
