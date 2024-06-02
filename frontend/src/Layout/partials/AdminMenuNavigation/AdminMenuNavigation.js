@@ -5,7 +5,7 @@ import EditUserData from "../../../Pages/AdminPanel/EditUserData/EditUserData";
 import AddNewRoom from "../../../Pages/AdminPanel/AddNewRoom/AddNewRoom";
 import EditRooms from "../../../Pages/AdminPanel/EditRooms/EditRooms";
 import AdminPanel from "../../../Pages/AdminPanel/AdminPanel";
-import "./AdminMenuNavigation.css"; // Import stylów CSS
+import "./AdminMenuNavigation.css";
 
 export default function AdminMenuNavigation(props) {
   const [activeBtn, setActiveBtn] = useState(null);

@@ -209,33 +209,6 @@ export default function RoomBrowser() {
                         </button>
                       </div>
                     </div>
-                    <div className="col-md-4">
-                      <label htmlFor="rooms" className="form-label">
-                        Ilość pokoji
-                      </label>
-                      <div className="input-group">
-                        <button
-                          className="btn btn-outline-secondary btn-change"
-                          type="button"
-                          onClick={() => decreaseValue("rooms")}
-                        >
-                          -
-                        </button>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={rooms}
-                          readOnly
-                        />
-                        <button
-                          className="btn btn-outline-secondary btn-change"
-                          type="button"
-                          onClick={() => increaseValue("rooms")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
                   </div>
                   <div className="mb-3">
                     <label htmlFor="roomType" className="form-label">
