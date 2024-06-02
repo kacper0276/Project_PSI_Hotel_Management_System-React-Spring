@@ -9,6 +9,7 @@ import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.projection.PokojeDTO;
 import psi.projekt.hotel.entity.projection.PokojeDTORead;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -76,10 +77,10 @@ public class PokojeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/szukaj-ofert")
-    ResponseEntity<Pokoje> findRooms(@RequestParam Date dateFrom,
-                                       @RequestParam Date dateTo,
+    ResponseEntity<Pokoje> findRooms(@RequestParam String dateFrom,
+                                       @RequestParam String dateTo,
                                        @RequestParam String roomType,
-                                       @RequestParam int persons) {
+                                       @RequestParam int persons) throws ParseException {
         return ResponseEntity.ok(service.findRoomForUser(dateFrom, dateTo, roomType, persons));
     }
 }

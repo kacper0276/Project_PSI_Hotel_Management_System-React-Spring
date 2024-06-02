@@ -8,6 +8,8 @@ import psi.projekt.hotel.entity.projection.PokojeDTORead;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -86,8 +88,12 @@ public class PokojeService {
 
     }
 
-    Pokoje findRoomForUser(Date dateFrom, Date dateTo, String roomType, int persons) {
-        List<Pokoje> rooms = repository.findByTypPokojuAndIleOsobGreaterThanEqualAndDataZwolnieniaBefore(roomType, persons, dateFrom);
+    Pokoje findRoomForUser(String dateFrom, String dateTo, String roomType, int persons) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date parsedDateFrom = dateFormat.parse(dateFrom);
+        Date parsedDateTo = dateFormat.parse(dateTo);
+
+        List<Pokoje> rooms = repository.findByTypPokojuIleOsobAndDataZwolnieniaOrDostepnosc(roomType, persons, parsedDateFrom);
 
         return rooms.stream()
                 .min(Comparator.comparing(Pokoje::getCena)).orElse(null);

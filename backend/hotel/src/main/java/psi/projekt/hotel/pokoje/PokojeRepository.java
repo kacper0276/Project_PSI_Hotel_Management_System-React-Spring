@@ -1,6 +1,8 @@
 package psi.projekt.hotel.pokoje;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import psi.projekt.hotel.entity.Pokoje;
 
@@ -13,5 +15,8 @@ public interface PokojeRepository extends JpaRepository<Pokoje, Integer> {
     List<Pokoje> findByDostepnoscIsTrue();
     Optional<Pokoje> findById(Integer id);
     List<Pokoje> findByTypPokojuAndIleOsobGreaterThanEqual(String typPokoju, int ileOsob);
-    List<Pokoje> findByTypPokojuAndIleOsobGreaterThanEqualAndDataZwolnieniaBefore(String typPokoju, int ileOsob, Date dataZwolnienia);
+    @Query("SELECT p FROM Pokoje p WHERE p.typPokoju = :typPokoju AND p.ileOsob >= :ileOsob AND (p.dataZwolnienia < :dataZwolnienia OR (p.dataZwolnienia IS NULL AND p.dostepnosc = true))")
+    List<Pokoje> findByTypPokojuIleOsobAndDataZwolnieniaOrDostepnosc(@Param("typPokoju") String typPokoju,
+                                                                     @Param("ileOsob") int ileOsob,
+                                                                     @Param("dataZwolnienia") Date dataZwolnienia);
 }
