@@ -13,7 +13,8 @@ export default function RoomBrowser() {
   const [children, setChildren] = useState(0);
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
-  const [roomType, setRoomType] = useState("");
+  const [roomType, setRoomType] = useState("Apartament");
+  const [findRoom, setFindRoom] = useState(null);
 
   const decreaseValue = (type) => {
     switch (type) {
@@ -55,6 +56,7 @@ export default function RoomBrowser() {
       })
       .then((res) => {
         console.log(res);
+        setFindRoom(res.data);
       });
   };
 
@@ -93,7 +95,9 @@ export default function RoomBrowser() {
                     <h2>Pokój dziecięcy</h2>
                     <div className="room-price">
                       <span>już od</span>
-                      <h2 className="basic-text">250zł/doba</h2>
+                      <h2 className="basic-text">
+                        {findRoom?.cena ? findRoom.cena : "250"}zł/doba
+                      </h2>
                     </div>
                   </div>
                   <div className="room-features d-flex justify-content-around align-items-center">
@@ -154,7 +158,7 @@ export default function RoomBrowser() {
                         type="text"
                         className="form-control datepicker-1"
                         id="fromDate"
-                        placeholder="dd / mm / yyyy"
+                        placeholder="yyyy-mm-dd"
                         onChange={(e) => setDateFrom(e.target.value)}
                       />
                     </div>
@@ -166,7 +170,7 @@ export default function RoomBrowser() {
                         type="text"
                         className="form-control datepicker-2"
                         id="toDate"
-                        placeholder="dd / mm / yyyy"
+                        placeholder="yyyy-mm-dd"
                         onChange={(e) => setDateTo(e.target.value)}
                       />
                     </div>
