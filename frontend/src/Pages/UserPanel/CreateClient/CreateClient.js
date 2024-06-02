@@ -71,11 +71,16 @@ export default function CreateClient() {
       {clientCreated ? (
         <>
           <h2>
-            Stworzono użytkownika na podanym koncie: {context.state.userName}
+            Stworzono użytkownika na podanym koncie:{" "}
+            <strong>{context.state.userName}</strong>
+          </h2>
+          <h2>
             Usuń obecnego klienta i stwórz nowego, ponieważ na jedno konto
             przypada jeden klient
           </h2>
-          <button>Usuń klienta</button>
+          <button className="mt-2 btn btn-danger">Usuń klienta</button>
+          <br />
+          <button className="mt-2 btn btn-primary">Edytuj dane klienta</button>
         </>
       ) : (
         <>
@@ -132,7 +137,7 @@ export default function CreateClient() {
                 />
               </>
             )}
-            <button onClick={createClient} className={`${styles.send_button}`}>
+            <button onClick={createClient} className={`btn btn-primary`}>
               Stwórz klienta
             </button>
           </form>
