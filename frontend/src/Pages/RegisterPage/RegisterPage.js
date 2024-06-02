@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 import "./RegisterPage.css";
@@ -7,55 +7,94 @@ import axios from "axios";
 import { API_URL } from "../../App";
 import { handleChange } from "../../helpers/ProgressBarRegister";
 import Navigation from "../../Layout/UI/Navigation/Navigation";
+import MainContext from "../../context/MainContext";
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");
   const navigate = useNavigate();
+  const context = useContext(MainContext);
   const [registerData, setRegisterData] = useState({
     email: "",
     password: "",
     second_password: "",
     rola: "Klient",
   });
+  const [clientData, setClientData] = useState({
+    imie: null,
+    nazwisko: null,
+    nip: null,
+    nazwaFirmy: null,
+    rodzaj: "KlientIndywidualny",
+    uzytkownik: {
+      email: registerData.email,
+    },
+  });
   const [message, setMessage] = useState("");
+  const [showClientForm, setShowClientForm] = useState(false);
   const bars = useRef(),
     strengthDiv = useRef();
 
   const registerFunction = async (e) => {
     e.preventDefault();
 
-    if (registerData.password === registerData.second_password) {
-      const formData = new FormData();
+    if (showClientForm) {
+      if (registerData.password === registerData.second_password) {
+        const formData = new FormData();
 
-      formData.append("email", registerData.email);
-      formData.append("haslo", registerData.password);
-      formData.append("rola", registerData.rola);
+        formData.append("email", registerData.email);
+        formData.append("haslo", registerData.password);
+        formData.append("rola", registerData.rola);
 
-      try {
-        const response = await axios.post(`${API_URL}/uzytkownicy`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        await axios
+          .post(`${API_URL}/uzytkownicy`, formData, {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+          .then((res) => {
+            const formData = new FormData();
+            formData.append("uzytkownik", registerData.email);
 
-        console.log(response);
+            if (clientData.rodzaj === "KlientIndywidualny") {
+              formData.append("imie", clientData.imie);
+              formData.append("nazwisko", clientData.nazwisko);
+              axios
+                .post(`${API_URL}/klienci/dodaj-indywidualny`, formData, {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  setTimeout(() => {
+                    if (response.status === 200) {
+                      navigate("/");
+                    }
+                  }, 2000);
+                });
+            } else {
+              formData.append("nip", clientData.nip);
+              formData.append("nazwaFirmy", clientData.nazwaFirmy);
 
-        setMessage(response.data.message);
-
-        setTimeout(() => {
-          if (response.status === 200) {
-            navigate("/");
-          }
-        }, 2000);
-      } catch (error) {
-        if (error.response) {
-          setMessage(error.response.data);
-        } else {
-          setMessage("Coś poszło nie tak!");
-        }
+              axios
+                .post(`${API_URL}/klienci/dodaj-biznesowy`, formData, {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  setTimeout(() => {
+                    if (response.status === 200) {
+                      navigate("/");
+                    }
+                  }, 2000);
+                });
+            }
+          });
+      } else {
+        setMessage("Hasła nie są takie same!");
       }
     } else {
-      setMessage("Hasła nie są takie same!");
+      setShowClientForm(true);
     }
   };
 
@@ -65,24 +104,6 @@ export default function RegisterPage() {
 
   return (
     <main className={`${styles.main_container}`}>
-      <Navigation />
-      <div className={`${styles.back_arrow}`}>
-        <Link to="/">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
-            fill="white"
-            className="bi bi-arrow-left"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fillRule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-            />
-          </svg>
-        </Link>
-      </div>
       <div className={`${styles.div_form}`}>
         <section className="text-center text-lg-start">
           <div className="container py-4">
@@ -92,101 +113,206 @@ export default function RegisterPage() {
                   className="card cascading-right bg-body-tertiary"
                   style={{ backdropFilter: "blur(30px)" }}
                 >
-                  <div className="card-body p-5 shadow-5 text-center">
-                    <h2 className="fw-bold mb-5">Zarejestruj się</h2>
-                    <form onSubmit={registerFunction}>
-                      <div data-mdb-input-init className="form-outline mb-4">
-                        <input
-                          type="email"
-                          id="form3Example3"
-                          className="form-control"
-                          value={registerData.email}
-                          onChange={(e) =>
-                            setRegisterData({
-                              ...registerData,
-                              email: e.target.value,
-                            })
-                          }
-                        />
-                        <label className="form-label" htmlFor="form3Example3">
-                          Adres Email
-                        </label>
-                      </div>
-
-                      <div data-mdb-input-init className="form-outline mb-4">
-                        <input
-                          minLength="8"
-                          type="password"
-                          id="form3Example4"
-                          className="form-control"
-                          value={registerData.password}
-                          onChange={(e) => {
-                            setRegisterData({
-                              ...registerData,
-                              password: e.target.value,
-                            });
-                            handleChange(e.target.value, bars, strengthDiv);
-                          }}
-                        />
-                        <label className="form-label" htmlFor="form3Example4">
-                          Hasło
-                        </label>
-                      </div>
-
-                      <div data-mdb-input-init className="form-outline mb-4">
-                        <input
-                          minLength="8"
-                          type="password"
-                          id="form3Example5"
-                          className="form-control"
-                          value={registerData.second_password}
-                          onChange={(e) =>
-                            setRegisterData({
-                              ...registerData,
-                              second_password: e.target.value,
-                            })
-                          }
-                        />
-                        <label className="form-label" htmlFor="form3Example5">
-                          Powtórz Hasło
-                        </label>
-                      </div>
-
-                      <div id={`${styles.bars}`} ref={bars}>
-                        <div></div>
-                      </div>
-                      <div
-                        className={`${styles.strength}`}
-                        ref={strengthDiv}
-                      ></div>
-
-                      <button
-                        type="submit"
-                        data-mdb-button-init
-                        data-mdb-ripple-init
-                        className="btn btn-primary btn-block mb-4"
+                  {showClientForm ? (
+                    <div className="card-body p-5 shadow-5 text-center">
+                      <h2 className="fw-bold mb-5">Zarejestruj się</h2>
+                      <form
+                        onSubmit={registerFunction}
+                        className="d-flex flex-column gap-3"
                       >
-                        Zarejestruj się
-                      </button>
-
-                      {message && (
-                        <div
-                          className={
-                            message ===
-                            "Zarejestrowano, sprawdź maila by aktywować konto"
-                              ? `${styles.good_message}`
-                              : `${styles.error_message}`
+                        <input
+                          type="radio"
+                          name="typeClient"
+                          id="KlientIndywidualny"
+                          defaultChecked
+                          value={"KlientIndywidualny"}
+                          onChange={(e) =>
+                            setClientData({
+                              ...clientData,
+                              rodzaj: e.target.value,
+                            })
                           }
-                          onClick={hideMessage}
+                        />
+                        <label htmlFor="KlientIndywidualny">
+                          Klient Indywidualny
+                        </label>
+                        <input
+                          type="radio"
+                          name="typeClient"
+                          id="KlientBizesowy"
+                          value={"KlientBizesowy"}
+                          onChange={(e) =>
+                            setClientData({
+                              ...clientData,
+                              rodzaj: e.target.value,
+                            })
+                          }
+                        />
+                        <label htmlFor="KlientBizesowy">Klient Biznesowy</label>
+                        {clientData.rodzaj === "KlientBizesowy" ? (
+                          <>
+                            <input
+                              placeholder="Podaj NIP"
+                              onChange={(e) =>
+                                setClientData({
+                                  ...clientData,
+                                  nip: e.target.value,
+                                })
+                              }
+                            />
+                            <input
+                              placeholder="Podaj nazwę firmy"
+                              onChange={(e) =>
+                                setClientData({
+                                  ...clientData,
+                                  nazwaFirmy: e.target.value,
+                                })
+                              }
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <input
+                              placeholder="Podaj imię"
+                              onChange={(e) =>
+                                setClientData({
+                                  ...clientData,
+                                  imie: e.target.value,
+                                })
+                              }
+                            />
+                            <input
+                              placeholder="Podaj nazwisko"
+                              onChange={(e) =>
+                                setClientData({
+                                  ...clientData,
+                                  nazwisko: e.target.value,
+                                })
+                              }
+                            />
+                          </>
+                        )}
+
+                        <button
+                          type="submit"
+                          data-mdb-button-init
+                          data-mdb-ripple-init
+                          className="btn btn-primary btn-block mb-4"
                         >
-                          {message}
+                          Zarejestruj się
+                        </button>
+
+                        {message && (
+                          <div
+                            className={
+                              message ===
+                              "Zarejestrowano, sprawdź maila by aktywować konto"
+                                ? `${styles.good_message}`
+                                : `${styles.error_message}`
+                            }
+                            onClick={hideMessage}
+                          >
+                            {message}
+                          </div>
+                        )}
+                      </form>
+                    </div>
+                  ) : (
+                    <div className="card-body p-5 shadow-5 text-center">
+                      <h2 className="fw-bold mb-5">Zarejestruj się</h2>
+                      <form onSubmit={registerFunction}>
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="email"
+                            id="form3Example3"
+                            className="form-control"
+                            value={registerData.email}
+                            onChange={(e) =>
+                              setRegisterData({
+                                ...registerData,
+                                email: e.target.value,
+                              })
+                            }
+                          />
+                          <label className="form-label" htmlFor="form3Example3">
+                            Adres Email
+                          </label>
                         </div>
-                      )}
-                    </form>
-                  </div>
+
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            minLength="8"
+                            type="password"
+                            id="form3Example4"
+                            className="form-control"
+                            value={registerData.password}
+                            onChange={(e) => {
+                              setRegisterData({
+                                ...registerData,
+                                password: e.target.value,
+                              });
+                              handleChange(e.target.value, bars, strengthDiv);
+                            }}
+                          />
+                          <label className="form-label" htmlFor="form3Example4">
+                            Hasło
+                          </label>
+                        </div>
+
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            minLength="8"
+                            type="password"
+                            id="form3Example5"
+                            className="form-control"
+                            value={registerData.second_password}
+                            onChange={(e) =>
+                              setRegisterData({
+                                ...registerData,
+                                second_password: e.target.value,
+                              })
+                            }
+                          />
+                          <label className="form-label" htmlFor="form3Example5">
+                            Powtórz Hasło
+                          </label>
+                        </div>
+
+                        <div id={`${styles.bars}`} ref={bars}>
+                          <div></div>
+                        </div>
+                        <div
+                          className={`${styles.strength}`}
+                          ref={strengthDiv}
+                        ></div>
+
+                        <button
+                          type="submit"
+                          data-mdb-button-init
+                          data-mdb-ripple-init
+                          className="btn btn-primary btn-block mb-4"
+                        >
+                          Przejdź dalej
+                        </button>
+
+                        {message && (
+                          <div
+                            className={
+                              message ===
+                              "Zarejestrowano, sprawdź maila by aktywować konto"
+                                ? `${styles.good_message}`
+                                : `${styles.error_message}`
+                            }
+                            onClick={hideMessage}
+                          >
+                            {message}
+                          </div>
+                        )}
+                      </form>
+                    </div>
+                  )}
                 </div>
               </div>
-
               <div className="col-lg-6 mb-5 mb-lg-0">
                 <img
                   src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
