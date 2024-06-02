@@ -54,8 +54,8 @@ export default function CreateClient() {
     }
   };
 
-  useEffect(() => {
-    axios
+  const checkIfClientExist = async () => {
+    await axios
       .get(`${API_URL}/klienci/czy-klient-istnieje/${context.state.userName}`)
       .then((res) => {
         if (res.data.message === "Istnieje") {
@@ -64,6 +64,21 @@ export default function CreateClient() {
           setClientCreated(false);
         }
       });
+  };
+
+  const deleteClient = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .delete(`${API_URL}/klienci/usun-klienta/${context.state.userName}`)
+      .then((res) => {
+        console.log(res);
+        checkIfClientExist();
+      });
+  };
+
+  useEffect(() => {
+    checkIfClientExist();
   }, []);
 
   return (
@@ -78,7 +93,9 @@ export default function CreateClient() {
             Usuń obecnego klienta i stwórz nowego, ponieważ na jedno konto
             przypada jeden klient
           </h2>
-          <button className="mt-2 btn btn-danger">Usuń klienta</button>
+          <button className="mt-2 btn btn-danger" onClick={deleteClient}>
+            Usuń klienta
+          </button>
           <br />
           <button className="mt-2 btn btn-primary">Edytuj dane klienta</button>
         </>
