@@ -81,7 +81,6 @@ export default function EditRoomForm(props) {
       />
       <label>Typ pokoju</label>
       <select
-        className="form-select"
         id="roomType"
         onChange={(e) =>
           setEditRoomData({ ...editRoomData, typPokoju: e.target.value })

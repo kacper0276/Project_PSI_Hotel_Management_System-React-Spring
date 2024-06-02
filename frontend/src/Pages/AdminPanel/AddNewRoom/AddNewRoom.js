@@ -85,7 +85,7 @@ export default function AddNewRoom() {
         onChange={handleChange}
       />
       <label>Typ pokoju</label>
-      <select className="form-select" id="roomType" onChange={handleChange}>
+      <select id="roomType" onChange={handleChange}>
         <option value={"Apartament"}>Apartament</option>
         <option value="Podwójny">Podwójny pokój</option>
         <option value="Pojedynczy">Pojedynczy pokój</option>
