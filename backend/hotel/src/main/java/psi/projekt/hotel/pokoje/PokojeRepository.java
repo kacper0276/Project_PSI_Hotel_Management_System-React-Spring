@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface PokojeRepository extends JpaRepository<Pokoje, Integer> {
     List<Pokoje> findByDostepnoscIsTrue();
     Optional<Pokoje> findById(Integer id);
+    List<Pokoje> findByTypPokojuAndIleOsobGreaterThanEqual(String typPokoju, int ileOsob);
 }
