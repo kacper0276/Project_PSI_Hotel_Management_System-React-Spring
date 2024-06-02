@@ -57,4 +57,9 @@ public class KlienciController {
         service.createBusinessClient(klienyBiznesowy);
         return ResponseEntity.ok(new Response("Stworzono użytkownika"));
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/czy-klient-istnieje/{email}")
+    ResponseEntity<Response> clientAccountCreated(@PathVariable String email) {
+        return ResponseEntity.ok(new Response(service.clientExistForAccount(email) ? "Istnieje" : "Nie"));
+    }
 }

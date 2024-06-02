@@ -10,6 +10,7 @@ import psi.projekt.hotel.entity.projection.KlienciBiznesowiDTO;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;
 import psi.projekt.hotel.entity.projection.KlienciPrywatniDTO;
 import psi.projekt.hotel.exceptions.ObjectExistInDBException;
+import psi.projekt.hotel.exceptions.ObjectNotExistInDBException;
 import psi.projekt.hotel.uzytkownicy.UzytkownicyRepository;
 import psi.projekt.hotel.uzytkownicy.UzytkownicyService;
 
@@ -99,5 +100,17 @@ public class KlienciService {
         klient.setUzytkownik(uzytownik);
 
         repository.save(klient);
+    }
+
+    boolean clientExistForAccount(String email) {
+        Uzytkownicy uzytkownik = uzytkownicyRepository.findByEmail(email).orElse(null);
+
+        if (uzytkownik != null) {
+           Klienci klient = repository.findByUzytkownikId(uzytkownik.getId()).orElse(null);
+
+           return klient != null;
+        }
+
+        throw new ObjectNotExistInDBException("Nie ma takiego rekordu w DB");
     }
 }
