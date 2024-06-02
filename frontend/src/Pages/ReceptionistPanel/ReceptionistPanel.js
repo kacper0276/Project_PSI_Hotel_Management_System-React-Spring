@@ -17,7 +17,6 @@ export default function ReceptionistPanel() {
   return (
     <div className={`${styles.main_container}`}>
       <ReceptionistMenuNavigation panel={getActualPanel} />
-      <div className={`${styles.container}`}>{selectedPanel}</div>
     </div>
   );
 }

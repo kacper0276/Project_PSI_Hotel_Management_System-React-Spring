@@ -1,0 +1,18 @@
+.icon-img {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+.whole-container{
+    margin-top:1rem
+}
+
+@media (max-width: 576px) {
+    .icon-img {
+      display: block; /* Pokazanie ikony na małych ekranach */
+    }
+    .nav button span {
+      display: none; /* Ukrycie tekstu na małych ekranach */
+    }
+  }

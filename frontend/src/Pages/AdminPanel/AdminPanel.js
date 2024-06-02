@@ -17,7 +17,7 @@ export default function AdminPanel() {
   return (
     <div className={`${styles.main_container}`}>
       <AdminMenuNavigation panel={getActualPanel} />
-      <div className={`${styles.container}`}>{selectedPanel}</div>
+
     </div>
   );
 }
