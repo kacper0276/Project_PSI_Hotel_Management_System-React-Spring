@@ -86,7 +86,7 @@ export default function EditRoomForm(props) {
           setEditRoomData({ ...editRoomData, typPokoju: e.target.value })
         }
       >
-        <option value={"Apartament"}>Apartament</option>
+        <option value="Apartament">Apartament</option>
         <option value="Podwójny">Podwójny pokój</option>
         <option value="Pojedynczy">Pojedynczy pokój</option>
       </select>

@@ -3,13 +3,17 @@ import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./RoomBrowser.css";
+import axios from "axios";
+import { API_URL } from "../../App";
 
 export default function RoomBrowser() {
   useWebsiteTitle("Przeglądarka Pokoji");
 
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
-  const [rooms, setRooms] = useState(0);
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [roomType, setRoomType] = useState("");
 
   const decreaseValue = (type) => {
     switch (type) {
@@ -18,9 +22,6 @@ export default function RoomBrowser() {
         break;
       case "children":
         setChildren(children > 0 ? children - 1 : 0);
-        break;
-      case "rooms":
-        setRooms(rooms > 0 ? rooms - 1 : 0);
         break;
       default:
         break;
@@ -35,12 +36,26 @@ export default function RoomBrowser() {
       case "children":
         setChildren(children + 1);
         break;
-      case "rooms":
-        setRooms(rooms + 1);
-        break;
       default:
         break;
     }
+  };
+
+  const searchRoom = async (e) => {
+    e.preventDefault();
+
+    await axios
+      .get(`${API_URL}/pokoje/szukaj-ofert`, {
+        params: {
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          roomType: roomType,
+          persons: adults + children,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (
@@ -77,7 +92,7 @@ export default function RoomBrowser() {
                   <div className="room-title">
                     <h2>Pokój dziecięcy</h2>
                     <div className="room-price">
-                      <span >już od</span>
+                      <span>już od</span>
                       <h2 className="basic-text">250zł/doba</h2>
                     </div>
                   </div>
@@ -140,6 +155,7 @@ export default function RoomBrowser() {
                         className="form-control datepicker-1"
                         id="fromDate"
                         placeholder="dd / mm / yyyy"
+                        onChange={(e) => setDateFrom(e.target.value)}
                       />
                     </div>
                     <div className="col-md-6">
@@ -151,6 +167,7 @@ export default function RoomBrowser() {
                         className="form-control datepicker-2"
                         id="toDate"
                         placeholder="dd / mm / yyyy"
+                        onChange={(e) => setDateTo(e.target.value)}
                       />
                     </div>
                   </div>
@@ -214,13 +231,21 @@ export default function RoomBrowser() {
                     <label htmlFor="roomType" className="form-label">
                       Room
                     </label>
-                    <select className="form-select" id="roomType">
-                      <option>Apartament</option>
-                      <option value="double">Podwójny pokój</option>
-                      <option value="single">Pojedynczy pokój</option>
+                    <select
+                      className="form-select"
+                      id="roomType"
+                      onChange={(e) => setRoomType(e.target.value)}
+                    >
+                      <option value={"Apartament"}>Apartament</option>
+                      <option value="Podwójny">Podwójny pokój</option>
+                      <option value="Pojedynczy">Pojedynczy pokój</option>
                     </select>
                   </div>
-                  <button type="button" className="btn btn-primary btn-dark submit-btn">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-dark submit-btn"
+                    onClick={searchRoom}
+                  >
                     Sprawdź ofertę <i className="lnr lnr-arrow-right"></i>
                   </button>
                 </form>
