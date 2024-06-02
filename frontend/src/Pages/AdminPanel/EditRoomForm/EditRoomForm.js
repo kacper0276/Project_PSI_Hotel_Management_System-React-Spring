@@ -80,13 +80,17 @@ export default function EditRoomForm(props) {
         }}
       />
       <label>Typ pokoju</label>
-      <input
-        type="text"
-        value={editRoomData.typPokoju}
-        onChange={(e) => {
-          setEditRoomData({ ...editRoomData, typPokoju: e.target.value });
-        }}
-      />
+      <select
+        className="form-select"
+        id="roomType"
+        onChange={(e) =>
+          setEditRoomData({ ...editRoomData, typPokoju: e.target.value })
+        }
+      >
+        <option value={"Apartament"}>Apartament</option>
+        <option value="Podwójny">Podwójny pokój</option>
+        <option value="Pojedynczy">Pojedynczy pokój</option>
+      </select>
       <label>
         Ilość zdjęć: {editRoomData.zdjecia.length}; Możesz zostawić zdjęcia, lub
         usunąć obecne i dodać nowe na ich miejsce

@@ -85,12 +85,11 @@ export default function AddNewRoom() {
         onChange={handleChange}
       />
       <label>Typ pokoju</label>
-      <input
-        type="text"
-        name="typPokoju"
-        value={newRoomData.typPokoju}
-        onChange={handleChange}
-      />
+      <select className="form-select" id="roomType" onChange={handleChange}>
+        <option value={"Apartament"}>Apartament</option>
+        <option value="Podwójny">Podwójny pokój</option>
+        <option value="Pojedynczy">Pojedynczy pokój</option>
+      </select>
       <label>Zdjęcia</label>
       <input type="file" onChange={onFileChange} multiple />
       <button onClick={onAddRoom}>Dodaj pokój</button>
