@@ -52,9 +52,6 @@ public class KlienciService {
     }
 
     public void createPrivateUser(@Validated KlienciPrywatni klientPrywatny) {
-        System.out.println(klientPrywatny.getImie());
-        System.out.println(klientPrywatny.getUzytkownik().getEmail());
-
         Klienci klient = klienciMapper.klienciPrywatniToKlienci(klientPrywatny);
         Uzytkownicy uzytownik = uzytkownicyRepository.findByEmail(klient.getUzytkownik().getEmail()).orElse(null);
 

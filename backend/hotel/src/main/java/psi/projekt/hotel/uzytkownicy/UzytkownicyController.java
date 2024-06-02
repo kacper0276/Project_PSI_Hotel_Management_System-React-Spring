@@ -23,7 +23,6 @@ public class UzytkownicyController {
 
     @RequestMapping(method = RequestMethod.POST, path = "")
     ResponseEntity<Response> createUser(@RequestBody Uzytkownicy uzytkownik) {
-        System.out.println(uzytkownik);
         service.createUser(uzytkownik);
 
         return ResponseEntity.ok(new Response("Stworzono użytkownika"));
