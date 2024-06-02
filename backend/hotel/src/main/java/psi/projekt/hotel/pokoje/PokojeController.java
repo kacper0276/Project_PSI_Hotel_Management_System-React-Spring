@@ -74,4 +74,12 @@ public class PokojeController {
 
         return ResponseEntity.ok(new Response("Zmieniono dane pokoju"));
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/szukaj-ofert")
+    ResponseEntity<Pokoje> findRooms(@RequestParam Date dateFrom,
+                                       @RequestParam Date dateTo,
+                                       @RequestParam String roomType,
+                                       @RequestParam int persons) {
+        return ResponseEntity.ok(service.findRoomForUser(dateFrom, dateTo, roomType, persons));
+    }
 }

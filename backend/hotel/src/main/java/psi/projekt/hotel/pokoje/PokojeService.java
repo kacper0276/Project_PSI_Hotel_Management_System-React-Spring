@@ -8,9 +8,7 @@ import psi.projekt.hotel.entity.projection.PokojeDTORead;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,6 +83,14 @@ public class PokojeService {
 
     void deleteRoom(Integer id) {
         repository.findById(id).ifPresent(repository::delete);
+
+    }
+
+    Pokoje findRoomForUser(Date dateFrom, Date dateTo, String roomType, int persons) {
+        List<Pokoje> rooms = repository.findByTypPokojuAndIleOsobGreaterThanEqualAndDataZwolnieniaBefore(roomType, persons, dateFrom);
+
+        return rooms.stream()
+                .min(Comparator.comparing(Pokoje::getCena)).orElse(null);
 
     }
 }
