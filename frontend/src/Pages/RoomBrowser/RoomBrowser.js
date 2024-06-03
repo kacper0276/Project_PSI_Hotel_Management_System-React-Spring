@@ -4,13 +4,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./RoomBrowser.css";
 import PlaceholderRoom from "./PlaceholderRoom/PlaceholderRoom";
 import PlaceholderRoom2 from "./PlaceholderRoom/PlaceholderRoom2";
+import axios from "axios";
+import { API_URL } from "../../App";
 
 export default function RoomBrowser() {
   useWebsiteTitle("Przeglądarka Pokoji");
 
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
-  const [rooms, setRooms] = useState(0);
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const [roomType, setRoomType] = useState("Apartament");
+  const [findRoom, setFindRoom] = useState(null);
   const [offerChecked, setOfferChecked] = useState(false);
   const [selectedRoomType, setSelectedRoomType] = useState("");
   const [prevRoomType, setPrevRoomType] = useState("");
@@ -22,9 +27,6 @@ export default function RoomBrowser() {
         break;
       case "children":
         setChildren(children > 0 ? children - 1 : 0);
-        break;
-      case "rooms":
-        setRooms(rooms > 0 ? rooms - 1 : 0);
         break;
       default:
         break;
@@ -39,21 +41,34 @@ export default function RoomBrowser() {
       case "children":
         setChildren(children + 1);
         break;
-      case "rooms":
-        setRooms(rooms + 1);
-        break;
       default:
         break;
     }
   };
-  const handleCheckOffer = () => {
+  const handleCheckOffer = async (e) => {
+    e.preventDefault();
+
     if (selectedRoomType === "") {
       alert("Proszę wybrać rodzaj pokoju przed sprawdzeniem oferty.");
       return;
     }
-    
+
     setOfferChecked(true);
     setPrevRoomType(selectedRoomType);
+
+    await axios
+      .get(`${API_URL}/pokoje/szukaj-ofert`, {
+        params: {
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          roomType: roomType,
+          persons: adults + children,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setFindRoom(res.data);
+      });
   };
 
   const handleRoomTypeChange = (event) => {
@@ -74,7 +89,11 @@ export default function RoomBrowser() {
     <section className="room-availability spad">
       <div className="container">
         <div className={`room-check row`}>
-          <div className={`col-lg-6 check-form-container ${offerChecked ? "order-2 fade-in-left" : "order-1"}`}>
+          <div
+            className={`col-lg-6 check-form-container ${
+              offerChecked ? "order-2 fade-in-left" : "order-1"
+            }`}
+          >
             <div className="check-form">
               <h2>Dopasuj ofertę do potrzeb</h2>
               <form action="#">
@@ -87,7 +106,8 @@ export default function RoomBrowser() {
                       type="date"
                       className="form-control datepicker-1"
                       id="fromDate"
-                      placeholder="dd / mm / yyyy"
+                      placeholder="yyyy-mm-dd"
+                      onChange={(e) => setDateFrom(e.target.value)}
                     />
                   </div>
                   <div className="col-md-6">
@@ -98,7 +118,8 @@ export default function RoomBrowser() {
                       type="date"
                       className="form-control datepicker-2"
                       id="toDate"
-                      placeholder="dd / mm / yyyy"
+                      placeholder="yyyy-mm-dd"
+                      onChange={(e) => setDateTo(e.target.value)}
                     />
                   </div>
                 </div>
@@ -162,8 +183,12 @@ export default function RoomBrowser() {
                   <label htmlFor="roomType" className="form-label">
                     Room
                   </label>
-                  <select className="form-select" id="roomType" onChange={handleRoomTypeChange}>
-                    <option value="apartment">Wybierz rodzaj pokoju</option>
+                  <select
+                    className="form-select"
+                    id="roomType"
+                    onChange={handleRoomTypeChange}
+                  >
+                    <option value="">Wybierz rodzaj pokoju</option>
                     <option value="apartment">Apartament</option>
                     <option value="double">Podwójny pokój</option>
                     <option value="single">Pojedynczy pokój</option>
