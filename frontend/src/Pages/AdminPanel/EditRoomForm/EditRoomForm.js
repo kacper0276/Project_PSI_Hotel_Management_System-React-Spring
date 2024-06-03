@@ -86,9 +86,10 @@ export default function EditRoomForm(props) {
           setEditRoomData({ ...editRoomData, typPokoju: e.target.value })
         }
       >
+        <option value="">Wybierz rodzaj pokoju</option>
         <option value="Apartament">Apartament</option>
-        <option value="Podwójny">Podwójny pokój</option>
-        <option value="Pojedynczy">Pojedynczy pokój</option>
+        <option value="Double">Podwójny pokój</option>
+        <option value="Single">Pojedynczy pokój</option>
       </select>
       <label>
         Ilość zdjęć: {editRoomData.zdjecia.length}; Możesz zostawić zdjęcia, lub

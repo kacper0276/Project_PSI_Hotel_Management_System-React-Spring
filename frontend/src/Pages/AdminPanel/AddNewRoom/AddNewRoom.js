@@ -86,9 +86,10 @@ export default function AddNewRoom() {
       />
       <label>Typ pokoju</label>
       <select id="roomType" onChange={handleChange} name="typPokoju">
+        <option value="">Wybierz rodzaj pokoju</option>
         <option value="Apartament">Apartament</option>
-        <option value="Podwójny">Podwójny pokój</option>
-        <option value="Pojedynczy">Pojedynczy pokój</option>
+        <option value="Double">Podwójny pokój</option>
+        <option value="Single">Pojedynczy pokój</option>
       </select>
       <label>Zdjęcia</label>
       <input type="file" onChange={onFileChange} multiple />

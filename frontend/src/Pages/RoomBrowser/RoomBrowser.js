@@ -14,7 +14,6 @@ export default function RoomBrowser() {
   const [children, setChildren] = useState(0);
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
-  const [roomType, setRoomType] = useState("Apartament");
   const [findRoom, setFindRoom] = useState(null);
   const [offerChecked, setOfferChecked] = useState(false);
   const [selectedRoomType, setSelectedRoomType] = useState("");
@@ -61,7 +60,7 @@ export default function RoomBrowser() {
         params: {
           dateFrom: dateFrom,
           dateTo: dateTo,
-          roomType: roomType,
+          roomType: selectedRoomType,
           persons: adults + children,
         },
       })
@@ -189,9 +188,9 @@ export default function RoomBrowser() {
                     onChange={handleRoomTypeChange}
                   >
                     <option value="">Wybierz rodzaj pokoju</option>
-                    <option value="apartment">Apartament</option>
-                    <option value="double">Podwójny pokój</option>
-                    <option value="single">Pojedynczy pokój</option>
+                    <option value="Apartament">Apartament</option>
+                    <option value="Double">Podwójny pokój</option>
+                    <option value="Single">Pojedynczy pokój</option>
                   </select>
                 </div>
                 <div className="d-flex justify-content-around">
