@@ -33,9 +33,9 @@ public class RezerwacjeController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST, path = "/{useremail}")
     ResponseEntity<Response> createReservation(@RequestBody RezerwacjeDTO rezerwacja, @PathVariable String useremail) {
-        service.createReservation(rezerwacja, useremail);
+        Rezerwacje rezerwacjaDodana = service.createReservation(rezerwacja, useremail);
 
-        return ResponseEntity.ok(new Response("Stworzono rezerwację"));
+        return ResponseEntity.ok(new Response(rezerwacjaDodana.getId() + ""));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")

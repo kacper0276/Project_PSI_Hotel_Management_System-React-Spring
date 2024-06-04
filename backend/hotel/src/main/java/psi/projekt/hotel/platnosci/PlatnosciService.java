@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import psi.projekt.hotel.entity.Platnosci;
 import psi.projekt.hotel.entity.projection.PlatnosciDTO;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,9 +30,9 @@ public class PlatnosciService {
         return platnosciOptional.map(PlatnosciMapper.INSTANCE::toDto);
     }
 
-    void addPayment(Platnosci platnosc) {
-        repository.save(platnosc);
-
-        return;
+    Platnosci addPayment(Platnosci platnosc) {
+        platnosc.setDataPlatnosci(new Date());
+        platnosc.setStatusPlatnosci("Zapłacone");
+        return repository.save(platnosc);
     }
 }

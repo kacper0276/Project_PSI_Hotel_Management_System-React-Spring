@@ -41,7 +41,7 @@ public class RezerwacjeService {
         return repository.findById(id).map(mapper::rezerwacjeToRezerwacjeDTO);
     }
 
-    void createReservation(RezerwacjeDTO rezerwacjaDTO, String useremail) {
+    Rezerwacje createReservation(RezerwacjeDTO rezerwacjaDTO, String useremail) {
         Rezerwacje rezerwacja = mapper.rezerwacjeDTOToRezerwacje(rezerwacjaDTO);
         Pokoje pokoj = pokojeRepository.findById(rezerwacjaDTO.getPokoje_id()).orElse(null);
         Klienci klient = uzytkownicyService.getUserByEmail(useremail)
@@ -55,24 +55,27 @@ public class RezerwacjeService {
         rezerwacja.setKlient(klient);
         rezerwacja.setPokoj(pokoj);
         rezerwacja.setDataRezerwacji(new Date());
+        rezerwacja.setPlatnosc(null);
 
-        repository.save(rezerwacja);
+        return repository.save(rezerwacja);
     }
 
     void payForRoom(Integer reservationId, Integer paymentId) {
         Platnosci platnosc = platnosciRepository.findById(paymentId).orElse(null);
 
         if (platnosc == null) {
-            throw new RuntimeException("Nie ma takiej platnosci");
+            throw new ObjectNotExistInDBException("Nie ma takiej platnosci");
         }
 
         Rezerwacje rezerwacja = repository.findById(reservationId).orElse(null);
 
         if (rezerwacja == null) {
-            throw new RuntimeException("Nie ma takiej rezerwacji");
+            throw new ObjectNotExistInDBException("Nie ma takiej rezerwacji");
         }
 
         rezerwacja.setPlatnosc(platnosc);
+        rezerwacja.setFormaZaplaty(platnosc.getMetodaPlatnosci());
+        rezerwacja.setStatus("Zapłacone");
 
         repository.save(rezerwacja);
     }

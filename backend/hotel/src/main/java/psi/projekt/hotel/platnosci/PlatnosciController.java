@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/platnosci")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PlatnosciController {
     private final PlatnosciService service;
 
@@ -30,8 +31,8 @@ public class PlatnosciController {
 
     @RequestMapping(method = RequestMethod.POST, path = "")
     ResponseEntity<Response> addPayment(@RequestBody Platnosci platnosc) {
-        service.addPayment(platnosc);
+        Platnosci platnoscDodana = service.addPayment(platnosc);
 
-        return ResponseEntity.ok(new Response("Zarejestrowano platnosc"));
+        return ResponseEntity.ok(new Response(platnoscDodana.getId() + ""));
     }
 }
