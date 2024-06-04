@@ -27,6 +27,7 @@ public class Rezerwacje {
     private String status;
     private Date dataZameldowania;
     private Date dataWymeldowania;
+    private boolean zameldowanie;
 
     // Klucze obce
     @ManyToOne(cascade = CascadeType.MERGE)
