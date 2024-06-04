@@ -17,7 +17,6 @@ export default function UserPanel() {
   return (
     <div className={`${styles.main_container}`}>
       <UserMenuNavigation panel={getActualPanel} />
-      <div className={`${styles.container}`}>{selectedPanel}</div>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute
 import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
 import UserPanel from "./Pages/UserPanel/UserPanel";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
+import ReceptionistMenuNavigation from "./Layout/partials/ReceptionistMenuNavigation/ReceptionistMenuNavigation";
 import RoomBrowser from "./Pages/RoomBrowser/RoomBrowser"
 import HallBrowser from "./Pages/HallBrowser/HallBrowser"
 import "bootstrap/dist/css/bootstrap.min.css";
