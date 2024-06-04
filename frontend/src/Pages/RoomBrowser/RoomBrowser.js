@@ -7,10 +7,12 @@ import PlaceholderRoom2 from "./PlaceholderRoom/PlaceholderRoom2";
 import axios from "axios";
 import { API_URL } from "../../App";
 import MainContext from "../../context/MainContext";
+import { useNavigate } from "react-router-dom";
 
 export default function RoomBrowser() {
   useWebsiteTitle("Przeglądarka Pokoji");
   const context = useContext(MainContext);
+  const navigate = useNavigate();
 
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -117,7 +119,7 @@ export default function RoomBrowser() {
         },
       })
       .then((res) => {
-        console.log(res);
+        navigate(`/platnosc/${res.data.message}`);
       });
   };
 
