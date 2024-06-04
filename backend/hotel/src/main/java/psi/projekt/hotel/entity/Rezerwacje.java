@@ -29,11 +29,11 @@ public class Rezerwacje {
     private Date dataWymeldowania;
 
     // Klucze obce
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "pokoj_nrPokoju")
     private Pokoje pokoj;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "klient_idKlienta")
     private Klienci klient;
 
