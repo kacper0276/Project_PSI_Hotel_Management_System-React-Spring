@@ -101,4 +101,16 @@ public class RezerwacjeService {
     void deleteReservation(Integer id) {
         repository.deleteById(id);
     }
+
+    void bookClient(int id) {
+        Rezerwacje rezerwacja = repository.findById(id).orElse(null);
+
+        if (rezerwacja == null) {
+            throw new ObjectNotExistInDBException("Nie ma takiej rezerwacji");
+        }
+
+        rezerwacja.setZameldowanie(!rezerwacja.isZameldowanie());
+
+        repository.save(rezerwacja);
+    }
 }
