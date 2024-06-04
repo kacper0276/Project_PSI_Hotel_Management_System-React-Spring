@@ -95,10 +95,6 @@ public class PokojeService {
 
         List<Pokoje> rooms = repository.findByTypPokojuAndIleOsobAndDataZwolnieniaOrDostepnosc(roomType, persons, parsedDateFrom);
 
-        rooms.forEach(room -> {
-            System.out.printf(room.toString() + "\n");
-        });
-
         return rooms.stream()
                 .min(Comparator.comparing(Pokoje::getCena)).orElse(null);
 
