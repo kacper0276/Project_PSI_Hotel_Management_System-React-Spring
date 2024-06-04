@@ -1,14 +1,14 @@
 package psi.projekt.hotel.rezerwacje;
 
 import org.springframework.stereotype.Service;
-import psi.projekt.hotel.entity.Klienci;
-import psi.projekt.hotel.entity.Platnosci;
-import psi.projekt.hotel.entity.Pokoje;
-import psi.projekt.hotel.entity.Rezerwacje;
+import psi.projekt.hotel.entity.*;
 import psi.projekt.hotel.entity.projection.RezerwacjeDTO;
+import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
+import psi.projekt.hotel.exceptions.ObjectNotExistInDBException;
 import psi.projekt.hotel.klienci.KlienciRepository;
 import psi.projekt.hotel.platnosci.PlatnosciRepository;
 import psi.projekt.hotel.pokoje.PokojeRepository;
+import psi.projekt.hotel.uzytkownicy.UzytkownicyService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +20,14 @@ public class RezerwacjeService {
     private final PokojeRepository pokojeRepository;
     private final KlienciRepository klienciRepository;
     private final PlatnosciRepository platnosciRepository;
+    private final UzytkownicyService uzytkownicyService;
 
-    public RezerwacjeService(RezerwacjeRepository repository, PokojeRepository pokojeRepository, KlienciRepository klienciRepository, PlatnosciRepository platnosciRepository) {
+    public RezerwacjeService(RezerwacjeRepository repository, PokojeRepository pokojeRepository, KlienciRepository klienciRepository, PlatnosciRepository platnosciRepository, UzytkownicyService uzytkownicyService) {
         this.repository = repository;
         this.pokojeRepository = pokojeRepository;
         this.klienciRepository = klienciRepository;
         this.platnosciRepository = platnosciRepository;
+        this.uzytkownicyService = uzytkownicyService;
     }
 
     List<RezerwacjeDTO> getAllReservation() {
@@ -69,5 +71,23 @@ public class RezerwacjeService {
         rezerwacja.setPlatnosc(platnosc);
 
         repository.save(rezerwacja);
+    }
+
+    List<RezerwacjeDTO> getUserReservations(String email) {
+        UzytkownicyDTO uzytkownik = uzytkownicyService.getUserByEmail(email).orElse(null);
+
+        if (uzytkownik == null) {
+            throw new ObjectNotExistInDBException("Nie ma takiego uzytkownika");
+        }
+
+        Klienci klient = klienciRepository.findByUzytkownikId(uzytkownik.getId()).orElse(null);
+
+        if (klient == null) {
+            throw new ObjectNotExistInDBException("Nie ma takiego klienta");
+        }
+
+        return repository.findByKlient_Id(klient.getId()).stream()
+                .map(mapper::rezerwacjeToRezerwacjeDTO)
+                .toList();
     }
 }

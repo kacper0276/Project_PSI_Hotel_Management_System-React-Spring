@@ -36,6 +36,11 @@ public class RezerwacjeController {
         return ResponseEntity.ok(new Response("Stworzono rezerwację"));
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "/rezerwacje-uzytkownika/{uzytkownik}")
+    ResponseEntity<List<RezerwacjeDTO>> getUserReservation(@PathVariable String uzytkownik) {
+        return ResponseEntity.ok(service.getUserReservations(uzytkownik));
+    }
+
     @RequestMapping(method = RequestMethod.PATCH, path = "/platnosc/{id}")
     ResponseEntity<Response> payRoom(@PathVariable Integer id, @RequestBody Integer paymentId) {
         service.payForRoom(id, paymentId);

@@ -13,4 +13,6 @@ public interface RezerwacjeRepository extends JpaRepository<Rezerwacje, Integer>
     Optional<Rezerwacje> findById(Integer id);
 
     List<Rezerwacje> findByDataZameldowaniaBeforeAndDataWymeldowaniaAfter(Date data1, Date data2);
+
+    List<Rezerwacje> findByKlient_Id(Integer id);
 }
