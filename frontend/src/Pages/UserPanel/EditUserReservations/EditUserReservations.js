@@ -35,7 +35,7 @@ export default function EditUserReservations() {
 
   return (
     <div className={`main_container`}>
-      <h2>Zarządzaj użytkownikami</h2>
+      <h2>Zarządzaj rezerwacjami</h2>
       <table className={`user_data_table`}>
         <thead>
           <tr>

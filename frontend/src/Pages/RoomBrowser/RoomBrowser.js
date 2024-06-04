@@ -219,7 +219,7 @@ export default function RoomBrowser() {
                 </div>
                 <div className="mb-3">
                   <label htmlFor="roomType" className="form-label">
-                    Room
+                    Pokój
                   </label>
                   <select
                     className="form-select"
@@ -234,7 +234,7 @@ export default function RoomBrowser() {
                 </div>
                 <div className="d-flex gap-3 row">
                   <label htmlFor="roomType" className="form-label">
-                    Naziwsko klienta (Potrzebne przy zameldowaniu)
+                    Nazwisko klienta (Potrzebne przy zameldowaniu)
                   </label>
                   <input
                     type="text"
