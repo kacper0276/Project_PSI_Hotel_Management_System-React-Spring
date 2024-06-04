@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./RoomBrowser.css";
@@ -6,9 +6,11 @@ import PlaceholderRoom from "./PlaceholderRoom/PlaceholderRoom";
 import PlaceholderRoom2 from "./PlaceholderRoom/PlaceholderRoom2";
 import axios from "axios";
 import { API_URL } from "../../App";
+import MainContext from "../../context/MainContext";
 
 export default function RoomBrowser() {
   useWebsiteTitle("Przeglądarka Pokoji");
+  const context = useContext(MainContext);
 
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -19,6 +21,15 @@ export default function RoomBrowser() {
   const [offerChecked, setOfferChecked] = useState(false);
   const [selectedRoomType, setSelectedRoomType] = useState("");
   const [prevRoomType, setPrevRoomType] = useState("");
+  const [reservationData, setReservationData] = useState({
+    cena: 0,
+    dataWymeldowania: null,
+    dataZameldowania: null,
+    nazwiskoKlienta: null,
+    nrTelKontaktowy: null,
+    status: "Stworzona",
+    pokoje_id: null,
+  });
 
   const decreaseValue = (type) => {
     switch (type) {
@@ -66,15 +77,20 @@ export default function RoomBrowser() {
         },
       })
       .then((res) => {
-        console.log(res);
         setFindRoom(res.data);
+        setReservationData({
+          ...reservationData,
+          cena: res.data.cena,
+          dataWymeldowania: dateTo,
+          dataZameldowania: dateFrom,
+          pokoje_id: res.data.id,
+        });
       });
   };
 
   const handleRoomTypeChange = (event) => {
     setSelectedRoomType(event.target.value);
   };
-  console.log(prevRoomType)
   const getPlaceholderRoomComponent = () => {
     if (prevRoomType === "apartment") {
       return <PlaceholderRoom />;
@@ -83,6 +99,26 @@ export default function RoomBrowser() {
     } else {
       return null;
     }
+  };
+
+  const reserveRoom = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    Object.keys(reservationData).forEach((key) => {
+      formData.append(key, reservationData[key]);
+    });
+
+    axios
+      .post(`${API_URL}/rezerwacje/${context.state.userName}`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
   };
 
   return (
@@ -194,6 +230,36 @@ export default function RoomBrowser() {
                     <option value="single">Pojedynczy pokój</option>
                   </select>
                 </div>
+                <div className="d-flex gap-3 row">
+                  <label htmlFor="roomType" className="form-label">
+                    Naziwsko klienta (Potrzebne przy zameldowaniu)
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="lastName"
+                    onChange={(e) => {
+                      setReservationData({
+                        ...reservationData,
+                        nazwiskoKlienta: e.target.value,
+                      });
+                    }}
+                  />
+                  <label htmlFor="phoneNumber" className="form-label">
+                    Podaj numer telefonu
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="phoneNumber"
+                    onChange={(e) => {
+                      setReservationData({
+                        ...reservationData,
+                        nrTelKontaktowy: e.target.value,
+                      });
+                    }}
+                  />
+                </div>
                 <div className="d-flex justify-content-around">
                   <button
                     type="button"
@@ -206,6 +272,7 @@ export default function RoomBrowser() {
                     type="button"
                     className="btn btn-primary btn-dark submit-btn"
                     style={{ visibility: offerChecked ? "visible" : "hidden" }}
+                    onClick={reserveRoom}
                   >
                     Zarezerwuj <i className="lnr lnr-arrow-right"></i>
                   </button>
