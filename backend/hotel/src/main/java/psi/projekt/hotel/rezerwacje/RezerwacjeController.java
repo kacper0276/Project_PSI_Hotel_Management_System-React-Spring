@@ -58,7 +58,7 @@ public class RezerwacjeController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, path = "/zameldowanie/{idRes}")
-    ResponseEntity<Response> bookClient(@PathVariable int idRes) {
+    ResponseEntity<Response> bookClient(@PathVariable Integer idRes) {
         service.bookClient(idRes);
 
         return ResponseEntity.ok(new Response("Zmieniono zameldowanie"));

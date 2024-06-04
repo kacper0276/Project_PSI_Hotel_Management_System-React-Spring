@@ -17,6 +17,7 @@ public class RezerwacjeDTO {
     private String status;
     private Date dataZameldowania;
     private Date dataWymeldowania;
+    private boolean zameldowanie;
     private int pokoje_id;
     private int platnosc_id;
     private int klient_id;

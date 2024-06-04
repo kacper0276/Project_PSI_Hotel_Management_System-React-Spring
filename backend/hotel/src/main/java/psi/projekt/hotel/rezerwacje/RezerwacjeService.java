@@ -102,7 +102,7 @@ public class RezerwacjeService {
         repository.deleteById(id);
     }
 
-    void bookClient(int id) {
+    void bookClient(Integer id) {
         Rezerwacje rezerwacja = repository.findById(id).orElse(null);
 
         if (rezerwacja == null) {
