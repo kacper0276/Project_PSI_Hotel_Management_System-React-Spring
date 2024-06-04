@@ -79,13 +79,10 @@ public class PokojeService {
 
     void changeRoomData(Pokoje pokoj) {
         repository.save(pokoj);
-
-        return;
     }
 
     void deleteRoom(Integer id) {
         repository.findById(id).ifPresent(repository::delete);
-
     }
 
     Pokoje findRoomForUser(String dateFrom, String dateTo, String roomType, int persons) throws ParseException {
