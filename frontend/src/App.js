@@ -19,10 +19,11 @@ import ReceptionistPanel from "./Pages/ReceptionistPanel/ReceptionistPanel";
 import UserPanel from "./Pages/UserPanel/UserPanel";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import ReceptionistMenuNavigation from "./Layout/partials/ReceptionistMenuNavigation/ReceptionistMenuNavigation";
-import RoomBrowser from "./Pages/RoomBrowser/RoomBrowser"
-import HallBrowser from "./Pages/HallBrowser/HallBrowser"
+import RoomBrowser from "./Pages/RoomBrowser/RoomBrowser";
+import HallBrowser from "./Pages/HallBrowser/HallBrowser";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import PaymentPage from "./Pages/PaymentPage/PaymentPage";
 
 export const API_URL = "http://localhost:8080";
 
@@ -32,6 +33,7 @@ function App() {
   const header = (
     <Header>
       <Routes>
+        <Route path="/platnosc/:idRes" exact element={<></>} />
         <Route path="/zmiana/:username" exact element={<></>} />
         <Route path="*" element={<Navigation />} />
       </Routes>
@@ -50,9 +52,9 @@ function App() {
           element={<ForgotPasswordPage />}
         />
         {/*Room Browser*/}
-        <Route path="/przegladarkapokoji" element={<RoomBrowser/>}/>
+        <Route path="/przegladarkapokoji" element={<RoomBrowser />} />
         {/*Hall Browser*/}
-        <Route path="/przegladarkasal" element={<HallBrowser/>}/>
+        <Route path="/przegladarkasal" element={<HallBrowser />} />
 
         {/* Receptionist Panel */}
         <Route
@@ -87,12 +89,20 @@ function App() {
           }
         />
 
+        {/* Payment page */}
+        <Route path="/platnosc/:idRes" exact element={<PaymentPage />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
 
-  const footer = <Footer />;
+  const footer = (
+    <Routes>
+      <Route path="/platnosc/:idRes" exact element={<></>} />
+      <Route path="*" element={<Footer />} />
+    </Routes>
+  );
 
   return (
     <MainContext.Provider
