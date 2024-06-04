@@ -24,6 +24,6 @@ public class Platnosci {
     private int kwota;
     private Date dataPlatnosci;
 
-    @OneToMany(mappedBy = "platnosc")
+    @OneToMany(mappedBy = "platnosc", cascade = CascadeType.ALL)
     private Set<Rezerwacje> rezerwacje;
 }

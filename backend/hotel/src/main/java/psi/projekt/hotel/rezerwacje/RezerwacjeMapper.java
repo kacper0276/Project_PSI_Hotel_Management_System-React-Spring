@@ -15,8 +15,8 @@ public interface RezerwacjeMapper {
     @Mapping(source = "platnosc.id", target = "platnosc_id")
     RezerwacjeDTO rezerwacjeToRezerwacjeDTO(Rezerwacje rezerwacje);
 
-    @Mapping(source = "pokoje_id", target = "pokoj.id")
-    @Mapping(source = "klient_id", target = "klient.id")
-    @Mapping(source = "platnosc_id", target = "platnosc.id")
+    @Mapping(target = "pokoj.id", ignore = true)
+    @Mapping(target = "klient.id", ignore = true)
+    @Mapping(target = "platnosc.id", ignore = true)
     Rezerwacje rezerwacjeDTOToRezerwacje(RezerwacjeDTO rezerwacjeDTO);
 }

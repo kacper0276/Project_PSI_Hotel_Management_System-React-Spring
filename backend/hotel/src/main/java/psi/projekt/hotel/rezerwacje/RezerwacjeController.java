@@ -1,5 +1,6 @@
 package psi.projekt.hotel.rezerwacje;
 
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Response;
@@ -29,9 +30,10 @@ public class RezerwacjeController {
         return ResponseEntity.ok(service.getReservationById(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "")
-    ResponseEntity<Response> createReservation(@RequestBody RezerwacjeDTO rezerwacja) {
-        service.createReservation(rezerwacja);
+    @Transactional
+    @RequestMapping(method = RequestMethod.POST, path = "/{useremail}")
+    ResponseEntity<Response> createReservation(@RequestBody RezerwacjeDTO rezerwacja, @PathVariable String useremail) {
+        service.createReservation(rezerwacja, useremail);
 
         return ResponseEntity.ok(new Response("Stworzono rezerwację"));
     }

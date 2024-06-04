@@ -10,6 +10,7 @@ import psi.projekt.hotel.platnosci.PlatnosciRepository;
 import psi.projekt.hotel.pokoje.PokojeRepository;
 import psi.projekt.hotel.uzytkownicy.UzytkownicyService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,17 +41,20 @@ public class RezerwacjeService {
         return repository.findById(id).map(mapper::rezerwacjeToRezerwacjeDTO);
     }
 
-    void createReservation(RezerwacjeDTO rezerwacjaDTO) {
+    void createReservation(RezerwacjeDTO rezerwacjaDTO, String useremail) {
         Rezerwacje rezerwacja = mapper.rezerwacjeDTOToRezerwacje(rezerwacjaDTO);
         Pokoje pokoj = pokojeRepository.findById(rezerwacjaDTO.getPokoje_id()).orElse(null);
-        Klienci klient = klienciRepository.findById(rezerwacjaDTO.getKlient_id()).orElse(null);
+        Klienci klient = uzytkownicyService.getUserByEmail(useremail)
+                .map(uzytkownik -> klienciRepository.findByUzytkownikId(uzytkownik.getId()).orElse(null))
+                .orElse(null);
 
         if (pokoj == null || klient == null) {
-            throw new RuntimeException("Nie ma takiego pokoju");
+            throw new ObjectNotExistInDBException("Nie ma takiego pokoju");
         }
 
         rezerwacja.setKlient(klient);
         rezerwacja.setPokoj(pokoj);
+        rezerwacja.setDataRezerwacji(new Date());
 
         repository.save(rezerwacja);
     }
