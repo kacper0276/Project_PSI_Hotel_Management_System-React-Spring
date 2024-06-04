@@ -90,4 +90,8 @@ public class RezerwacjeService {
                 .map(mapper::rezerwacjeToRezerwacjeDTO)
                 .toList();
     }
+
+    void deleteReservation(Integer id) {
+        repository.deleteById(id);
+    }
 }

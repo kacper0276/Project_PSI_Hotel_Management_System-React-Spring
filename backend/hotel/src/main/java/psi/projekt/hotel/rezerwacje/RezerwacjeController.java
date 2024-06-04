@@ -36,6 +36,13 @@ public class RezerwacjeController {
         return ResponseEntity.ok(new Response("Stworzono rezerwację"));
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
+    ResponseEntity<Response> deleteReservation(@PathVariable Integer id) {
+        service.deleteReservation(id);
+
+        return ResponseEntity.ok(new Response("Usunięto rezerwacje"));
+    }
+
     @RequestMapping(method = RequestMethod.GET, path = "/rezerwacje-uzytkownika/{uzytkownik}")
     ResponseEntity<List<RezerwacjeDTO>> getUserReservation(@PathVariable String uzytkownik) {
         return ResponseEntity.ok(service.getUserReservations(uzytkownik));

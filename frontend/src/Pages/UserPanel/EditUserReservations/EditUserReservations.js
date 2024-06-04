@@ -21,6 +21,14 @@ export default function EditUserReservations() {
       });
   };
 
+  const deleteReservations = (e, id) => {
+    e.preventDefault();
+
+    axios.delete(`${API_URL}/rezerwacje/${id}`).then((res) => {
+      fetchUserReservations();
+    });
+  };
+
   useEffect(() => {
     fetchUserReservations();
   }, []);
@@ -69,7 +77,11 @@ export default function EditUserReservations() {
                 <td>{reservation.nazwiskoKlienta}</td>
                 <td>{reservation.nrTelKontaktowy}</td>
                 <td>
-                  <button>Anuluj Rezerwację</button>
+                  <button
+                    onClick={(e) => deleteReservations(e, reservation.id)}
+                  >
+                    Anuluj Rezerwację
+                  </button>
                 </td>
               </tr>
             );
