@@ -9,8 +9,19 @@ export default function ManageReservations() {
 
   const fetchReservations = async () => {
     await axios.get(`${API_URL}/rezerwacje`).then((res) => {
-      console.log(res);
       setReservations(res.data);
+    });
+  };
+
+  const deleteReservations = (id) => {
+    axios.delete(`${API_URL}/rezerwacje/${id}`).then((res) => {
+      fetchReservations();
+    });
+  };
+
+  const bookClient = async (id) => {
+    axios.patch(`${API_URL}/rezerwacje/zameldowanie/${id}`).then((res) => {
+      fetchReservations();
     });
   };
 
@@ -40,7 +51,6 @@ export default function ManageReservations() {
           {reservations.map((reservation, key) => {
             return (
               <tr key={key}>
-                <td>{reservation.id}</td>
                 <td>{reservation.cena}</td>
                 <td>{reservation.nazwiskoKlienta}</td>
                 <td>{reservation.nrTelKontaktowy}</td>
@@ -51,10 +61,20 @@ export default function ManageReservations() {
                 <td>{reservation.pokoje_id}</td>
                 <td>{reservation.platnosc_id}</td>
                 <td>
-                  <button>Usuń</button>
+                  {reservation.zameldowanie ? "Zameldowany" : "Niezameldowany"}
+                </td>
+                <td>
+                  <button onClick={() => deleteReservations(reservation.id)}>
+                    Usuń
+                  </button>
                 </td>
                 <td>
                   <button>Edytuj</button>
+                </td>
+                <td>
+                  <button onClick={() => bookClient(reservation.id)}>
+                    Zabookuj klienta
+                  </button>
                 </td>
               </tr>
             );
