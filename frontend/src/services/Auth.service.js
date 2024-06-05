@@ -1,19 +1,36 @@
 import axios from "axios";
 import { API_URL } from "../App";
 
-export class AuthService {
-  static async getAllUsers() {
-    const response = await axios.get(`${API_URL}/uzytkownicy`);
-    return response.data;
-  }
+export default class AuthService {
+  static async loginUser(loginData, context, navigate) {
+    const formData = new FormData();
+    formData.append("email", loginData.email);
+    formData.append("haslo", loginData.password);
 
-  static async deleteUser(id) {
-    await axios.delete(`${API_URL}/uzytkownicy/${id}`);
-  }
+    try {
+      const response = await axios.post(
+        `${API_URL}/uzytkownicy/zaloguj`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  static async getUserDetails(id) {
-    const response = await axios.get(`${API_URL}/uzytkownicy/szukaj/id/${id}`);
-
-    return response.data;
+      if (response.data.message.includes("Błędny")) {
+        return response.data.message;
+      } else {
+        context.dispatch({
+          type: "change-login-status",
+          userData: response.data.message,
+        });
+        navigate("/");
+      }
+    } catch (e) {
+      if (e.response) {
+        return e.response.data;
+      }
+    }
   }
 }

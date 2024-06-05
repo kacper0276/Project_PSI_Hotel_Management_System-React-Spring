@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./ManageUsers.module.css";
 import EditUserDataForm from "../EditUserDataForm/EditUserDataForm";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
-import { AuthService } from "../../../services/Auth.service";
+import UserService from "../../../services/User.service";
 
 export default function ManageUsers() {
   useWebsiteTitle("Zmień dane użytkowników");
@@ -11,13 +11,13 @@ export default function ManageUsers() {
   const [daneUzytkownika, setDaneUzytkownika] = useState(null);
 
   async function fetchUsers() {
-    setUzytkownicy(await AuthService.getAllUsers());
+    setUzytkownicy(await UserService.getAllUsers());
   }
 
   async function getUsersDetails(e, id) {
     e.preventDefault();
 
-    setDaneUzytkownika(await AuthService.getUserDetails(id));
+    setDaneUzytkownika(await UserService.getUserDetails(id));
   }
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function ManageUsers() {
   const deleteUser = (e, id) => {
     e.preventDefault();
 
-    AuthService.deleteUser(id).then((res) => {
+    UserService.deleteUser(id).then((res) => {
       fetchUsers();
     });
   };

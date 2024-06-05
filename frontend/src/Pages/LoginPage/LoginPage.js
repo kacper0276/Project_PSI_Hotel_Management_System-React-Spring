@@ -1,19 +1,18 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import styles from "./LoginPage.module.css";
 import "./LoginPage.css";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import { API_URL } from "../../App";
 import MainContext from "../../context/MainContext";
 import Navigation from "../../Layout/UI/Navigation/Navigation";
+import AuthService from "../../services/Auth.service";
 
 export default function LoginPage() {
   useWebsiteTitle("Zaloguj się");
 
-  const context = useContext(MainContext);
   const navigate = useNavigate();
+  const context = useContext(MainContext);
   const [showForgotPanel, setShowForgotPanel] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
@@ -23,34 +22,10 @@ export default function LoginPage() {
 
   const loginFunction = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("email", loginData.email);
-    formData.append("haslo", loginData.password);
 
-    try {
-      await axios
-        .post(`${API_URL}/uzytkownicy/zaloguj`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => {
-          if (res.data.message.includes("Błędny")) {
-            setMessage(res.data.message);
-          } else {
-            context.dispatch({
-              type: "change-login-status",
-              userData: res.data.message,
-            });
-            setMessage("Zalogowano");
-            navigate("/");
-          }
-        });
-    } catch (e) {
-      if (e.response) {
-        setMessage(e.response.data);
-      }
-    }
+    const response = await AuthService.loginUser(loginData, context, navigate);
+
+    setMessage(response);
   };
 
   return (
