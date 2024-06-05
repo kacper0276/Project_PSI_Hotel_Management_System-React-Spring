@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./ManageUsers.module.css";
-import axios from "axios";
-import { API_URL } from "../../../App";
 import EditUserDataForm from "../EditUserDataForm/EditUserDataForm";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import { AuthService } from "../../../services/Auth.service";
