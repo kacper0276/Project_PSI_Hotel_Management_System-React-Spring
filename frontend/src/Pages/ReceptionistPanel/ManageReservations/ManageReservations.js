@@ -44,7 +44,7 @@ export default function ManageReservations() {
             <th>Data Rezerwacji</th>
             <th>Status</th>
             <th>ID Pokoju</th>
-            <th>ID Płatności</th>
+            <th>Czy klient zameldowany</th>
           </tr>
         </thead>
         <tbody>
