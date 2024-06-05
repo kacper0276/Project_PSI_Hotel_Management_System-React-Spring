@@ -3,8 +3,17 @@ import { API_URL } from "../App";
 
 export class AuthService {
   static async getAllUsers() {
-    await axios.get(`${API_URL}/uzytkownicy`).then((res) => {
-      return res.data;
-    });
+    const response = await axios.get(`${API_URL}/uzytkownicy`);
+    return response.data;
+  }
+
+  static async deleteUser(id) {
+    await axios.delete(`${API_URL}/uzytkownicy/${id}`);
+  }
+
+  static async getUserDetails(id) {
+    const response = await axios.get(`${API_URL}/uzytkownicy/szukaj/id/${id}`);
+
+    return response.data;
   }
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import { API_URL } from "../../../App";
 import EditUserDataForm from "../EditUserDataForm/EditUserDataForm";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
+import { AuthService } from "../../../services/Auth.service";
 
 export default function ManageUsers() {
   useWebsiteTitle("Zmień dane użytkowników");
@@ -12,18 +13,13 @@ export default function ManageUsers() {
   const [daneUzytkownika, setDaneUzytkownika] = useState(null);
 
   async function fetchUsers() {
-    await axios.get(`${API_URL}/uzytkownicy`).then((res) => {
-      setUzytkownicy(res.data);
-    });
+    setUzytkownicy(await AuthService.getAllUsers());
   }
 
   async function getUsersDetails(e, id) {
     e.preventDefault();
 
-    await axios.get(`${API_URL}/uzytkownicy/szukaj/id/${id}`).then((res) => {
-      console.log(res);
-      setDaneUzytkownika(res.data);
-    });
+    setDaneUzytkownika(await AuthService.getUserDetails(id));
   }
 
   useEffect(() => {
@@ -37,8 +33,7 @@ export default function ManageUsers() {
   const deleteUser = (e, id) => {
     e.preventDefault();
 
-    axios.delete(`${API_URL}/uzytkownicy/${id}`).then((res) => {
-      console.log(res);
+    AuthService.deleteUser(id).then((res) => {
       fetchUsers();
     });
   };
