@@ -32,7 +32,6 @@ export default function ManageReservations() {
       <table className={`${styles.user_data_table}`}>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Cena</th>
             <th>NazwiskoKlienta</th>
             <th>Nr Tel</th>
@@ -41,6 +40,7 @@ export default function ManageReservations() {
             <th>Data Rezerwacji</th>
             <th>Status</th>
             <th>ID Pokoju</th>
+            <th>ID Płatności</th>
             <th>Czy klient zameldowany</th>
           </tr>
         </thead>

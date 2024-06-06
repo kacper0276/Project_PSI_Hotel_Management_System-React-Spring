@@ -1,4 +1,4 @@
-import { api } from "../api";
+import { api, apiJson } from "../api";
 
 export default class ReservationService {
   static async getAllReservations() {
@@ -13,5 +13,15 @@ export default class ReservationService {
 
   static async bookClient(id) {
     await api.patch(`/rezerwacje/zameldowanie/${id}`);
+  }
+
+  static async updatePaymentInReservation(idRes, message) {
+    await apiJson.patch(`/rezerwacje/platnosc/${idRes}`, message);
+  }
+
+  static async getPaymentData(idRes) {
+    const response = await api.get(`/rezerwacje/${idRes}`);
+
+    return response.data.cena;
   }
 }

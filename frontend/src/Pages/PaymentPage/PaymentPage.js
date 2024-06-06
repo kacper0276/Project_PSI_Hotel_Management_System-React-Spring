@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import styles from "./PaymentPage.module.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../App";
+import PaymentService from "../../services/Payment.service";
+import ReservationService from "../../services/Reservation.service";
 
 export default function PaymentPage() {
   useWebsiteTitle("Dokonaj płatności");
@@ -17,37 +17,22 @@ export default function PaymentPage() {
   });
 
   useEffect(() => {
-    axios.get(`${API_URL}/rezerwacje/${idRes}`).then((res) => {
-      setPaymentData({ ...paymentData, kwota: res.data.cena });
+    ReservationService.getPaymentData(idRes).then((res) => {
+      setPaymentData({
+        ...paymentData,
+        kwota: res,
+      });
     });
   }, []);
 
   const payForReservation = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    Object.keys(paymentData).forEach((key) => {
-      formData.append(key, paymentData[key]);
-    });
-
-    await axios
-      .post(`${API_URL}/platnosci`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        axios
-          .patch(`${API_URL}/rezerwacje/platnosc/${idRes}`, res.data.message, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            navigate("/");
-          });
+    await PaymentService.createPayment(paymentData).then((res) => {
+      ReservationService.updatePaymentInReservation(idRes, res).then(() => {
+        navigate("/");
       });
+    });
   };
 
   return (
@@ -78,7 +63,7 @@ export default function PaymentPage() {
             type="radio"
             name="paymentType"
             id="blik"
-            value={"blik"}
+            value={"Blik"}
             onChange={(e) =>
               setPaymentData({
                 ...paymentData,
@@ -93,7 +78,7 @@ export default function PaymentPage() {
             type="radio"
             name="paymentType"
             id="transfer"
-            value={"transfer"}
+            value={"Transfer"}
             onChange={(e) =>
               setPaymentData({
                 ...paymentData,
