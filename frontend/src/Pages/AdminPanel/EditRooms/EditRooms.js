@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from "../../../App";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
 import EditRoomForm from "../EditRoomForm/EditRoomForm";
+import RoomService from "../../../services/Room.service";
 
 export default function EditRooms() {
   useWebsiteTitle("Edytuj rezerwacje");
@@ -12,17 +13,13 @@ export default function EditRooms() {
   const [roomData, setRoomData] = useState(null);
 
   async function fetchRooms() {
-    await axios.get(`${API_URL}/pokoje`).then((res) => {
-      setRooms(res.data);
-    });
+    setRooms(await RoomService.getAllRooms());
   }
 
   async function fetchRoomDetails(e, id) {
     e.preventDefault();
 
-    await axios.get(`${API_URL}/pokoje/${id}`).then((res) => {
-      setRoomData(res.data);
-    });
+    setRoomData(await RoomService.getRoomDetails(id));
   }
 
   const deleteRoom = (e, id) => {
