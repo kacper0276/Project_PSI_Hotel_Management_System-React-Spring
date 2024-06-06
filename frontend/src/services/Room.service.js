@@ -13,4 +13,8 @@ export default class RoomService {
 
     return response.data;
   }
+
+  static async deleteRoom(id) {
+    await axios.delete(`${API_URL}/pokoje/${id}`);
+  }
 }

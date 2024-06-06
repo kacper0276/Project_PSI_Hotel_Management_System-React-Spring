@@ -31,7 +31,7 @@ export default function ManageUsers() {
   const deleteUser = (e, id) => {
     e.preventDefault();
 
-    UserService.deleteUser(id).then((res) => {
+    UserService.deleteUser(id).then(() => {
       fetchUsers();
     });
   };

@@ -25,7 +25,7 @@ export default function EditRooms() {
   const deleteRoom = (e, id) => {
     e.preventDefault();
 
-    axios.delete(`${API_URL}/pokoje/${id}`).then((res) => {
+    RoomService.deleteRoom(id).then(() => {
       fetchRooms();
     });
   };
