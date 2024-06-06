@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
 import styles from "./ManageReservations.module.css";
-import axios from "axios";
-import { API_URL } from "../../../App";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
+import ReservationService from "../../../services/Reservation.service";
 
 export default function ManageReservations() {
   const [reservations, setReservations] = useState([]);
 
   const fetchReservations = async () => {
-    await axios.get(`${API_URL}/rezerwacje`).then((res) => {
-      setReservations(res.data);
-    });
+    setReservations(await ReservationService.getAllReservations());
   };
 
   const deleteReservations = (id) => {
-    axios.delete(`${API_URL}/rezerwacje/${id}`).then((res) => {
+    ReservationService.deleteReservation(id).then(() => {
       fetchReservations();
     });
   };
 
   const bookClient = async (id) => {
-    axios.patch(`${API_URL}/rezerwacje/zameldowanie/${id}`).then((res) => {
+    ReservationService.bookClient(id).then(() => {
       fetchReservations();
     });
   };
