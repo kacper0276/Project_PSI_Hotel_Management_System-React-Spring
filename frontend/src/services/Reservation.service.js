@@ -1,18 +1,17 @@
-import axios from "axios";
-import { API_URL } from "../App";
+import { api } from "../api";
 
 export default class ReservationService {
   static async getAllReservations() {
-    const response = await axios.get(`${API_URL}/rezerwacje`);
+    const response = await api.get(`/rezerwacje`);
 
     return response.data;
   }
 
   static async deleteReservation(id) {
-    await axios.delete(`${API_URL}/rezerwacje/${id}`);
+    await api.delete(`/rezerwacje/${id}`);
   }
 
   static async bookClient(id) {
-    await axios.patch(`${API_URL}/rezerwacje/zameldowanie/${id}`);
+    await api.patch(`/rezerwacje/zameldowanie/${id}`);
   }
 }

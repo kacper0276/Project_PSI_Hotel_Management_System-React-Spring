@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL } from "../App";
+import { apiJson } from "../api";
 
 export default class AuthService {
   static async loginUser(loginData, context, navigate) {
@@ -8,15 +7,7 @@ export default class AuthService {
     formData.append("haslo", loginData.password);
 
     try {
-      const response = await axios.post(
-        `${API_URL}/uzytkownicy/zaloguj`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await apiJson.post(`/uzytkownicy/zaloguj`, formData);
 
       if (response.data.message.includes("Błędny")) {
         return response.data.message;

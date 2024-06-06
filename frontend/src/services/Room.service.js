@@ -1,20 +1,19 @@
-import axios from "axios";
-import { API_URL } from "../App";
+import { api } from "../api";
 
 export default class RoomService {
   static async getAllRooms() {
-    const response = await axios.get(`${API_URL}/pokoje`);
+    const response = await api.get(`/pokoje`);
 
     return response.data;
   }
 
   static async getRoomDetails(id) {
-    const response = await axios.get(`${API_URL}/pokoje/${id}`);
+    const response = await api.get(`/pokoje/${id}`);
 
     return response.data;
   }
 
   static async deleteRoom(id) {
-    await axios.delete(`${API_URL}/pokoje/${id}`);
+    await api.delete(`/pokoje/${id}`);
   }
 }

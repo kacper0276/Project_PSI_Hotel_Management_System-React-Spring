@@ -1,18 +1,17 @@
-import axios from "axios";
-import { API_URL } from "../App";
+import { api } from "../api";
 
 export default class UserService {
   static async getAllUsers() {
-    const response = await axios.get(`${API_URL}/uzytkownicy`);
+    const response = await api.get(`/uzytkownicy`);
     return response.data;
   }
 
   static async deleteUser(id) {
-    await axios.delete(`${API_URL}/uzytkownicy/${id}`);
+    await api.delete(`/uzytkownicy/${id}`);
   }
 
   static async getUserDetails(id) {
-    const response = await axios.get(`${API_URL}/uzytkownicy/szukaj/id/${id}`);
+    const response = await api.get(`/uzytkownicy/szukaj/id/${id}`);
 
     return response.data;
   }
