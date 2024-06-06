@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./EditRooms.module.css";
-import axios from "axios";
-import { API_URL } from "../../../App";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
 import EditRoomForm from "../EditRoomForm/EditRoomForm";
 import RoomService from "../../../services/Room.service";
