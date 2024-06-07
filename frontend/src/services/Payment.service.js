@@ -1,4 +1,4 @@
-import { apiJson } from "../api";
+import { api, apiJson } from "../api";
 
 export default class PaymentService {
   static async createPayment(paymentData) {
@@ -11,5 +11,11 @@ export default class PaymentService {
     const response = await apiJson.post(`/platnosci`, formData);
 
     return response.data.message;
+  }
+
+  static async getAllPayments() {
+    const response = await api.get("/platnosci");
+
+    return response.data;
   }
 }
