@@ -5,6 +5,7 @@ import axios from "axios";
 import { API_URL } from "../../../App";
 import MainContext from "../../../context/MainContext";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
+import ReservationService from "../../../services/Reservation.service";
 
 export default function EditUserReservations() {
   useWebsiteTitle("Zarządzaj swoimi rezerwacjami");
@@ -12,19 +13,15 @@ export default function EditUserReservations() {
   const [userReservations, setUserReservations] = useState([]);
 
   const fetchUserReservations = async () => {
-    await axios
-      .get(
-        `${API_URL}/rezerwacje/rezerwacje-uzytkownika/${context.state.userName}`
-      )
-      .then((res) => {
-        setUserReservations(res.data);
-      });
+    setUserReservations(
+      await ReservationService.fetchUserReservations(context.state.username)
+    );
   };
 
   const deleteReservations = (e, id) => {
     e.preventDefault();
 
-    axios.delete(`${API_URL}/rezerwacje/${id}`).then((res) => {
+    ReservationService.deleteReservation(id).then(() => {
       fetchUserReservations();
     });
   };

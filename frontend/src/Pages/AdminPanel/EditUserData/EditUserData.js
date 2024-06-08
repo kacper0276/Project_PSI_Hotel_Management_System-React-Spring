@@ -20,7 +20,7 @@ export default function EditUserData() {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/uzytkownicy/szukaj/email/${context.state.userName}`)
+      .get(`${API_URL}/uzytkownicy/szukaj/email/${context.state.username}`)
       .then((res) => {
         setUserData({
           id: res.data.id,
