@@ -1,4 +1,4 @@
-import { api } from "../api";
+import { api, apiJson } from "../api";
 
 export default class UserService {
   static async getAllUsers() {
@@ -14,5 +14,19 @@ export default class UserService {
     const response = await api.get(`/uzytkownicy/szukaj/id/${id}`);
 
     return response.data;
+  }
+
+  static async changeUserData(userData) {
+    const formData = new FormData();
+    formData.append("email", userData.email);
+    formData.append("haslo", userData.password);
+    formData.append("rola", userData.rola);
+
+    const response = await apiJson.put(
+      `/uzytkownicy/zmien-dane/${userData.id}`,
+      formData
+    );
+
+    return response.data.message;
   }
 }
