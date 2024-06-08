@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./EditUserDataForm.module.css";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
-import { API_URL } from "../../../App";
-import axios from "axios";
 import UserService from "../../../services/User.service";
 
 export default function EditUserDataForm(props) {
