@@ -9,7 +9,7 @@ export const reducer = (state, action) => {
         ...state,
         userLoggin: newLoginStatus,
         userStatus: data[0],
-        userName: data[1],
+        username: data[1],
       };
 
     case "log-out-user":
@@ -27,5 +27,5 @@ export const reducer = (state, action) => {
 export const initialState = {
   userLoggin: Boolean(window.localStorage.getItem("userstatus")),
   userStatus: window.localStorage.getItem("userstatus"),
-  userName: window.localStorage.getItem("email"),
+  username: window.localStorage.getItem("email"),
 };
