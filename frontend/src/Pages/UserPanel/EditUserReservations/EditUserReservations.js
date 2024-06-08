@@ -1,8 +1,6 @@
 import "./EditUserReservations.css";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../App";
 import MainContext from "../../../context/MainContext";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
 import ReservationService from "../../../services/Reservation.service";
