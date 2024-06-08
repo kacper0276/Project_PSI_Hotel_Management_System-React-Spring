@@ -1,8 +1,7 @@
 import { useState } from "react";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./AddNewRoom.module.css";
-import axios from "axios";
-import { API_URL } from "../../../App";
+import RoomService from "../../../services/Room.service";
 
 export default function AddNewRoom() {
   useWebsiteTitle("Stwórz nową rezerwację");
@@ -31,27 +30,9 @@ export default function AddNewRoom() {
   const onAddRoom = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    for (const key of Object.keys(newRoomData.zdjecia)) {
-      formData.append("zdjecia", newRoomData.zdjecia[key]);
-    }
-    formData.append("dostepnosc", newRoomData.dostepnosc);
-    formData.append("dataZwolnienia", newRoomData.dataZwolnienia);
-    formData.append("cena", newRoomData.cena);
-    formData.append("typPokoju", newRoomData.typPokoju);
-    formData.append("wyposazenie", newRoomData.wyposazenie);
-    formData.append("ileOsob", newRoomData.ileOsob);
-
-    axios
-      .post(`${API_URL}/pokoje`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    RoomService.createNewRoom(newRoomData).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
