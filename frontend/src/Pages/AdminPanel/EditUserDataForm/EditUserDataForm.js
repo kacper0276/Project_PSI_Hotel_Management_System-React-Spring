@@ -3,6 +3,7 @@ import styles from "./EditUserDataForm.module.css";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import { API_URL } from "../../../App";
 import axios from "axios";
+import UserService from "../../../services/User.service";
 
 export default function EditUserDataForm(props) {
   useWebsiteTitle(`Zmień dane: ${props.data.email}`);
@@ -35,20 +36,9 @@ export default function EditUserDataForm(props) {
       userData.password === userData.second_password ||
       userData.firstPassword === userData.password
     ) {
-      const formData = new FormData();
-      formData.append("email", userData.email);
-      formData.append("haslo", userData.password);
-      formData.append("rola", userData.rola);
-
-      axios
-        .put(`${API_URL}/uzytkownicy/zmien-dane/${userData.id}`, formData, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => {
-          setMessage(res.data.message);
-        });
+      UserService.changeUserData(userData).then((res) => {
+        setMessage(res);
+      });
     } else {
       setMessage("Hasła nie są takie same");
     }
