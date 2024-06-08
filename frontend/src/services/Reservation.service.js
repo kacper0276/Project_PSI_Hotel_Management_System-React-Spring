@@ -25,15 +25,23 @@ export default class ReservationService {
     return response.data.cena;
   }
 
-  static async createReservation(reservationData, userName) {
+  static async createReservation(reservationData, username) {
     const formData = new FormData();
 
     Object.keys(reservationData).forEach((key) => {
       formData.append(key, reservationData[key]);
     });
 
-    const response = await apiJson.post(`/rezerwacje/${userName}`, formData);
+    const response = await apiJson.post(`/rezerwacje/${username}`, formData);
 
     return response.data.message;
+  }
+
+  static async fetchUserReservations(username) {
+    const response = await api.get(
+      `/rezerwacje/rezerwacje-uzytkownika/${username}`
+    );
+
+    return response.data;
   }
 }
