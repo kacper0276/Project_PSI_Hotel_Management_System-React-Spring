@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
-import { Carousel } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./HallBrowser.css";
 import PlaceholderHall from "./PlaceholderHall/PlaceholderHall";
