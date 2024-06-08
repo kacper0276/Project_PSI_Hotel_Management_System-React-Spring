@@ -29,4 +29,10 @@ export default class UserService {
 
     return response.data.message;
   }
+
+  static async findUserByEmail(email) {
+    const response = await api.get(`/uzytkownicy/szukaj/email/${email}`);
+
+    return response.data;
+  }
 }
