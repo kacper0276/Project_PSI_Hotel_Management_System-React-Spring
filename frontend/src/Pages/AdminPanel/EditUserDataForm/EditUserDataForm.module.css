@@ -4,6 +4,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    transform: translateY(4vh);
     display: flex;
     justify-content: center;
     align-items: center;
