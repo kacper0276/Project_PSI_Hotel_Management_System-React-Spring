@@ -85,15 +85,15 @@ public class PokojeService {
         repository.findById(id).ifPresent(repository::delete);
     }
 
-    Pokoje findRoomForUser(String dateFrom, String dateTo, String roomType, int persons) throws ParseException {
+    PokojeDTORead findRoomForUser(String dateFrom, String dateTo, String roomType, int persons) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date parsedDateFrom = dateFormat.parse(dateFrom);
         Date parsedDateTo = dateFormat.parse(dateTo);
 
         List<Pokoje> rooms = repository.findByTypPokojuAndIleOsobAndDataZwolnieniaOrDostepnosc(roomType, persons, parsedDateFrom);
 
-        return rooms.stream()
-                .min(Comparator.comparing(Pokoje::getCena)).orElse(null);
+        return mapper.pokojeToPokojeDTORead(rooms.stream()
+                .min(Comparator.comparing(Pokoje::getCena)).orElse(null));
 
     }
 }

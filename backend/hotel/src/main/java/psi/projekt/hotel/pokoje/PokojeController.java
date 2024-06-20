@@ -77,7 +77,7 @@ public class PokojeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/szukaj-ofert")
-    ResponseEntity<Pokoje> findRooms(@RequestParam String dateFrom,
+    ResponseEntity<PokojeDTORead> findRooms(@RequestParam String dateFrom,
                                        @RequestParam String dateTo,
                                        @RequestParam String roomType,
                                        @RequestParam int persons) throws ParseException {
