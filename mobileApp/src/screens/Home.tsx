@@ -4,7 +4,7 @@ import {RootStackParamList} from '../navigation/types';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-const HomeScreen: React.FC<Props> = ({navigation}) => {
+const Home: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Home;
