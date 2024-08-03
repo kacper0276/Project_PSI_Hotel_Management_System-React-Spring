@@ -24,4 +24,13 @@ export default class AuthService {
       }
     }
   }
+
+  static async refreshToken() {
+    try {
+      const response = await apiJson.post(`/uzytkownicy/refresh-token`);
+      return response.data;
+    } catch (e) {
+      throw e;
+    }
+  }
 }
