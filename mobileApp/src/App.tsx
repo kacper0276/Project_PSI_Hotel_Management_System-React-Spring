@@ -6,6 +6,8 @@ import {
 } from '@react-navigation/native-stack';
 import {Screens, StackParamList} from './const/Navigation';
 import {Home} from './screens';
+import {ConfigProvider} from './context/ConfigProvider';
+import {NetworkInfoProvider} from './context/NetworkInfoProvider';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
@@ -15,17 +17,21 @@ const blankPageStyle: NativeStackNavigationOptions = {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={Screens.HOME}>
-        <Stack.Group>
-          <Stack.Screen
-            name={Screens.HOME}
-            component={Home}
-            options={{...blankPageStyle, title: 'Home'}}
-          />
-        </Stack.Group>
-      </Stack.Navigator>
-    </NavigationContainer>
+    <NetworkInfoProvider>
+      <ConfigProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName={Screens.HOME}>
+            <Stack.Group>
+              <Stack.Screen
+                name={Screens.HOME}
+                component={Home}
+                options={{...blankPageStyle, title: 'Home'}}
+              />
+            </Stack.Group>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ConfigProvider>
+    </NetworkInfoProvider>
   );
 };
 
