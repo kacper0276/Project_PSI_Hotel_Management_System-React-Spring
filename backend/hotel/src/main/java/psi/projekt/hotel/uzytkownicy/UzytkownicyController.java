@@ -21,7 +21,7 @@ public class UzytkownicyController {
         this.service = service;
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "")
+    @RequestMapping(method = RequestMethod.POST, path = "/register")
     ResponseEntity<Response> createUser(@RequestBody Uzytkownicy uzytkownik) {
         service.createUser(uzytkownik);
 
