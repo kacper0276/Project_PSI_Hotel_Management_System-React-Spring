@@ -56,8 +56,7 @@ export default function LoginPage() {
                 <img
                   src="https://i.pinimg.com/564x/e4/f4/65/e4f4650dc48b400b42eb074f91c75918.jpg"
                   alt="Hotel Picture"
-                  className="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 object-fit-fill rounded"
-                  class="forestPicture"
+                  className="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 object-fit-fill rounded forestPicture"
                 />
               </div>
               <div className="col-lg-8">

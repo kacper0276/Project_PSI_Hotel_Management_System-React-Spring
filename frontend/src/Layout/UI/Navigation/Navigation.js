@@ -6,6 +6,7 @@ import MainContext from "../../../context/MainContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { actionTypes } from "../../../reducer";
 
 export default function Navigation() {
   const context = useContext(MainContext);
@@ -16,7 +17,7 @@ export default function Navigation() {
 
     window.localStorage.removeItem("userstatus");
     context.dispatch({
-      type: "log-out-user",
+      type: actionTypes.LOG_OUT_USER,
     });
 
     navigate("/");

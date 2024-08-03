@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
 import MainContext from "../../../context/MainContext";
+import { actionTypes } from "../../../reducer";
 
 function Old() {
   const context = useContext(MainContext);
@@ -19,7 +20,7 @@ function Old() {
 
     window.localStorage.removeItem("userstatus");
     context.dispatch({
-      type: "log-out-user",
+      type: actionTypes.LOG_OUT_USER,
     });
 
     navigate("/");
