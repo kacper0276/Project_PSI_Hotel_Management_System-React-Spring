@@ -2,7 +2,7 @@ import React, {createContext, useState, useEffect, ReactNode} from 'react';
 import {NetworkInfo} from 'react-native-network-info';
 import DeviceInfo from 'react-native-device-info';
 
-interface NetworkInfoContextType {
+export interface NetworkInfoContextType {
   ipAddress: string | null;
   macAddress: string | null;
 }

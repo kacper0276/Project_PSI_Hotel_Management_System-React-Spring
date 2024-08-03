@@ -6,7 +6,7 @@ interface Config {
   featureFlag: boolean;
 }
 
-interface ConfigContextType {
+export interface ConfigContextType {
   config: Config | null;
   setConfig: (config: Config) => void;
 }
