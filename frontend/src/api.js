@@ -5,6 +5,7 @@ export const apiJson = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const apiMultipart = axios.create({
@@ -12,8 +13,10 @@ export const apiMultipart = axios.create({
   headers: {
     "Content-Type": "multipart/form-data",
   },
+  withCredentials: true,
 });
 
 export const api = axios.create({
   baseURL: "http://localhost:8080",
+  withCredentials: true,
 });
