@@ -26,6 +26,8 @@ export default class AuthService {
     }
   }
 
+  // TODO: Rejestracja / aktywacja konta
+
   static async refreshToken() {
     try {
       const response = await apiJson.post(`/uzytkownicy/refresh-token`);
