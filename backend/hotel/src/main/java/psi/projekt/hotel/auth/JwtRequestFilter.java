@@ -33,7 +33,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private boolean isSwaggerRequest(String path) {
-        return path.contains("uzytkownicy/");
+        return path.contains("zaloguj");
     }
 
     @Override
