@@ -55,7 +55,7 @@ export default function LoginPage() {
               <div className="col-lg-4 d-none d-lg-flex ">
                 <img
                   src="https://i.pinimg.com/564x/e4/f4/65/e4f4650dc48b400b42eb074f91c75918.jpg"
-                  alt="Hotel Picture"
+                  alt="Hotel screen"
                   className="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 object-fit-fill rounded forestPicture"
                 />
               </div>
