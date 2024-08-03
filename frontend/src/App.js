@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { initialState, reducer } from "./reducer";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Header from "./Layout/Header/Header";
 import Footer from "./Layout/Footer/Footer";
 import Layout from "./Layout/Layout";
@@ -23,11 +23,16 @@ import HallBrowser from "./Pages/HallBrowser/HallBrowser";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import PaymentPage from "./Pages/PaymentPage/PaymentPage";
+import setupAuthInterceptor from "./interceptors/authInterceptor";
 
 export const API_URL = "http://localhost:8080";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    setupAuthInterceptor(dispatch);
+  }, [dispatch]);
 
   const header = (
     <Header>
