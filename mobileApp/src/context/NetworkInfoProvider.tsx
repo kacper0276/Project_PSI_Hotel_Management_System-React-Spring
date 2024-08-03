@@ -1,4 +1,3 @@
-// NetworkInfoProvider.tsx
 import React, {createContext, useState, useEffect, ReactNode} from 'react';
 import {NetworkInfo} from 'react-native-network-info';
 import DeviceInfo from 'react-native-device-info';
