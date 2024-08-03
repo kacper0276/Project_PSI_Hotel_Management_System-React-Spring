@@ -38,7 +38,7 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({children}) => {
         if (localConfig) {
           setConfigState(JSON.parse(localConfig));
         } else {
-          const response = await fetch('https://example.com/config'); // Zmień URL na właściwy
+          const response = await fetch('https://example.com/config');
           const remoteConfig: Config = await response.json();
           await AsyncStorage.setItem(CONFIG_KEY, JSON.stringify(remoteConfig));
           setConfigState(remoteConfig);
