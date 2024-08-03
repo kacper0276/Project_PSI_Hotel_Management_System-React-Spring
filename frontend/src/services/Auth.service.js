@@ -1,4 +1,5 @@
 import { apiJson } from "../api";
+import { actionTypes } from "../reducer";
 
 export default class AuthService {
   static async loginUser(loginData, context, navigate) {
@@ -13,7 +14,7 @@ export default class AuthService {
         return response.data.message;
       } else {
         context.dispatch({
-          type: "change-login-status",
+          type: actionTypes.CHANGE_LOGIN_STATUS,
           userData: response.data.message,
         });
         navigate("/");

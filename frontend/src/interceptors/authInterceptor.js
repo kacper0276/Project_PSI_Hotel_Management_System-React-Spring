@@ -1,5 +1,5 @@
 import { apiJson } from "../api";
-import { logout } from "../store/authActions";
+import { actionTypes } from "../reducer";
 import AuthService from "../services/Auth.service";
 
 const setupAuthInterceptor = (dispatch) => {
@@ -12,7 +12,7 @@ const setupAuthInterceptor = (dispatch) => {
 
       if (response && (response.status === 401 || response.status === 403)) {
         if (hasRefreshed) {
-          dispatch(logout());
+          dispatch({ type: actionTypes.LOG_OUT_USER });
           return Promise.reject(error);
         }
 
@@ -22,7 +22,7 @@ const setupAuthInterceptor = (dispatch) => {
           await AuthService.refreshToken();
           return apiJson(error.config);
         } catch (err) {
-          dispatch(logout());
+          dispatch({ type: actionTypes.LOG_OUT_USER });
           return Promise.reject(err);
         }
       }
