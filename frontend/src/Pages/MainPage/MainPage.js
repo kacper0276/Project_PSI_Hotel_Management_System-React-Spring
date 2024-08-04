@@ -1,9 +1,23 @@
 import "./MainPage.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
+
+  useEffect(() => {
+    toast.success("Test!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }, []);
 
   return (
     <main>
@@ -70,9 +84,9 @@ export default function MainPage() {
                 </p>
                 <p>
                   <p className="btn btn-lg btn-primary btn-light" href="#">
-                  <Link className="nav-link" to="/przegladarkasal">
-                    Przeglądaj nasze oferty
-                  </Link>
+                    <Link className="nav-link" to="/przegladarkasal">
+                      Przeglądaj nasze oferty
+                    </Link>
                   </p>
                 </p>
               </div>
@@ -165,7 +179,7 @@ export default function MainPage() {
             </p>
             <p>
               <Link className="btn btn-secondary" to="/przegladarkasal">
-                Sprawdź ofertę  &raquo;
+                Sprawdź ofertę &raquo;
               </Link>
             </p>
           </div>
