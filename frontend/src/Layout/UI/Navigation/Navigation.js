@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navigation.css";
 import MainContext from "../../../context/MainContext";
@@ -7,10 +7,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { actionTypes } from "../../../reducer";
+import { useTranslation } from "react-i18next";
 
 export default function Navigation() {
   const context = useContext(MainContext);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
   const logOutFunction = (e) => {
     e.preventDefault();
@@ -23,7 +25,9 @@ export default function Navigation() {
     navigate("/");
   };
 
-  useEffect(() => {}, []);
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -46,7 +50,7 @@ export default function Navigation() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link active" aria-current="page" to="/">
-                Strona główna
+                {t("welcome")} Strona główna
               </Link>
             </li>
             {context.state.userLoggin ? (
@@ -86,6 +90,11 @@ export default function Navigation() {
             ) : null}
           </ul>
         </div>
+        {/*
+        //  TODO: ZAIMPLEMENTOWAĆ ŁADNĄ ZMIANĘ JĘZYKÓW  
+          <button onClick={() => changeLanguage('en')}>English</button>
+          <button onClick={() => changeLanguage('pl')}>Polski</button>
+        */}
       </div>
     </nav>
   );
