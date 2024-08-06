@@ -2,7 +2,6 @@ package psi.projekt.hotel.platnosci;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import psi.projekt.hotel.entity.Platnosci;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.projection.PlatnosciDTO;
 

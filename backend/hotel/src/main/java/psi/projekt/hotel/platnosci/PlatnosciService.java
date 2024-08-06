@@ -1,7 +1,6 @@
 package psi.projekt.hotel.platnosci;
 
 import org.springframework.stereotype.Service;
-import psi.projekt.hotel.entity.Platnosci;
 import psi.projekt.hotel.entity.projection.PlatnosciDTO;
 
 import java.util.Date;
