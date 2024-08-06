@@ -2,8 +2,7 @@ package psi.projekt.hotel.klienci;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import psi.projekt.hotel.entity.Klienci;
-import psi.projekt.hotel.entity.Uzytkownicy;
+import psi.projekt.hotel.uzytkownicy.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowiDTO;
@@ -12,7 +11,6 @@ import psi.projekt.hotel.entity.projection.KlienciPrywatniDTO;
 import psi.projekt.hotel.exceptions.ObjectExistInDBException;
 import psi.projekt.hotel.exceptions.ObjectNotExistInDBException;
 import psi.projekt.hotel.uzytkownicy.UzytkownicyRepository;
-import psi.projekt.hotel.uzytkownicy.UzytkownicyService;
 
 import java.util.ArrayList;
 import java.util.List;

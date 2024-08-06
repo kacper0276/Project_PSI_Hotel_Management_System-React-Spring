@@ -1,7 +1,9 @@
-package psi.projekt.hotel.entity;
+package psi.projekt.hotel.klienci;
 
 import jakarta.persistence.*;
 import lombok.*;
+import psi.projekt.hotel.rezerwacje.Rezerwacje;
+import psi.projekt.hotel.uzytkownicy.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RodzajKlienta;
 
 import java.util.Set;
