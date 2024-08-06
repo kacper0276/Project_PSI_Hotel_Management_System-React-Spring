@@ -5,7 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import psi.projekt.hotel.entity.Uzytkownicy;
+import psi.projekt.hotel.uzytkownicy.Uzytkownicy;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
