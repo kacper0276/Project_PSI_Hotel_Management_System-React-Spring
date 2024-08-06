@@ -1,4 +1,4 @@
-package psi.projekt.hotel.entity;
+package psi.projekt.hotel.rezerwacje;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

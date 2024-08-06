@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Response;
-import psi.projekt.hotel.entity.Rezerwacje;
 import psi.projekt.hotel.entity.projection.RezerwacjeDTO;
 
 import java.util.List;

@@ -3,7 +3,6 @@ package psi.projekt.hotel.rezerwacje;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import psi.projekt.hotel.entity.Rezerwacje;
 import psi.projekt.hotel.entity.projection.RezerwacjeDTO;
 
 @Mapper

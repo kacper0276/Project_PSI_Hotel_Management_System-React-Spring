@@ -1,12 +1,14 @@
 package psi.projekt.hotel.rezerwacje;
 
 import org.springframework.stereotype.Service;
-import psi.projekt.hotel.entity.*;
 import psi.projekt.hotel.entity.projection.RezerwacjeDTO;
 import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
 import psi.projekt.hotel.exceptions.ObjectNotExistInDBException;
+import psi.projekt.hotel.klienci.Klienci;
 import psi.projekt.hotel.klienci.KlienciRepository;
+import psi.projekt.hotel.platnosci.Platnosci;
 import psi.projekt.hotel.platnosci.PlatnosciRepository;
+import psi.projekt.hotel.pokoje.Pokoje;
 import psi.projekt.hotel.pokoje.PokojeRepository;
 import psi.projekt.hotel.uzytkownicy.UzytkownicyService;
 
