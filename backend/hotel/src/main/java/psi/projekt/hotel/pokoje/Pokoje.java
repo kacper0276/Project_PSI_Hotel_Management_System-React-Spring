@@ -1,4 +1,4 @@
-package psi.projekt.hotel.entity;
+package psi.projekt.hotel.pokoje;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import psi.projekt.hotel.rezerwacje.Rezerwacje;
 
 import java.util.Date;
 import java.util.List;
