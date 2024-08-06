@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
+import psi.projekt.hotel.klienci.Klienci;
 
 @Table(name = "uzytkownicy")
 @Entity
