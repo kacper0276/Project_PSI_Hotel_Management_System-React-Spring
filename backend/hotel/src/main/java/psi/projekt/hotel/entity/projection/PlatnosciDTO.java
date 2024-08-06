@@ -2,7 +2,6 @@ package psi.projekt.hotel.entity.projection;
 
 import lombok.Getter;
 import lombok.Setter;
-import psi.projekt.hotel.entity.Rezerwacje;
 
 import java.util.Date;
 import java.util.Set;
