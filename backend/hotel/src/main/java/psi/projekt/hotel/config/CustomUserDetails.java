@@ -3,7 +3,7 @@ package psi.projekt.hotel.config;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import psi.projekt.hotel.entity.Uzytkownicy;
+import psi.projekt.hotel.uzytkownicy.Uzytkownicy;
 
 import java.util.Collection;
 import java.util.Collections;

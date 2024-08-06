@@ -2,7 +2,6 @@ package psi.projekt.hotel.pokoje;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import psi.projekt.hotel.entity.Pokoje;
 import psi.projekt.hotel.entity.projection.PokojeDTO;
 import psi.projekt.hotel.entity.projection.PokojeDTORead;
 

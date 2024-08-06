@@ -4,8 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-import psi.projekt.hotel.entity.Platnosci;
-import psi.projekt.hotel.entity.Rezerwacje;
+import psi.projekt.hotel.rezerwacje.Rezerwacje;
 import psi.projekt.hotel.entity.projection.PlatnosciDTO;
 
 import java.util.Set;

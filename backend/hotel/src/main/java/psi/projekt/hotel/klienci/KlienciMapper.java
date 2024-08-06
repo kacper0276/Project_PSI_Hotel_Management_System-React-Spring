@@ -3,7 +3,6 @@ package psi.projekt.hotel.klienci;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowiDTO;
 import psi.projekt.hotel.entity.projection.KlienciPrywatni;

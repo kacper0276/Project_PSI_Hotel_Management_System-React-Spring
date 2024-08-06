@@ -1,11 +1,9 @@
 package psi.projekt.hotel.uzytkownicy;
 
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import psi.projekt.hotel.email.EmailService;
-import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
 import psi.projekt.hotel.entity.projection.UzytkownicyDTO;
 import psi.projekt.hotel.exceptions.ObjectExistInDBException;

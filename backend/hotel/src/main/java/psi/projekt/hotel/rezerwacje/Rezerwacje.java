@@ -1,10 +1,13 @@
-package psi.projekt.hotel.entity;
+package psi.projekt.hotel.rezerwacje;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import psi.projekt.hotel.klienci.Klienci;
+import psi.projekt.hotel.platnosci.Platnosci;
+import psi.projekt.hotel.pokoje.Pokoje;
 
 import java.util.Date;
 

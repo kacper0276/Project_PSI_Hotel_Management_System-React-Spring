@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.core.io.Resource;
 import psi.projekt.hotel.config.EmailConfiguration;
-import psi.projekt.hotel.entity.Uzytkownicy;
+import psi.projekt.hotel.uzytkownicy.Uzytkownicy;
 
 import java.io.IOException;
 

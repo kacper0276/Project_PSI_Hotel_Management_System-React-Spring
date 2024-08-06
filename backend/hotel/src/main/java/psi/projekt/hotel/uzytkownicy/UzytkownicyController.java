@@ -3,7 +3,6 @@ package psi.projekt.hotel.uzytkownicy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import psi.projekt.hotel.entity.Response;
-import psi.projekt.hotel.entity.Uzytkownicy;
 import psi.projekt.hotel.entity.enumValue.RolaUzytkownika;
 import psi.projekt.hotel.entity.other.LoginUser;
 import psi.projekt.hotel.entity.projection.UzytkownicyDTO;

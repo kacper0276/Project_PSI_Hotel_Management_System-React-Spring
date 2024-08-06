@@ -3,7 +3,6 @@ package psi.projekt.hotel.klienci;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import psi.projekt.hotel.entity.Klienci;
 import psi.projekt.hotel.entity.Response;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowi;
 import psi.projekt.hotel.entity.projection.KlienciBiznesowiDTO;

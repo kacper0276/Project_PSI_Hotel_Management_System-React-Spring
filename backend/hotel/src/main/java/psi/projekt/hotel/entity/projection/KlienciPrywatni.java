@@ -3,11 +3,10 @@ package psi.projekt.hotel.entity.projection;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import psi.projekt.hotel.entity.Uzytkownicy;
+import psi.projekt.hotel.uzytkownicy.Uzytkownicy;
 
 @Getter
 @Setter
