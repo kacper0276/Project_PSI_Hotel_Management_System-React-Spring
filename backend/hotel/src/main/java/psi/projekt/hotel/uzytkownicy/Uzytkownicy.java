@@ -1,4 +1,4 @@
-package psi.projekt.hotel.entity;
+package psi.projekt.hotel.uzytkownicy;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
