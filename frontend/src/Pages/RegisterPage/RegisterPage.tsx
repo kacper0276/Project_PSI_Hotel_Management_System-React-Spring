@@ -1,25 +1,43 @@
-import { useContext, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 import "./RegisterPage.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import axios from "axios";
 import { API_URL } from "../../App";
 import { handleChange } from "../../helpers/ProgressBarRegister";
-import Navigation from "../../Layout/UI/Navigation/Navigation";
-import MainContext from "../../context/MainContext";
+// import MainContext from "../../context/MainContext";
+
+interface RegisterData {
+  email: string;
+  password: string;
+  second_password: string;
+  rola: string;
+}
+
+interface ClientData {
+  imie: string | null;
+  nazwisko: string | null;
+  nip: string | null;
+  nazwaFirmy: string | null;
+  rodzaj: string;
+  uzytkownik: {
+    email: string;
+  };
+}
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");
   const navigate = useNavigate();
-  const context = useContext(MainContext);
-  const [registerData, setRegisterData] = useState({
+  // const context = useContext(MainContext);
+
+  const [registerData, setRegisterData] = useState<RegisterData>({
     email: "",
     password: "",
     second_password: "",
     rola: "Klient",
   });
-  const [clientData, setClientData] = useState({
+  const [clientData, setClientData] = useState<ClientData>({
     imie: null,
     nazwisko: null,
     nip: null,
@@ -29,12 +47,12 @@ export default function RegisterPage() {
       email: registerData.email,
     },
   });
-  const [message, setMessage] = useState("");
-  const [showClientForm, setShowClientForm] = useState(false);
-  const bars = useRef(),
-    strengthDiv = useRef();
+  const [message, setMessage] = useState<string>("");
+  const [showClientForm, setShowClientForm] = useState<boolean>(false);
+  const bars = useRef<HTMLDivElement>(null);
+  const strengthDiv = useRef<HTMLDivElement>(null);
 
-  const registerFunction = async (e) => {
+  const registerFunction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (showClientForm) {
@@ -51,13 +69,13 @@ export default function RegisterPage() {
               "Content-Type": "application/json",
             },
           })
-          .then((res) => {
+          .then(() => {
             const formData = new FormData();
             formData.append("uzytkownik", registerData.email);
 
             if (clientData.rodzaj === "KlientIndywidualny") {
-              formData.append("imie", clientData.imie);
-              formData.append("nazwisko", clientData.nazwisko);
+              formData.append("imie", clientData.imie || "");
+              formData.append("nazwisko", clientData.nazwisko || "");
               axios
                 .post(`${API_URL}/klienci/dodaj-indywidualny`, formData, {
                   headers: {
@@ -72,8 +90,8 @@ export default function RegisterPage() {
                   }, 2000);
                 });
             } else {
-              formData.append("nip", clientData.nip);
-              formData.append("nazwaFirmy", clientData.nazwaFirmy);
+              formData.append("nip", clientData.nip || "");
+              formData.append("nazwaFirmy", clientData.nazwaFirmy || "");
 
               axios
                 .post(`${API_URL}/klienci/dodaj-biznesowy`, formData, {
@@ -227,7 +245,9 @@ export default function RegisterPage() {
                             id="form3Example3"
                             className="form-control"
                             value={registerData.email}
-                            onChange={(e) =>
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
                               setRegisterData({
                                 ...registerData,
                                 email: e.target.value,
@@ -241,12 +261,14 @@ export default function RegisterPage() {
 
                         <div data-mdb-input-init className="form-outline mb-4">
                           <input
-                            minLength="8"
+                            minLength={8}
                             type="password"
                             id="form3Example4"
                             className="form-control"
                             value={registerData.password}
-                            onChange={(e) => {
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
                               setRegisterData({
                                 ...registerData,
                                 password: e.target.value,
@@ -261,12 +283,14 @@ export default function RegisterPage() {
 
                         <div data-mdb-input-init className="form-outline mb-4">
                           <input
-                            minLength="8"
+                            minLength={8}
                             type="password"
                             id="form3Example5"
                             className="form-control"
                             value={registerData.second_password}
-                            onChange={(e) =>
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) =>
                               setRegisterData({
                                 ...registerData,
                                 second_password: e.target.value,
