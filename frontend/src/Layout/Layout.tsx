@@ -1,6 +1,13 @@
+import React, { ReactNode } from "react";
 import styles from "./Layout.module.css";
 
-export default function Layout(props) {
+interface LayoutProps {
+  header: ReactNode;
+  content: ReactNode;
+  footer: ReactNode;
+}
+
+const Layout: React.FC<LayoutProps> = (props) => {
   return (
     <>
       <header className={`${styles.header}`}>{props.header}</header>
@@ -8,4 +15,6 @@ export default function Layout(props) {
       <footer className={`${styles.footer}`}>{props.footer}</footer>
     </>
   );
-}
+};
+
+export default Layout;
