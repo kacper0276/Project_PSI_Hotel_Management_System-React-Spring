@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./RoomBrowser.css";
@@ -6,24 +6,34 @@ import PlaceholderRoom from "./PlaceholderRoom/PlaceholderRoom";
 import PlaceholderRoom2 from "./PlaceholderRoom/PlaceholderRoom2";
 import axios from "axios";
 import { API_URL } from "../../App";
-import MainContext from "../../context/MainContext";
 import { useNavigate } from "react-router-dom";
+import useMainContext from "../../hooks/useMainContext";
+
+interface ReservationData {
+  cena: number;
+  dataWymeldowania: string | null;
+  dataZameldowania: string | null;
+  nazwiskoKlienta: string | null;
+  nrTelKontaktowy: string | null;
+  status: string;
+  pokoje_id: number | null;
+}
 
 export default function RoomBrowser() {
   useWebsiteTitle("Przeglądarka Pokoji");
-  const context = useContext(MainContext);
+  const { state } = useMainContext();
   const navigate = useNavigate();
 
-  const [adults, setAdults] = useState(0);
-  const [children, setChildren] = useState(0);
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
-  const [roomType, setRoomType] = useState("Apartament");
-  const [findRoom, setFindRoom] = useState(null);
-  const [offerChecked, setOfferChecked] = useState(false);
-  const [selectedRoomType, setSelectedRoomType] = useState("");
-  const [prevRoomType, setPrevRoomType] = useState("");
-  const [reservationData, setReservationData] = useState({
+  const [adults, setAdults] = useState<number>(0);
+  const [children, setChildren] = useState<number>(0);
+  const [dateFrom, setDateFrom] = useState<string>("");
+  const [dateTo, setDateTo] = useState<string>("");
+  const [roomType, setRoomType] = useState<string>("Apartament");
+  const [findRoom, setFindRoom] = useState<any>(null);
+  const [offerChecked, setOfferChecked] = useState<boolean>(false);
+  const [selectedRoomType, setSelectedRoomType] = useState<string>("");
+  const [prevRoomType, setPrevRoomType] = useState<string>("");
+  const [reservationData, setReservationData] = useState<ReservationData>({
     cena: 0,
     dataWymeldowania: null,
     dataZameldowania: null,
@@ -33,32 +43,23 @@ export default function RoomBrowser() {
     pokoje_id: null,
   });
 
-  const decreaseValue = (type) => {
-    switch (type) {
-      case "adults":
-        setAdults(adults > 0 ? adults - 1 : 0);
-        break;
-      case "children":
-        setChildren(children > 0 ? children - 1 : 0);
-        break;
-      default:
-        break;
+  const decreaseValue = (type: "adults" | "children") => {
+    if (type === "adults") {
+      setAdults(adults > 0 ? adults - 1 : 0);
+    } else if (type === "children") {
+      setChildren(children > 0 ? children - 1 : 0);
     }
   };
 
-  const increaseValue = (type) => {
-    switch (type) {
-      case "adults":
-        setAdults(adults + 1);
-        break;
-      case "children":
-        setChildren(children + 1);
-        break;
-      default:
-        break;
+  const increaseValue = (type: "adults" | "children") => {
+    if (type === "adults") {
+      setAdults(adults + 1);
+    } else if (type === "children") {
+      setChildren(children + 1);
     }
   };
-  const handleCheckOffer = async (e) => {
+
+  const handleCheckOffer = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (selectedRoomType === "") {
@@ -69,30 +70,34 @@ export default function RoomBrowser() {
     setOfferChecked(true);
     setPrevRoomType(selectedRoomType);
 
-    await axios
-      .get(`${API_URL}/pokoje/szukaj-ofert`, {
+    try {
+      const res = await axios.get(`${API_URL}/pokoje/szukaj-ofert`, {
         params: {
           dateFrom: dateFrom,
           dateTo: dateTo,
           roomType: roomType,
           persons: adults + children,
         },
-      })
-      .then((res) => {
-        setFindRoom(res.data);
-        setReservationData({
-          ...reservationData,
-          cena: res.data.cena,
-          dataWymeldowania: dateTo,
-          dataZameldowania: dateFrom,
-          pokoje_id: res.data.id,
-        });
       });
+      setFindRoom(res.data);
+      setReservationData({
+        ...reservationData,
+        cena: res.data.cena,
+        dataWymeldowania: dateTo,
+        dataZameldowania: dateFrom,
+        pokoje_id: res.data.id,
+      });
+    } catch (error) {
+      console.error("Error fetching room offer", error);
+    }
   };
 
-  const handleRoomTypeChange = (event) => {
+  const handleRoomTypeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedRoomType(event.target.value);
   };
+
   const getPlaceholderRoomComponent = () => {
     if (prevRoomType === "apartment") {
       return <PlaceholderRoom />;
@@ -103,24 +108,31 @@ export default function RoomBrowser() {
     }
   };
 
-  const reserveRoom = async (e) => {
+  const reserveRoom = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
-
     Object.keys(reservationData).forEach((key) => {
-      formData.append(key, reservationData[key]);
+      formData.append(
+        key,
+        reservationData[key as keyof ReservationData] as any
+      );
     });
 
-    axios
-      .post(`${API_URL}/rezerwacje/${context.state.userName}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((res) => {
-        navigate(`/platnosc/${res.data.message}`);
-      });
+    try {
+      const res = await axios.post(
+        `${API_URL}/rezerwacje/${state.username}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      navigate(`/platnosc/${res.data.message}`);
+    } catch (error) {
+      console.error("Error reserving room", error);
+    }
   };
 
   return (
