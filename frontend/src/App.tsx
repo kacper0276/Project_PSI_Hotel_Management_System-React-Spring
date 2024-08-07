@@ -1,7 +1,5 @@
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { initialState, reducer } from "./reducer";
 import { useEffect, useReducer } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Layout/Header/Header";
 import Footer from "./Layout/Footer/Footer";
 import Layout from "./Layout/Layout";
@@ -11,7 +9,6 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Navigation from "./Layout/UI/Navigation/Navigation";
-import MainContext from "./context/MainContext";
 import AuthenticatedAdminRoute from "./hoc/AuthenticatedAdminRoute";
 import AuthenticatedRoute from "./hoc/AuthenticatedRoute";
 import AuthenticatedReceptionistRoute from "./hoc/AuthenticatedReceptionistRoute";
@@ -20,15 +17,15 @@ import UserPanel from "./Pages/UserPanel/UserPanel";
 import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import RoomBrowser from "./Pages/RoomBrowser/RoomBrowser";
 import HallBrowser from "./Pages/HallBrowser/HallBrowser";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import PaymentPage from "./Pages/PaymentPage/PaymentPage";
 import setupAuthInterceptor from "./interceptors/authInterceptor";
+import { MainProvider } from "./context/MainContext";
+import { initialState, reducer } from "./reducer";
 
 export const API_URL = "http://localhost:8080";
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [_, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     setupAuthInterceptor(dispatch);
@@ -37,8 +34,8 @@ function App() {
   const header = (
     <Header>
       <Routes>
-        <Route path="/platnosc/:idRes" exact element={<></>} />
-        <Route path="/zmiana/:username" exact element={<></>} />
+        <Route path="/platnosc/:idRes" element={<></>} />
+        <Route path="/zmiana/:username" element={<></>} />
         <Route path="*" element={<Navigation />} />
       </Routes>
     </Header>
@@ -47,55 +44,37 @@ function App() {
   const content = (
     <>
       <Routes>
-        <Route path="/" exact element={<MainPage />} />
-        <Route path="/zaloguj" exact element={<LoginPage />} />
-        <Route path="/rejestracja" exact element={<RegisterPage />} />
-        <Route
-          path="/zmiana/:username"
-          exact
-          element={<ForgotPasswordPage />}
-        />
-        {/*Room Browser*/}
+        <Route path="/" element={<MainPage />} />
+        <Route path="/zaloguj" element={<LoginPage />} />
+        <Route path="/rejestracja" element={<RegisterPage />} />
+        <Route path="/zmiana/:username" element={<ForgotPasswordPage />} />
         <Route path="/przegladarkapokoji" element={<RoomBrowser />} />
-        {/*Hall Browser*/}
         <Route path="/przegladarkasal" element={<HallBrowser />} />
-
-        {/* Receptionist Panel */}
         <Route
           path="/panelrecepcjonisty"
-          exact
           element={
             <AuthenticatedReceptionistRoute>
               <ReceptionistPanel />
             </AuthenticatedReceptionistRoute>
           }
         />
-
-        {/* Admin panel */}
         <Route
           path="/paneladmina"
-          exact
           element={
             <AuthenticatedAdminRoute>
               <AdminPanel />
             </AuthenticatedAdminRoute>
           }
         />
-
-        {/* User panel */}
         <Route
           path="/paneluzytkownika"
-          exact
           element={
             <AuthenticatedRoute>
               <UserPanel />
             </AuthenticatedRoute>
           }
         />
-
-        {/* Payment page */}
-        <Route path="/platnosc/:idRes" exact element={<PaymentPage />} />
-
+        <Route path="/platnosc/:idRes" element={<PaymentPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
@@ -103,22 +82,17 @@ function App() {
 
   const footer = (
     <Routes>
-      <Route path="/platnosc/:idRes" exact element={<></>} />
+      <Route path="/platnosc/:idRes" element={<></>} />
       <Route path="*" element={<Footer />} />
     </Routes>
   );
 
   return (
-    <MainContext.Provider
-      value={{
-        dispatch: dispatch,
-        state: state,
-      }}
-    >
+    <MainProvider>
       <Router>
         <Layout header={header} content={content} footer={footer} />
       </Router>
-    </MainContext.Provider>
+    </MainProvider>
   );
 }
 

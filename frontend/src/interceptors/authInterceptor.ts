@@ -1,14 +1,17 @@
-import { apiJson } from "../api";
+import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import { Dispatch } from "react";
 import { actionTypes } from "../reducer";
 import AuthService from "../services/Auth.service";
+import { Action } from "../types/mainContext.types";
+import { apiJson } from "../api";
 
-const setupAuthInterceptor = (dispatch) => {
+const setupAuthInterceptor = (dispatch: Dispatch<Action>) => {
   let hasRefreshed = false;
 
   apiJson.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      const { response } = error;
+    (response: AxiosResponse) => response,
+    async (error: AxiosError) => {
+      const { response, config } = error;
 
       if (response && (response.status === 401 || response.status === 403)) {
         if (hasRefreshed) {
@@ -20,7 +23,12 @@ const setupAuthInterceptor = (dispatch) => {
 
         try {
           await AuthService.refreshToken();
-          return apiJson(error.config);
+
+          if (config) {
+            return apiJson(config as InternalAxiosRequestConfig);
+          } else {
+            throw new Error("Error config is undefined");
+          }
         } catch (err) {
           dispatch({ type: actionTypes.LOG_OUT_USER });
           return Promise.reject(err);
