@@ -7,17 +7,22 @@ import ManagePayments from "../../../Pages/AdminPanel/ManagePayments/ManagePayme
 import "./AdminMenuNavigation.css";
 import { Link } from "react-router-dom";
 
-export default function AdminMenuNavigation(props) {
-  const [activeBtn, setActiveBtn] = useState(null);
+interface AdminMenuNavigationProps {
+  panel: (component: React.ReactNode) => void;
+}
+
+const AdminMenuNavigation: React.FC<AdminMenuNavigationProps> = (props) => {
+  const [activeBtn, setActiveBtn] = useState<number | null>(null);
+
   const panels = [
-    <ManageUsers />,
-    <EditUserData />,
-    <AddNewRoom />,
-    <EditRooms />,
-    <ManagePayments />,
+    <ManageUsers key="manage-users" />,
+    <EditUserData key="edit-user-data" />,
+    <AddNewRoom key="add-new-room" />,
+    <EditRooms key="edit-rooms" />,
+    <ManagePayments key="manage-payments" />,
   ];
 
-  const changeActive = (id) => {
+  const changeActive = (id: number) => {
     setActiveBtn(id === activeBtn ? null : id);
     props.panel(panels[id]);
   };
@@ -35,7 +40,10 @@ export default function AdminMenuNavigation(props) {
       <div className="row flex-nowrap">
         <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
           <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-            <Link className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+            <Link
+              to="#"
+              className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+            >
               <span className="fs-5 d-none d-sm-inline text-dark">Menu</span>
             </Link>
             <nav
@@ -51,7 +59,7 @@ export default function AdminMenuNavigation(props) {
               ].map((label, index) => (
                 <button
                   key={index}
-                  className={` align-middle px-0 d-flex justify-content-between ${
+                  className={`align-middle px-0 d-flex justify-content-between ${
                     activeBtn === index
                       ? "active btn btn-dark w-100"
                       : "btn btn-light w-100"
@@ -82,4 +90,6 @@ export default function AdminMenuNavigation(props) {
       </div>
     </div>
   );
-}
+};
+
+export default AdminMenuNavigation;
