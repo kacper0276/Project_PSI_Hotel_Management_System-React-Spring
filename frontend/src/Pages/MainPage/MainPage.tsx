@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-export default function MainPage() {
+const MainPage: React.FC = () => {
   useWebsiteTitle("Strona główna");
 
   useEffect(() => {
@@ -82,12 +82,10 @@ export default function MainPage() {
                   Państwa dyspozycji oddajemy kompleks klimatyzowanych sal
                   wielofunkcyjnych o łącznej powierzchni 800 m2.
                 </p>
-                <p>
-                  <p className="btn btn-lg btn-primary btn-light" href="#">
-                    <Link className="nav-link" to="/przegladarkasal">
-                      Przeglądaj nasze oferty
-                    </Link>
-                  </p>
+                <p className="btn btn-lg btn-primary btn-light">
+                  <Link className="nav-link" to="/przegladarkasal">
+                    Przeglądaj nasze oferty
+                  </Link>
                 </p>
               </div>
             </div>
@@ -107,7 +105,7 @@ export default function MainPage() {
                   aktywności.
                 </p>
                 <p>
-                  <Link className="btn btn-lg btn-primary btn-light" href="#">
+                  <Link className="btn btn-lg btn-primary btn-light" to="#">
                     Sprawdź mapę
                   </Link>
                 </p>
@@ -150,7 +148,7 @@ export default function MainPage() {
               width="140"
               height="140"
               aria-label="Placeholder: 140x140"
-              focusable="false"
+              alt="Hotel Rooms"
             />
             <h2>Sprawdź bogatą ofertę naszych pokoi</h2>
             <p>
@@ -170,7 +168,7 @@ export default function MainPage() {
               width="140"
               height="140"
               aria-label="Placeholder: 140x140"
-              focusable="false"
+              alt="Event Spaces"
             />
             <h2>Potrzebujesz miejsca do organizacji eventu?</h2>
             <p>
@@ -190,7 +188,7 @@ export default function MainPage() {
               width="140"
               height="140"
               aria-label="Placeholder: 140x140"
-              focusable="false"
+              alt="Social Media"
             />
             <h2>Znajdź nas na naszym profilu na Facebooku</h2>
             <p>
@@ -198,7 +196,7 @@ export default function MainPage() {
               a także zyskuj rabaty na wynajem.
             </p>
             <p>
-              <Link className="btn btn-secondary" href="#">
+              <Link className="btn btn-secondary" to="#">
                 Odwiedź nas &raquo;
               </Link>
             </p>
@@ -226,7 +224,7 @@ export default function MainPage() {
               <img
                 src="https://images.unsplash.com/photo-1698007520311-f899108a2614?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 className="featurette-image img-fluid img-thumbnail"
-                alt="Beatiful Sight"
+                alt="Beautiful Sight"
               />
             </div>
           </div>
@@ -244,7 +242,7 @@ export default function MainPage() {
               Skorzystaj z naszej hotelowej restauracji która jest dostępna za
               darmo dla naszych klientów. Oferujemy szeroką gamę potraw od
               deserów po obiady. Profesjonalna kadra kucharzy oraz kelnerów
-              zagwarantuje obsługę na jaką zasługujesz
+              zagwarantuje obsługę na jaką zasługujesz.
             </p>
           </div>
           <div className="col-md-5 d-flex align-items-center justify-content-center">
@@ -290,4 +288,6 @@ export default function MainPage() {
       </div>
     </main>
   );
-}
+};
+
+export default MainPage;
