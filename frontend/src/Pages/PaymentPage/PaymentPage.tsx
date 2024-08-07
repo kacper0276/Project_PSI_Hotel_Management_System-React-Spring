@@ -5,34 +5,45 @@ import { useEffect, useState } from "react";
 import PaymentService from "../../services/Payment.service";
 import ReservationService from "../../services/Reservation.service";
 
+interface PaymentData {
+  metodaPlatnosci: string;
+  status: string;
+  kwota: number;
+}
+
 export default function PaymentPage() {
   useWebsiteTitle("Dokonaj płatności");
   const navigate = useNavigate();
 
   const { idRes } = useParams();
-  const [paymentData, setPaymentData] = useState({
+
+  const [paymentData, setPaymentData] = useState<PaymentData>({
     metodaPlatnosci: "",
     status: "Złożone",
     kwota: 0,
   });
 
   useEffect(() => {
-    ReservationService.getPaymentData(idRes).then((res) => {
-      setPaymentData({
-        ...paymentData,
-        kwota: res,
+    if (idRes) {
+      ReservationService.getPaymentData(idRes).then((res) => {
+        setPaymentData({
+          ...paymentData,
+          kwota: res,
+        });
       });
-    });
-  }, []);
+    }
+  }, [idRes]);
 
-  const payForReservation = async (e) => {
+  const payForReservation = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await PaymentService.createPayment(paymentData).then((res) => {
-      ReservationService.updatePaymentInReservation(idRes, res).then(() => {
-        navigate("/");
+    if (idRes) {
+      await PaymentService.createPayment(paymentData).then((res) => {
+        ReservationService.updatePaymentInReservation(idRes, res).then(() => {
+          navigate("/");
+        });
       });
-    });
+    }
   };
 
   return (
@@ -40,7 +51,7 @@ export default function PaymentPage() {
       <h2>
         Dokonaj płatności za rezerwację o id <strong>{idRes}</strong>
       </h2>
-      <form>
+      <form onSubmit={payForReservation}>
         <p>Wybierz opcję płatności</p>
         <div className={`${styles.option}`}>
           <label htmlFor="cash">Gotówka</label>
@@ -48,7 +59,7 @@ export default function PaymentPage() {
             type="radio"
             name="paymentType"
             id="cash"
-            value={"cash"}
+            value="cash"
             onChange={(e) =>
               setPaymentData({
                 ...paymentData,
@@ -63,7 +74,7 @@ export default function PaymentPage() {
             type="radio"
             name="paymentType"
             id="blik"
-            value={"Blik"}
+            value="Blik"
             onChange={(e) =>
               setPaymentData({
                 ...paymentData,
@@ -78,7 +89,7 @@ export default function PaymentPage() {
             type="radio"
             name="paymentType"
             id="transfer"
-            value={"Transfer"}
+            value="Transfer"
             onChange={(e) =>
               setPaymentData({
                 ...paymentData,
@@ -88,10 +99,7 @@ export default function PaymentPage() {
           />
         </div>
 
-        <button
-          onClick={payForReservation}
-          className={`${styles.button_style}`}
-        >
+        <button type="submit" className={`${styles.button_style}`}>
           Przekierowanie na stronę płatniczą
         </button>
       </form>

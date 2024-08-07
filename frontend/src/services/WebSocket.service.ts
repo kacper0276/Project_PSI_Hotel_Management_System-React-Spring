@@ -1,13 +1,18 @@
-import { Client } from "@stomp/stompjs";
+import { Client, IMessage } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
+type Callback = (message: any) => void;
+
 class WebSocketService {
+  private client: Client | null;
+  private subscriptions: Map<string, any>;
+
   constructor() {
     this.client = null;
-    this.subscriptions = new Map();
+    this.subscriptions = new Map<string, any>();
   }
 
-  connect() {
+  connect(): void {
     const socket = new SockJS("http://localhost:8080/ws");
     this.client = new Client({
       webSocketFactory: () => socket,
@@ -26,26 +31,26 @@ class WebSocketService {
     this.client.activate();
   }
 
-  disconnect() {
+  disconnect(): void {
     if (this.client) {
       this.client.deactivate();
     }
   }
 
-  subscribe(topic, callback) {
+  subscribe(topic: string, callback: Callback): void {
     if (!this.client) {
       console.error("WebSocket is not connected.");
       return;
     }
 
-    const subscription = this.client.subscribe(topic, (message) => {
+    const subscription = this.client.subscribe(topic, (message: IMessage) => {
       callback(JSON.parse(message.body));
     });
 
     this.subscriptions.set(topic, subscription);
   }
 
-  unsubscribe(topic) {
+  unsubscribe(topic: string): void {
     if (this.subscriptions.has(topic)) {
       const subscription = this.subscriptions.get(topic);
       subscription.unsubscribe();
@@ -53,7 +58,7 @@ class WebSocketService {
     }
   }
 
-  sendMessage(destination, message) {
+  sendMessage(destination: string, message: any): void {
     if (!this.client) {
       console.error("WebSocket is not connected.");
       return;

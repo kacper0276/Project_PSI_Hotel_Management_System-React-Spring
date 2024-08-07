@@ -1,31 +1,30 @@
-import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Navigation.css";
-import MainContext from "../../../context/MainContext";
-// Bootstrap CSS
+import useMainContext from "../../../hooks/useMainContext";
 import "bootstrap/dist/css/bootstrap.min.css";
-// Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { actionTypes } from "../../../reducer";
 import { useTranslation } from "react-i18next";
 
-export default function Navigation() {
-  const context = useContext(MainContext);
+const Navigation: React.FC = () => {
+  const { state, dispatch } = useMainContext();
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
-  const logOutFunction = (e) => {
+  const logOutFunction = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     e.preventDefault();
 
     window.localStorage.removeItem("userstatus");
-    context.dispatch({
+    dispatch({
       type: actionTypes.LOG_OUT_USER,
     });
 
     navigate("/");
   };
 
-  const changeLanguage = (lng) => {
+  const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
@@ -53,10 +52,10 @@ export default function Navigation() {
                 {t("welcome")} Strona główna
               </Link>
             </li>
-            {context.state.userLoggin ? (
+            {state.userLoggin ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" onClick={(e) => logOutFunction(e)}>
+                  <Link className="nav-link" to="/" onClick={logOutFunction}>
                     Wyloguj
                   </Link>
                 </li>
@@ -73,21 +72,21 @@ export default function Navigation() {
                 </Link>
               </li>
             )}
-            {context.state.userStatus === "Administrator" ? (
+            {state.userStatus === "Administrator" && (
               <li className="nav-item">
                 <Link className="nav-link" to="/paneladmina">
                   Panel Administratora
                 </Link>
               </li>
-            ) : null}
-            {context.state.userStatus === "Recepcjonista" ||
-            context.state.userStatus === "Administrator" ? (
+            )}
+            {(state.userStatus === "Recepcjonista" ||
+              state.userStatus === "Administrator") && (
               <li className="nav-item">
                 <Link className="nav-link" to="/panelrecepcjonisty">
                   Panel Recepcjonisty
                 </Link>
               </li>
-            ) : null}
+            )}
           </ul>
         </div>
         {/*
@@ -98,4 +97,6 @@ export default function Navigation() {
       </div>
     </nav>
   );
-}
+};
+
+export default Navigation;

@@ -1,6 +1,7 @@
+import React from "react";
 import styles from "./LoadingIcon.module.css";
 
-export default function LoadingIcon() {
+const LoadingIcon: React.FC = () => {
   return (
     <>
       <div
@@ -12,4 +13,6 @@ export default function LoadingIcon() {
       </div>
     </>
   );
-}
+};
+
+export default LoadingIcon;

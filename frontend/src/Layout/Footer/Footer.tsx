@@ -1,6 +1,7 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+const Footer: React.FC = () => {
   return (
     <footer className="container-fluid bg-light py-3">
       <div className="container d-flex justify-content-center align-items-center">
@@ -12,4 +13,6 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
