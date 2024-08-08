@@ -1,31 +1,41 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import styles from "./LoginPage.module.css";
-import "./LoginPage.css";
 import ForgotPassword from "../ForgotPassword/ForgotPassword";
-import MainContext from "../../context/MainContext";
 import Navigation from "../../Layout/UI/Navigation/Navigation";
 import AuthService from "../../services/Auth.service";
+import useMainContext from "../../hooks/useMainContext";
 
 export default function LoginPage() {
   useWebsiteTitle("Zaloguj się");
 
   const navigate = useNavigate();
-  const context = useContext(MainContext);
-  const [showForgotPanel, setShowForgotPanel] = useState(false);
-  const [loginData, setLoginData] = useState({
+  const context = useMainContext();
+  const [showForgotPanel, setShowForgotPanel] = useState<boolean>(false);
+  const [loginData, setLoginData] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
     password: "",
   });
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
 
-  const loginFunction = async (e) => {
+  const loginFunction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const response = await AuthService.loginUser(loginData, context, navigate);
 
-    setMessage(response);
+    setMessage(response || "An error occurred during login.");
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value ?? "",
+    }));
   };
 
   return (
@@ -49,45 +59,42 @@ export default function LoginPage() {
         </Link>
       </div>
       <div className={`${styles.div_form}`}>
-        <section className="text-center text-lg-start ">
+        <section className="text-center text-lg-start">
           <div className="card mb-3 bg-light text-white">
             <div className="row g-0 d-flex">
-              <div className="col-lg-4 d-none d-lg-flex ">
+              <div className="col-lg-4 d-none d-lg-flex">
                 <img
                   src="https://i.pinimg.com/564x/e4/f4/65/e4f4650dc48b400b42eb074f91c75918.jpg"
                   alt="Hotel screen"
-                  className="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 object-fit-fill rounded forestPicture"
+                  className="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5 object-fit-fill forestPicture"
                 />
               </div>
               <div className="col-lg-8">
                 <div className="card-body py-5 px-md-5">
-                  <form>
-                    <div data-mdb-input-init className="form-outline mb-4">
+                  <form onSubmit={loginFunction}>
+                    <div className="form-outline mb-4">
                       <input
                         type="email"
+                        name="email"
                         id="form2Example1"
                         className="form-control"
                         value={loginData.email}
-                        onChange={(e) =>
-                          setLoginData({ ...loginData, email: e.target.value })
-                        }
+                        onChange={handleInputChange}
+                        required
                       />
                       <label className="form-label" htmlFor="form2Example1">
                         Adres Email
                       </label>
                     </div>
-                    <div data-mdb-input-init className="form-outline mb-4">
+                    <div className="form-outline mb-4">
                       <input
                         type="password"
+                        name="password"
                         id="form2Example2"
                         className="form-control"
                         value={loginData.password}
-                        onChange={(e) =>
-                          setLoginData({
-                            ...loginData,
-                            password: e.target.value,
-                          })
-                        }
+                        onChange={handleInputChange}
+                        required
                       />
                       <label className="form-label" htmlFor="form2Example2">
                         Hasło
@@ -111,11 +118,8 @@ export default function LoginPage() {
                       </div>
                     </div>
                     <button
-                      type="button"
-                      data-mdb-button-init
-                      data-mdb-ripple-init
+                      type="submit"
                       className="btn btn-primary btn-block mb-4 btn-dark"
-                      onClick={loginFunction}
                     >
                       Zaloguj się
                     </button>
@@ -126,15 +130,13 @@ export default function LoginPage() {
           </div>
         </section>
       </div>
-      {showForgotPanel ? (
+      {showForgotPanel && (
         <ForgotPassword
           setShowForgotPanel={setShowForgotPanel}
           showForgotPanel={showForgotPanel}
         />
-      ) : null}
-      {message ? (
-        <div className={`${styles.error_message}`}>{message}</div>
-      ) : null}
+      )}
+      {message && <div className={`${styles.error_message}`}>{message}</div>}
     </main>
   );
 }
