@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ManageUsers from "../../../Pages/AdminPanel/ManageUsers/ManageUsers";
 import EditUserData from "../../../Pages/AdminPanel/EditUserData/EditUserData";
 import AddNewRoom from "../../../Pages/AdminPanel/AddNewRoom/AddNewRoom";
@@ -7,11 +7,11 @@ import ManagePayments from "../../../Pages/AdminPanel/ManagePayments/ManagePayme
 import "./AdminMenuNavigation.css";
 import { Link } from "react-router-dom";
 
-interface AdminMenuNavigationProps {
-  panel: (component: React.ReactNode) => void;
-}
+// interface AdminMenuNavigationProps {
+//   panel: (component: React.ReactNode) => void;
+// }
 
-const AdminMenuNavigation: React.FC<AdminMenuNavigationProps> = (props) => {
+const AdminMenuNavigation = () => {
   const [activeBtn, setActiveBtn] = useState<number | null>(null);
 
   const panels = [
@@ -24,7 +24,7 @@ const AdminMenuNavigation: React.FC<AdminMenuNavigationProps> = (props) => {
 
   const changeActive = (id: number) => {
     setActiveBtn(id === activeBtn ? null : id);
-    props.panel(panels[id]);
+    // props.panel(panels[id]);
   };
 
   const icons = [

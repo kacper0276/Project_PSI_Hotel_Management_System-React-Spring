@@ -1,12 +1,14 @@
+import { useEffect, useState } from "react";
+import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./EditUserData.module.css";
-import useWebisteTitle from "../../../hooks/useWebsiteTitle";
-import { useContext, useEffect, useState } from "react";
-import MainContext from "../../../context/MainContext";
+import useMainContext from "../../../hooks/useMainContext";
 import UserService from "../../../services/User.service";
 
 export default function EditUserData() {
-  useWebisteTitle("Zmień swoje dane");
-  const context = useContext(MainContext);
+  useWebsiteTitle("Zmień swoje dane");
+
+  const { state } = useMainContext();
+
   const [userData, setUserData] = useState({
     id: 0,
     email: "",
@@ -15,21 +17,23 @@ export default function EditUserData() {
     rola: "",
     firstPassword: "",
   });
+
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    UserService.findUserByEmail(context.state.username).then((res) => {
+    UserService.findUserByEmail(state.username).then((res) => {
       setUserData({
-        id: res.id,
-        email: res.email,
-        password: res.haslo,
-        firstPassword: res.haslo,
-        rola: res.rola,
+        id: res.id ?? 0,
+        email: res.email ?? "",
+        password: res.haslo ?? "",
+        second_password: "",
+        rola: res.rola ?? "",
+        firstPassword: res.haslo ?? "",
       });
     });
-  }, []);
+  }, [state.username]);
 
-  const updateData = (e) => {
+  const updateData = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     if (
@@ -37,8 +41,8 @@ export default function EditUserData() {
       userData.password === userData.second_password ||
       userData.firstPassword === userData.password
     ) {
-      UserService.changeUserData(userData).then((res) => {
-        setMessage(res);
+      UserService.changeUserData(userData).then(() => {
+        setMessage("Dane zostały zaktualizowane");
       });
     } else {
       setMessage("Hasła nie są takie same");
@@ -46,21 +50,22 @@ export default function EditUserData() {
   };
 
   return (
-    <form className={`${styles.main_container}`} method="POST">
+    <form className={styles.main_container} method="POST">
       <input
         type="email"
         value={userData.email}
         onChange={(e) => setUserData({ ...userData, email: e.target.value })}
       />
       <input
-        type="text"
+        type="password"
         value={userData.password}
         onChange={(e) => {
           setUserData({ ...userData, password: e.target.value });
         }}
       />
       <input
-        type="text"
+        type="password"
+        placeholder="Powtórz nowe hasło"
         onChange={(e) =>
           setUserData({ ...userData, second_password: e.target.value })
         }
@@ -69,24 +74,24 @@ export default function EditUserData() {
         value={userData.rola}
         onChange={(e) => setUserData({ ...userData, rola: e.target.value })}
       >
-        <option value={"Klient"}>Klient</option>
-        <option value={"Recepcjonista"}>Recepcjonista</option>
-        <option value={"Administrator"}>Administrator</option>
+        <option value="Klient">Klient</option>
+        <option value="Recepcjonista">Recepcjonista</option>
+        <option value="Administrator">Administrator</option>
       </select>
-      <button className={`${styles.change_data_button}`} onClick={updateData}>
+      <button className={styles.change_data_button} onClick={updateData}>
         Zmień dane
       </button>
-      {message ? (
+      {message && (
         <div
           className={
-            message === "Zarejestrowano, sprawdź maila by aktywować konto"
-              ? `${styles.good_message}`
-              : `${styles.error_message}`
+            message === "Dane zostały zaktualizowane"
+              ? styles.good_message
+              : styles.error_message
           }
         >
           {message}
         </div>
-      ) : null}
+      )}
     </form>
   );
 }

@@ -1,33 +1,54 @@
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./AddNewRoom.module.css";
 import RoomService from "../../../services/Room.service";
 
+interface RoomData {
+  dostepnosc: boolean;
+  dataZwolnienia: string;
+  cena: number;
+  typPokoju: string;
+  wyposazenie: string;
+  ileOsob: number;
+  zdjecia: FileList | null;
+}
+
 export default function AddNewRoom() {
   useWebsiteTitle("Stwórz nową rezerwację");
-  const [newRoomData, setNewRoomData] = useState({
+
+  const [newRoomData, setNewRoomData] = useState<RoomData>({
     dostepnosc: false,
     dataZwolnienia: "2024-02-02",
     cena: 0,
     typPokoju: "",
     wyposazenie: "",
     ileOsob: 0,
-    zdjecia: [],
+    zdjecia: null,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setNewRoomData({
-      ...newRoomData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+
+    if (type === "checkbox" && e.target instanceof HTMLInputElement) {
+      setNewRoomData({
+        ...newRoomData,
+        [name]: e.target.checked,
+      });
+    } else {
+      setNewRoomData({
+        ...newRoomData,
+        [name]: value,
+      });
+    }
   };
 
-  const onFileChange = (e) => {
+  const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewRoomData({ ...newRoomData, zdjecia: e.target.files });
   };
 
-  const onAddRoom = (e) => {
+  const onAddRoom = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     RoomService.createNewRoom(newRoomData).then((res) => {

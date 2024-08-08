@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./ReceptionistMenuNavigation.css";
 import ManageReservations from "../../../Pages/ReceptionistPanel/ManageReservations/ManageReservations";
 import { Link } from "react-router-dom";
 import CheckPayments from "../../../Pages/ReceptionistPanel/CheckPayments/CheckPayments";
 
-interface ReceptionistMenuNavigationProps {
-  panel: (component: React.ReactNode) => void;
-}
+// interface ReceptionistMenuNavigationProps {
+//   panel: (component: React.ReactNode) => void;
+// }
 
-const ReceptionistMenuNavigation: React.FC<ReceptionistMenuNavigationProps> = (
-  props
-) => {
+const ReceptionistMenuNavigation = () => {
   const [activeBtn, setActiveBtn] = useState<number | null>(null);
   const panels = [
     <ManageReservations key="manage-reservations" />,
@@ -19,7 +17,6 @@ const ReceptionistMenuNavigation: React.FC<ReceptionistMenuNavigationProps> = (
 
   const changeActive = (id: number) => {
     setActiveBtn(id === activeBtn ? null : id);
-    props.panel(panels[id]);
   };
 
   const icons = [

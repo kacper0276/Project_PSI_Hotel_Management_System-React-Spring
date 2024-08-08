@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./UserMenuNavigation.css";
 import EditUserReservations from "../../../Pages/UserPanel/EditUserReservations/EditUserReservations";
 
-interface UserMenuNavigationProps {
-  panel: (component: React.ReactNode) => void;
-}
+// interface UserMenuNavigationProps {
+//   panel: (component: React.ReactNode) => void;
+// }
 
-const UserMenuNavigation: React.FC<UserMenuNavigationProps> = (props) => {
+const UserMenuNavigation = () => {
   const [activeBtn, setActiveBtn] = useState<number | null>(null);
   const panels = [<EditUserReservations key="edit-user-reservations" />];
 
   const changeActive = (id: number) => {
     setActiveBtn(id === activeBtn ? null : id);
-    props.panel(panels[id]);
+    // props.panel(panels[id]);
   };
 
   const icons = [

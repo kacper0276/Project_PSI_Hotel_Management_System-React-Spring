@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./HallBrowser.css";
@@ -8,16 +8,16 @@ import PlaceholderHall2 from "./PlaceholderHall/PlacehodlerHall2";
 export default function HallBrowser() {
   useWebsiteTitle("Przeglądarka Sal");
 
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
-  const [guests, setGuests] = useState("");
-  const [hallType, setHallType] = useState("");
-  const [findHall, setFindHall] = useState(null);
-  const [offerChecked, setOfferChecked] = useState(false);
-  const [selectedHallType, setSelectedHallType] = useState("");
-  const [prevHallType, setPrevHallType] = useState("");
+  const [dateFrom, setDateFrom] = useState<string>("");
+  const [dateTo, setDateTo] = useState<string>("");
+  const [guests, setGuests] = useState<string>("");
+  const [hallType, setHallType] = useState<string>("");
+  const [findHall, setFindHall] = useState<any>(null);
+  const [offerChecked, setOfferChecked] = useState<boolean>(false);
+  const [selectedHallType, setSelectedHallType] = useState<string>("");
+  const [prevHallType, setPrevHallType] = useState<string>("");
 
-  const handleCheckOffer = async (e) => {
+  const handleCheckOffer = (e: FormEvent) => {
     e.preventDefault();
 
     if (selectedHallType === "") {
@@ -29,24 +29,28 @@ export default function HallBrowser() {
     setPrevHallType(selectedHallType);
   };
 
-  const handleHallTypeChange = (event) => {
+  const handleHallTypeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedHallType(event.target.value);
   };
 
   const getPlaceholderHallComponent = () => {
-    if (prevHallType === "conference") {
-      return <PlaceholderHall />;
-    } else if (prevHallType === "banquet" || prevHallType === "training") {
-      return <PlaceholderHall2 />;
-    } else {
-      return null;
+    switch (prevHallType) {
+      case "conference":
+        return <PlaceholderHall />;
+      case "banquet":
+      case "training":
+        return <PlaceholderHall2 />;
+      default:
+        return null;
     }
   };
 
   return (
     <section className="room-availability spad">
       <div className="container">
-        <div className={`room-check row`}>
+        <div className="room-check row">
           <div
             className={`col-lg-6 check-form-container ${
               offerChecked ? "order-2 fade-in-left" : "order-1"
@@ -54,7 +58,7 @@ export default function HallBrowser() {
           >
             <div className="check-form">
               <h2>Dopasuj ofertę do potrzeb</h2>
-              <form action="#">
+              <form onSubmit={handleCheckOffer}>
                 <div className="row mb-3">
                   <div className="col-md-6">
                     <label htmlFor="fromDate" className="form-label">
@@ -108,6 +112,7 @@ export default function HallBrowser() {
                     className="form-select"
                     id="hallType"
                     onChange={handleHallTypeChange}
+                    value={selectedHallType}
                   >
                     <option value="">Wybierz rodzaj sali</option>
                     <option value="conference">Sala konferencyjna</option>
@@ -117,19 +122,19 @@ export default function HallBrowser() {
                 </div>
                 <div className="d-flex justify-content-around">
                   <button
-                    type="button"
+                    type="submit"
                     className="btn btn-primary btn-dark submit-btn"
-                    onClick={handleCheckOffer}
                   >
                     Sprawdź ofertę <i className="lnr lnr-arrow-right"></i>
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-dark submit-btn"
-                    style={{ visibility: offerChecked ? "visible" : "hidden" }}
-                  >
-                    Zarezerwuj <i className="lnr lnr-arrow-right"></i>
-                  </button>
+                  {offerChecked && (
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-dark submit-btn"
+                    >
+                      Zarezerwuj <i className="lnr lnr-arrow-right"></i>
+                    </button>
+                  )}
                 </div>
               </form>
             </div>
