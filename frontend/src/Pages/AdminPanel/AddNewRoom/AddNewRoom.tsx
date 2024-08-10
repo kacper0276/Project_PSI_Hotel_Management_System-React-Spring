@@ -2,21 +2,12 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./AddNewRoom.module.css";
 import RoomService from "../../../services/Room.service";
-
-interface RoomData {
-  dostepnosc: boolean;
-  dataZwolnienia: string;
-  cena: number;
-  typPokoju: string;
-  wyposazenie: string;
-  ileOsob: number;
-  zdjecia: FileList | null;
-}
+import { RoomWithFiles } from "../../../types/room.types";
 
 export default function AddNewRoom() {
   useWebsiteTitle("Stwórz nową rezerwację");
 
-  const [newRoomData, setNewRoomData] = useState<RoomData>({
+  const [newRoomData, setNewRoomData] = useState<RoomWithFiles>({
     dostepnosc: false,
     dataZwolnienia: "2024-02-02",
     cena: 0,

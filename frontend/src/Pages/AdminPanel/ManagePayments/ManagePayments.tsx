@@ -3,15 +3,7 @@ import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./ManagePayments.module.css";
 import PaymentService from "../../../services/Payment.service";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
-
-interface Payment {
-  id: number;
-  metodaPlatnosci: string;
-  statusPlatnosci: string;
-  kwota: number;
-  dataPlatnosci: string | null;
-  rezerwacje_id: number;
-}
+import { Payment } from "../../../types/payment.types";
 
 export default function ManagePayments() {
   useWebsiteTitle("Zarządzaj płatnościami");

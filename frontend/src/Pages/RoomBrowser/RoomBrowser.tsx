@@ -8,16 +8,7 @@ import axios from "axios";
 import { API_URL } from "../../App";
 import { useNavigate } from "react-router-dom";
 import useMainContext from "../../hooks/useMainContext";
-
-interface ReservationData {
-  cena: number;
-  dataWymeldowania: string | null;
-  dataZameldowania: string | null;
-  nazwiskoKlienta: string | null;
-  nrTelKontaktowy: string | null;
-  status: string;
-  pokoje_id: number | null;
-}
+import { ReservationData } from "../../types/reservation.types";
 
 export default function RoomBrowser() {
   useWebsiteTitle("Przeglądarka Pokoji");
