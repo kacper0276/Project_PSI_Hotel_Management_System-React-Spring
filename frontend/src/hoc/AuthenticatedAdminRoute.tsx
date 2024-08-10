@@ -1,4 +1,3 @@
-// src/components/AuthenticatedAdminRoute.tsx
 import React, { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import useMainContext from "../hooks/useMainContext";
