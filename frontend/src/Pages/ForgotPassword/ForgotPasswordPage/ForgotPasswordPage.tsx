@@ -3,12 +3,7 @@ import { useRef, useState, FormEvent, MouseEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import styles from "./ForgotPasswordPage.module.css";
-
-interface ChangePasswordData {
-  email: string;
-  password: string;
-  second_password: string;
-}
+import { ChangePasswordData } from "../../../types/register.types";
 
 export default function ForgotPasswordPage() {
   useWebsiteTitle("Zresetuj hasło");

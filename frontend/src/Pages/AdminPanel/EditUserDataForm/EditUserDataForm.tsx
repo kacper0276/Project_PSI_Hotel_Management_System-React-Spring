@@ -2,26 +2,11 @@ import { useEffect, useState } from "react";
 import styles from "./EditUserDataForm.module.css";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import UserService from "../../../services/User.service";
-
-interface UserData {
-  id: number;
-  email: string;
-  haslo: string;
-  rola: string;
-}
+import { User, UserState } from "../../../types/user.types";
 
 interface EditUserDataFormProps {
-  data: UserData;
+  data: User;
   disableView: (view: any) => void;
-}
-
-interface UserState {
-  id: number;
-  email: string;
-  password: string;
-  second_password: string;
-  rola: string;
-  firstPassword: string;
 }
 
 export default function EditUserDataForm(props: EditUserDataFormProps) {

@@ -4,18 +4,7 @@ import { useEffect, useState } from "react";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
 import ReservationService from "../../../services/Reservation.service";
 import useMainContext from "../../../hooks/useMainContext";
-
-interface Reservation {
-  id: number;
-  dataRezerwacji: string | null;
-  dataZameldowania: string | null;
-  dataWymeldowania: string | null;
-  cena: number;
-  formaZaplaty: string;
-  status: string;
-  nazwiskoKlienta: string;
-  nrTelKontaktowy: string;
-}
+import { Reservation } from "../../../types/reservation.types";
 
 export default function EditUserReservations() {
   useWebsiteTitle("Zarządzaj swoimi rezerwacjami");

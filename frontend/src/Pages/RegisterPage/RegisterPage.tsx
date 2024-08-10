@@ -6,25 +6,9 @@ import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import axios from "axios";
 import { API_URL } from "../../App";
 import { handleChange } from "../../helpers/ProgressBarRegister";
+import { RegisterData } from "../../types/register.types";
+import { ClientData } from "../../types/client.types";
 // import MainContext from "../../context/MainContext";
-
-interface RegisterData {
-  email: string;
-  password: string;
-  second_password: string;
-  rola: string;
-}
-
-interface ClientData {
-  imie: string | null;
-  nazwisko: string | null;
-  nip: string | null;
-  nazwaFirmy: string | null;
-  rodzaj: string;
-  uzytkownik: {
-    email: string;
-  };
-}
 
 export default function RegisterPage() {
   useWebsiteTitle("Zarejestruj się");

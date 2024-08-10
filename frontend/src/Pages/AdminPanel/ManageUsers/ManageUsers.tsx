@@ -3,15 +3,7 @@ import styles from "./ManageUsers.module.css";
 import EditUserDataForm from "../EditUserDataForm/EditUserDataForm";
 import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import UserService from "../../../services/User.service";
-
-interface User {
-  id: number;
-  email: string;
-  haslo: string;
-  rola: string;
-}
-
-interface UserDetails extends User {}
+import { User, UserDetails } from "../../../types/user.types";
 
 export default function ManageUsers() {
   useWebsiteTitle("Zmień dane użytkowników");

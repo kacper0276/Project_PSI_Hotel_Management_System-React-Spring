@@ -4,12 +4,7 @@ import styles from "./PaymentPage.module.css";
 import { useEffect, useState } from "react";
 import PaymentService from "../../services/Payment.service";
 import ReservationService from "../../services/Reservation.service";
-
-interface PaymentData {
-  metodaPlatnosci: string;
-  status: string;
-  kwota: number;
-}
+import { PaymentData } from "../../types/payment.types";
 
 export default function PaymentPage() {
   useWebsiteTitle("Dokonaj płatności");
@@ -19,7 +14,7 @@ export default function PaymentPage() {
 
   const [paymentData, setPaymentData] = useState<PaymentData>({
     metodaPlatnosci: "",
-    status: "Złożone",
+    statusPlatnosci: "Złożone",
     kwota: 0,
   });
 

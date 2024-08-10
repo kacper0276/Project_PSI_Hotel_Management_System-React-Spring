@@ -4,17 +4,7 @@ import styles from "./EditRooms.module.css";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
 import EditRoomForm from "../EditRoomForm/EditRoomForm";
 import RoomService from "../../../services/Room.service";
-
-interface Room {
-  id: number;
-  dostepnosc: boolean;
-  dataZwolnienia: string | null;
-  cena: number;
-  typPokoju: string;
-  ileOsob: number;
-  wyposazenie: string;
-  zdjecia: string[];
-}
+import { Room } from "../../../types/room.types";
 
 export default function EditRooms() {
   useWebsiteTitle("Edytuj rezerwacje");

@@ -2,20 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./ManageReservations.module.css";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
 import ReservationService from "../../../services/Reservation.service";
-
-interface Reservation {
-  id: number;
-  cena: number;
-  nazwiskoKlienta: string;
-  nrTelKontaktowy: string;
-  dataRezerwacji: string | null;
-  dataZameldowania: string | null;
-  dataWymeldowania: string | null;
-  status: string;
-  pokoje_id: number;
-  platnosc_id: number;
-  zameldowanie: boolean;
-}
+import { Reservation } from "../../../types/reservation.types";
 
 export default function ManageReservations() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -104,7 +91,7 @@ export default function ManageReservations() {
               </td>
               <td>
                 <button
-                  onClick={() => deleteReservations(reservation.id)}
+                  onClick={() => deleteReservations(reservation.id ?? 0)}
                   aria-label="Usuń rezerwację"
                 >
                   Usuń
@@ -115,7 +102,7 @@ export default function ManageReservations() {
               </td>
               <td>
                 <button
-                  onClick={() => bookClient(reservation.id)}
+                  onClick={() => bookClient(reservation.id ?? 0)}
                   aria-label="Zabookuj klienta"
                 >
                   Zabookuj klienta

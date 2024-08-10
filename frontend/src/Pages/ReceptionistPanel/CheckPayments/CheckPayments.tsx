@@ -3,15 +3,7 @@ import useWebsiteTitle from "../../../hooks/useWebsiteTitle";
 import { useEffect, useState } from "react";
 import PaymentService from "../../../services/Payment.service";
 import cutTimeInDateTime from "../../../helpers/cutTimeInDateTime";
-
-interface Payment {
-  id: number;
-  metodaPlatnosci: string;
-  statusPlatnosci: string;
-  kwota: number;
-  dataPlatnosci: string | null;
-  rezerwacje_id: number;
-}
+import { Payment } from "../../../types/payment.types";
 
 export default function CheckPayments() {
   useWebsiteTitle("Sprawdź płatności");
